@@ -1,0 +1,110 @@
+﻿@page "/dashboard/medecin"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Tableau de bord</PageTitle>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-outline-primary" @onclick="GoToNewOrdonnance"><i class="bi bi-plus"></i> Nouvelle Ordonnance</button>
+  </div>
+
+  <h5 class="mb-1">Bonjour, Dr. Laurent</h5>
+  <p class="text-muted mb-4">Vous avez @rdvToday patients aujourd'hui</p>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Patients Aujourd'hui" Subtitle="" Value="@rdvToday" Icon="bi-people" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Consultations Semaine" Subtitle="+15% vs mois dernier" Value="@consultationsSemaine" Icon="bi-calendar2-week" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Ordonnances Émises" Subtitle="" Value="@ordonnancesCount" Icon="bi-receipt" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Patients Suivis" Subtitle="" Value="@patientsSuivis" Icon="bi-person-check" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-xl-7">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Consultations par Jour</h6>
+          <Components.StatChart Title="Consultations" Subtitle="Lun - Dim" Data="@activityData" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-5">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Rendez-vous du Jour</h6>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-transparent text-white border-light d-flex justify-content-between"><span>Sophie Martin</span><span class="text-muted small">09:00</span></li>
+            <li class="list-group-item bg-transparent text-white border-light d-flex justify-content-between"><span>Jean Dubois</span><span class="text-muted small">10:30</span></li>
+            <li class="list-group-item bg-transparent text-white border-light d-flex justify-content-between"><span>Marie Bernard</span><span class="text-muted small">11:00</span></li>
+            <li class="list-group-item bg-transparent text-white border-light d-flex justify-content-between"><span>Pierre Petit</span><span class="text-muted small">14:00</span></li>
+            <li class="list-group-item bg-transparent text-white border-light d-flex justify-content-between"><span>Claire Leroy</span><span class="text-muted small">15:30</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <h6 class="mb-3">Dernières Ordonnances</h6>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Patient</th><th>Date</th><th>Médicaments</th><th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sophie Martin</td><td>2024-01-15</td><td>3</td><td><span class="badge bg-secondary">active</span></td>
+            </tr>
+            <tr>
+              <td>Marie Bernard</td><td>2024-01-13</td><td>4</td><td><span class="badge bg-secondary">en attente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string rdvToday = "8";
+  private string ordonnancesCount = "156";
+  private string consultationsSemaine = "34";
+  private string patientsSuivis = "145";
+  private int[] activityData = new[] { 20, 14, 30, 18, 28, 12, 8 };
+
+  private void GoToNewOrdonnance() => Nav.NavigateTo("/ordonnances/nouvelle");
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      ordonnancesCount = (ords?.Count ?? 0).ToString();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

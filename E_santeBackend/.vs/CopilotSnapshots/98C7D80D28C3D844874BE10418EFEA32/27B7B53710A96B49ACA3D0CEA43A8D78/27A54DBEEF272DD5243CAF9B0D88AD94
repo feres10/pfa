@@ -1,0 +1,18 @@
+﻿@page "/medicaments"
+@inject E_santeFrontend.Services.MedicamentService Medicaments
+
+<h3>Médicaments</h3>
+<ul>
+  @foreach (var m in list)
+  {
+    <li>@m.Nom (@m.Code)</li>
+  }
+</ul>
+
+@code {
+  private List<E_santeFrontend.Models.MedicamentDto> list = new();
+  protected override async Task OnInitializedAsync()
+  {
+    list = await Medicaments.GetMedicamentsAsync() ?? new();
+  }
+}

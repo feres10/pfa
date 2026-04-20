@@ -1,0 +1,71 @@
+﻿@page "/admin/ordonnances"
+@layout AdminLayout
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Ordonnances - Admin</PageTitle>
+
+<div class="page">
+  <h2>Ordonnances</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Patient</th>
+          <th>Créée le</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (ords?.Any() == true)
+        {
+          foreach (var o in ords)
+          {
+            <tr>
+              <td>@o.Id</td>
+              <td>@o.PatientNom</td>
+              <td>@o.DateCreation?.ToString("yyyy-MM-dd")</td>
+              <td>@o.Statut</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="4">Aucune ordonnance</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.OrdonnanceDto>? ords;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      ords = await OrdonnanceService.GetOrdonnancesAsync();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

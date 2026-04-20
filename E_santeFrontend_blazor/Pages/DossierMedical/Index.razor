@@ -1,0 +1,44 @@
+@page "/dossier-medical"
+@layout PatientLayout
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Dossier médical</PageTitle>
+
+<div class="page">
+  <h1>Dossier médical</h1>
+  <p class="muted">Résumé de votre dossier médical</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <div>
+      <p>Nom: @patient?.Prenom @patient?.Nom</p>
+      <p>Téléphone: @patient?.Telephone</p>
+    </div>
+  }
+</div>
+
+@code{
+  private bool loading;
+  private string? error;
+  private E_santeFrontend.Models.PatientDto? patient;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var list = await PatientService.GetPatientsAsync();
+      patient = list.FirstOrDefault();
+    }
+    catch(Exception ex) { error = ex.Message; }
+    finally { loading = false; }
+  }
+}

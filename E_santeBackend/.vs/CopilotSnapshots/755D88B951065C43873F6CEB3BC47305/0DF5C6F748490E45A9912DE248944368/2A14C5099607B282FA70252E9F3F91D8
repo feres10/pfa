@@ -1,0 +1,25 @@
+﻿@page "/rendezvous"
+@layout PatientLayout
+
+<PageTitle>Rendez-vous - E-Santé</PageTitle>
+
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">Mes Rendez-vous</h1>
+    <p class="page-subtitle">Gérez vos consultations médicales</p>
+  </div>
+  <button class="btn-primary-action">
+    <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+    </svg>
+    <span>Nouveau Rendez-vous</span>
+  </button>
+</div>
+
+<div class="content-placeholder">
+  <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <h3>Fonctionnalité en cours de développement</h3>
+  <p>La gestion des rendez-vous sera bientôt disponible</p>
+</div>

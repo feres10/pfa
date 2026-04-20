@@ -1,0 +1,25 @@
+.stock-summary[b-josh13ozdd] { display:flex; gap:1rem; align-items:center; margin-bottom:1rem; }
+.summary-card[b-josh13ozdd] { background:#fff; padding:0.75rem 1rem; border-radius:10px; box-shadow:0 1px 2px rgba(16,24,40,0.04); min-width:160px; }
+.summary-card .title[b-josh13ozdd] { color:#6b7280; font-size:0.9rem; }
+.summary-card .value[b-josh13ozdd] { font-size:1.35rem; font-weight:700; color:#0b1220; }
+.summary-card.actions[b-josh13ozdd] { display:flex; align-items:center; justify-content:center; }
+
+.section-title[b-josh13ozdd] { margin-top:1.25rem; color:#374151; }
+.meds-grid[b-josh13ozdd] { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:0.75rem; }
+.med-card[b-josh13ozdd] { background:#fff; border-radius:10px; padding:0.8rem; box-shadow:0 1px 2px rgba(16,24,40,0.04); display:flex; flex-direction:column; gap:0.5rem; }
+.med-head[b-josh13ozdd] { display:flex; justify-content:space-between; align-items:center; }
+.med-name[b-josh13ozdd] { font-weight:600; color:#0b1220; }
+.badge[b-josh13ozdd] { padding:0.2rem 0.5rem; border-radius:999px; font-size:0.8rem; }
+.badge.low[b-josh13ozdd] { background:#fff1f2; color:#9f1239; }
+.badge.ok[b-josh13ozdd] { background:#ecfdf5; color:#065f46; }
+.med-body[b-josh13ozdd] { color:#6b7280; display:flex; justify-content:space-between; }
+.stock-count strong[b-josh13ozdd] { color:#0b1220; }
+.med-actions[b-josh13ozdd] { display:flex; gap:0.5rem; }
+.btn[b-josh13ozdd] { padding:0.45rem 0.7rem; border-radius:8px; border:1px solid #e2e8f0; background:#fff; cursor:pointer; }
+.btn-outline[b-josh13ozdd] { background:#fff; border:1px solid #dbeafe; }
+
+.low-focus[b-josh13ozdd] { border:1px solid #fee2e2; }
+
+@media (max-width:1200px) { .meds-grid[b-josh13ozdd] { grid-template-columns:repeat(3,1fr); } }
+@media (max-width:900px) { .meds-grid[b-josh13ozdd] { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .meds-grid[b-josh13ozdd] { grid-template-columns:repeat(1,1fr); } .stock-summary[b-josh13ozdd] { flex-direction:column; align-items:flex-start; } }

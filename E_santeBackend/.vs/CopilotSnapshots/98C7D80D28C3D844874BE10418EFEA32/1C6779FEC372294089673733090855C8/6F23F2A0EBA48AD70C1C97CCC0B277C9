@@ -1,0 +1,61 @@
+﻿@page "/patients"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.PatientService Patients
+
+<PageTitle>Patients</PageTitle>
+
+<h1 class="mb-4">Patients</h1>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+    <E_santeFrontend.Components.DataTable HasRows="@(items?.Count > 0)" EmptyState="<p class=\"text-muted m-0\">Aucun patient trouvé.</p>">
+        <ChildContent>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+        </ChildContent>
+        <Rows>
+            @foreach (var p in items!)
+            {
+                <tr>
+                    <td>@p.Nom</td>
+                    <td>@p.Prenom</td>
+                    <td>@p.Email</td>
+                    <td>@p.Telephone</td>
+                </tr>
+            }
+        </Rows>
+    </E_santeFrontend.Components.DataTable>
+}
+
+@code {
+    private List<PatientDto>? items;
+    private bool loading;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            items = await Patients.GetPatientsAsync();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿@page "/login"
+@inject E_santeFrontend.Services.AuthService Auth
+
+<h3>Connexion</h3>
+<EditForm Model="model" OnValidSubmit="Login">
+  <InputText @bind-Value="model.Email" />
+  <InputText @bind-Value="model.Password" type="password" />
+  <button class="btn btn-primary" type="submit">Se connecter</button>
+</EditForm>
+
+@code {
+  private E_santeFrontend.Models.LoginDto model = new();
+  private async Task Login()
+  {
+    var ok = await Auth.LoginAsync(model);
+    // TODO: Navigate to dashboard
+  }
+}

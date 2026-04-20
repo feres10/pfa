@@ -1,0 +1,76 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.AuthService Auth
+
+<div class="medecin-dashboard">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-text">E‑Santé</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <NavLink class="nav-item" href="/dashboard/medecin" Match="NavLinkMatch.All">
+        <span class="nav-text">Tableau de bord</span>
+      </NavLink>
+
+      <NavLink class="nav-item" href="/patients">
+        <span class="nav-text">Patients</span>
+      </NavLink>
+
+      <NavLink class="nav-item" href="/consultations">
+        <span class="nav-text">Consultations</span>
+      </NavLink>
+
+      <NavLink class="nav-item" href="/ordonnances">
+        <span class="nav-text">Ordonnances</span>
+      </NavLink>
+
+      <NavLink class="nav-item" href="/rendezvous">
+        <span class="nav-text">Agenda</span>
+      </NavLink>
+
+      <NavLink class="nav-item" href="/profil">
+        <span class="nav-text">Mon profil</span>
+      </NavLink>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="user-avatar doctor">
+          <span>DL</span>
+        </div>
+        <div class="user-info">
+          <div class="user-name">Dr. Laurent</div>
+          <div class="user-role">Médecin généraliste</div>
+        </div>
+      </div>
+      
+      <button class="btn-logout" @onclick="Logout">
+        <span>Déconnexion</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-wrapper">
+      @Body
+    </div>
+  </main>
+</div>
+
+@code {
+  private async Task Logout()
+  {
+    await Auth.LogoutAsync();
+    Nav.NavigateTo("/login");
+  }
+}

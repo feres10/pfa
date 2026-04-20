@@ -1,0 +1,94 @@
+﻿@page "/admin/medecins"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Médecins - Admin</PageTitle>
+
+<div class="admin-page">
+  <div class="header">
+    <h1>Médecins</h1>
+    <div class="actions">
+      <input class="search-input" placeholder="Rechercher (nom, prénom, code)" @bind="search" />
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="error">@error</div>
+  }
+  else
+  {
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Spécialité</th>
+            <th>Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (filtered?.Any() == true)
+          {
+            foreach (var m in filtered)
+            {
+              <tr>
+                <td>@m.Nom</td>
+                <td>@m.Prenom</td>
+                <td>@(string.IsNullOrWhiteSpace(m.Email) ? "—" : m.Email)</td>
+                <td>@m.Specialite</td>
+                <td>@m.CodeMedecin</td>
+              </tr>
+            }
+          }
+          else
+          {
+            <tr>
+              <td colspan="5" class="no-data">Aucun médecin</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private string search = string.Empty;
+  private List<E_santeFrontend.Services.AdminService.MedecinListItem>? medecins;
+  private IEnumerable<E_santeFrontend.Services.AdminService.MedecinListItem>? filtered
+    => string.IsNullOrWhiteSpace(search)
+      ? medecins
+      : medecins?.Where(m =>
+           (m.Nom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (m.Prenom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (m.CodeMedecin ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+      );
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      medecins = await AdminService.GetMedecinsAsync();
+      if (medecins == null)
+        error = AdminService.LastError ?? "Impossible de charger les médecins.";
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

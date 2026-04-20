@@ -1,0 +1,124 @@
+﻿@page "/dashboard/admin"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.NotificationService NotificationService
+
+<PageTitle>Dashboard Admin</PageTitle>
+
+<h3 class="mb-4">Tableau de bord Admin</h3>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Utilisateurs" Subtitle="Actifs" Value="@patientsCount" Icon="bi-people" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Médicaments" Subtitle="Total" Value="@medicamentsCount" Icon="bi-capsule" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Ordonnances" Subtitle="Total" Value="@ordonnancesCount" Icon="bi-receipt" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Notifications" Subtitle="Non lues" Value="@notificationsCount" Icon="bi-bell" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-8">
+      <Components.StatChart Title="Activité" Subtitle="7 derniers jours" Data="@activityData" />
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Actions rapides</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" @onclick="() => Nav.NavigateTo("/patients")">Gestion des patients</button>
+            <button class="btn btn-secondary" @onclick="() => Nav.NavigateTo("/medicaments")">Gestion des médicaments</button>
+            <button class="btn btn-secondary" @onclick="() => Nav.NavigateTo("/ordonnances")">Voir les ordonnances</button>
+            <button class="btn btn-secondary" @onclick="() => Nav.NavigateTo("/rendezvous")">Rendez-vous</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Patients récents</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var p in (recentPatients ?? Enumerable.Empty<E_santeFrontend.Models.PatientDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@p.Nom @p.Prenom</span>
+                <span class="text-muted small">@p.Email</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Notifications</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var n in (notifications ?? new List<E_santeFrontend.Models.NotificationDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@n.Message</span>
+                @if (!n.IsRead)
+                {
+                  <span class="badge bg-danger">Nouveau</span>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+    private string patientsCount = "0";
+    private string medicamentsCount = "0";
+    private string ordonnancesCount = "0";
+    private string notificationsCount = "0";
+    private bool loading;
+    private string? error;
+    private int[] activityData = new[] { 5, 8, 6, 10, 12, 9, 11 };
+    private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+    private List<E_santeFrontend.Models.NotificationDto>? notifications;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            var patients = await PatientService.GetPatientsAsync();
+            var meds = await MedicamentService.GetMedicamentsAsync();
+            var ords = await OrdonnanceService.GetOrdonnancesAsync();
+            var notes = await NotificationService.GetNotificationsAsync();
+
+            patientsCount = (patients?.Count ?? 0).ToString();
+            medicamentsCount = (meds?.Count ?? 0).ToString();
+            ordonnancesCount = (ords?.Count ?? 0).ToString();
+            notificationsCount = (notes?.Count ?? 0).ToString();
+            recentPatients = patients?.Take(5).ToList();
+            notifications = notes?.Take(5).ToList();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

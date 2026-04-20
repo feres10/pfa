@@ -1,0 +1,125 @@
+﻿@page "/dashboard/pharmacien"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.StockService StockService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Tableau de bord</PageTitle>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <h5 class="mb-1">Bienvenue, Pharmacie Centrale</h5>
+  <p class="text-muted mb-4">@ordonnancesEnAttente ordonnances en attente de traitement</p>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-xl-3"><Components.CardInfo Title="Ordonnances à Traiter" Subtitle="" Value="@ordonnancesEnAttente" Icon="bi-receipt" /></div>
+    <div class="col-12 col-xl-3"><Components.CardInfo Title="Dispensations Jour" Subtitle="+6% vs mois dernier" Value="@dispensationsJour" Icon="bi-capsule" /></div>
+    <div class="col-12 col-xl-3"><Components.CardInfo Title="Stock Critique" Subtitle="" Value="@stockCritique" Icon="bi-exclamation-triangle" /></div>
+    <div class="col-12 col-xl-3"><Components.CardInfo Title="Ventes du Jour" Subtitle="+12% vs mois dernier" Value="@ventesJour" Icon="bi-cash" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-xl-8">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Dispensations par Jour</h6>
+          <Components.StatChart Title="Dispensations" Subtitle="Lun - Sam" Data="@activityData" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-4">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3 text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Stock Critique</h6>
+          <div class="list-group">
+            @foreach (var a in (alerts ?? new List<(string name, string category, int units, int seuil)>()))
+            {
+              <div class="list-group-item bg-transparent text-white border-light mb-2">
+                <div class="fw-semibold">@a.name</div>
+                <div class="text-muted small">@a.category</div>
+                <div class="text-muted small">@a.units unités • Seuil @a.seuil</div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <h6 class="mb-3">Ordonnances à Traiter</h6>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Patient</th><th>Médecin</th><th>Date</th><th>Nb. Médicaments</th><th>Statut</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var o in (ordonnancesTable ?? new List<(string patient, string medecin, string date, int meds, string statut)>()))
+            {
+              <tr>
+                <td>@o.patient</td><td>@o.medecin</td><td>@o.date</td><td>@o.meds</td>
+                <td><span class="badge bg-secondary">@o.statut</span></td>
+                <td><button class="btn btn-light btn-sm" @onclick="GoToOrdonnances">Traiter</button></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string ordonnancesEnAttente = "12";
+  private string dispensationsJour = "45";
+  private string stockCritique = "3";
+  private string ventesJour = "890 €";
+  private int[] activityData = new[] { 18, 14, 22, 16, 24, 12 };
+  private List<(string name, string category, int units, int seuil)>? alerts = new()
+  {
+    ("Amoxicilline 500mg", "Antibiotique", 12, 30)
+  };
+  private List<(string patient, string medecin, string date, int meds, string statut)>? ordonnancesTable = new()
+  {
+    ("Sophie Martin", "Dr. Laurent", "2024-01-15", 3, "active"),
+    ("Jean Dubois", "Dr. Moreau", "2024-01-14", 2, "traitée"),
+    ("Marie Bernard", "Dr. Laurent", "2024-01-13", 4, "en attente"),
+    ("Pierre Petit", "Dr. Roux", "2024-01-12", 1, "active"),
+    ("Claire Leroy", "Dr. Moreau", "2024-01-11", 2, "traitée")
+  };
+
+  private void GoToOrdonnances() => Nav.NavigateTo("/ordonnances");
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      dispensationsJour = (meds?.Count ?? 45).ToString();
+      ordonnancesEnAttente = (ords?.Count ?? 12).ToString();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

@@ -1,0 +1,247 @@
+/* Pharmacien Dashboard Layout */
+.pharmacien-dashboard[b-gfc5ff7h7g] {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+/* Sidebar Styles */
+.sidebar[b-gfc5ff7h7g] {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.sidebar-header[b-gfc5ff7h7g] {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.logo[b-gfc5ff7h7g] {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon[b-gfc5ff7h7g] {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.logo-icon svg[b-gfc5ff7h7g] {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2;
+}
+
+.logo-text[b-gfc5ff7h7g] {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav[b-gfc5ff7h7g] {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.nav-item[b-gfc5ff7h7g] {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: #64748b;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-item:hover[b-gfc5ff7h7g] {
+  background: #f1f5f9;
+  color: #3b82f6;
+}
+
+.nav-item.active[b-gfc5ff7h7g] {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #3b82f6;
+}
+
+.nav-item.active[b-gfc5ff7h7g]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 0 4px 4px 0;
+}
+
+.nav-icon[b-gfc5ff7h7g] {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.nav-text[b-gfc5ff7h7g] {
+  font-size: 0.9375rem;
+}
+
+/* Sidebar Footer */
+.sidebar-footer[b-gfc5ff7h7g] {
+  padding: 1.5rem 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.user-profile[b-gfc5ff7h7g] {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.user-avatar[b-gfc5ff7h7g] {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.user-avatar.pharmacien[b-gfc5ff7h7g] {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.user-info[b-gfc5ff7h7g] {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-name[b-gfc5ff7h7g] {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-role[b-gfc5ff7h7g] {
+  font-size: 0.8125rem;
+  color: #64748b;
+}
+
+.btn-logout[b-gfc5ff7h7g] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  color: #64748b;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9375rem;
+}
+
+.btn-logout:hover[b-gfc5ff7h7g] {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.logout-icon[b-gfc5ff7h7g] {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+/* Main Content */
+.main-content[b-gfc5ff7h7g] {
+  flex: 1;
+  margin-left: 280px;
+  min-height: 100vh;
+}
+
+.content-wrapper[b-gfc5ff7h7g] {
+  width: 100%;
+}
+
+/* Scrollbar Styles */
+.sidebar-nav[b-gfc5ff7h7g]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-nav[b-gfc5ff7h7g]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav[b-gfc5ff7h7g]::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.sidebar-nav[b-gfc5ff7h7g]::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .sidebar[b-gfc5ff7h7g] {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.open[b-gfc5ff7h7g] {
+    transform: translateX(0);
+  }
+
+  .main-content[b-gfc5ff7h7g] {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar[b-gfc5ff7h7g] {
+    width: 100%;
+  }
+
+  .logo-text[b-gfc5ff7h7g] {
+    font-size: 1.25rem;
+  }
+}

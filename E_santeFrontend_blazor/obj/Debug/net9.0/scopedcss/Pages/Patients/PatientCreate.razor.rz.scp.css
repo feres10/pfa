@@ -1,0 +1,12 @@
+.page-header[b-1oihi3ueb6]{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}.header-content[b-1oihi3ueb6]{display:block}.page-title[b-1oihi3ueb6]{margin:0;font-size:1.5rem;font-weight:800;color:#0f172a}.page-subtitle[b-1oihi3ueb6]{margin:0;color:#64748b}
+
+.profile-card[b-1oihi3ueb6]{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1.25rem;max-width:720px}
+.form-row[b-1oihi3ueb6]{display:flex;flex-direction:column;margin-bottom:.75rem}
+.form-row label[b-1oihi3ueb6]{font-weight:600;color:#475569;margin-bottom:.35rem}
+.form-input[b-1oihi3ueb6]{padding:.5rem .75rem;border:1px solid #e6eef6;border-radius:8px;font-size:.95rem}
+.form-actions[b-1oihi3ueb6]{display:flex;gap:.75rem;margin-top:1rem}
+.btn[b-1oihi3ueb6]{padding:.6rem 1rem;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn-primary[b-1oihi3ueb6]{background:linear-gradient(90deg,#7c3aed,#a78bfa);color:#fff}
+.btn-outline[b-1oihi3ueb6]{background:#fff;border:1px solid #e2e8f0;color:#334155}
+
+@media(max-width:900px){.profile-card[b-1oihi3ueb6]{max-width:100%}}

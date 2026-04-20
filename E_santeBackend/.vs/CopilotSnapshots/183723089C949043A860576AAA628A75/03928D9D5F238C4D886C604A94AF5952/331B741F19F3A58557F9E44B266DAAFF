@@ -1,0 +1,109 @@
+﻿@page "/dashboard/pharmacien"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.StockService StockService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+
+<PageTitle>Dashboard Pharmacien</PageTitle>
+
+<h3 class="mb-4">Tableau de bord Pharmacien</h3>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Stock" Subtitle="Mouvements" Value="@movementsCount" Icon="bi-box-seam" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Médicaments" Subtitle="Références" Value="@medicamentsCount" Icon="bi-capsule" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Ordonnances" Subtitle="À préparer" Value="9" Icon="bi-receipt" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-8">
+      <Components.StatChart Title="Mouvements stock" Subtitle="7 derniers jours" Data="@activityData" />
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Actions rapides</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" @onclick="() => Nav.NavigateTo('/stock/movements')">Mouvements de stock</button>
+            <button class="btn btn-secondary" @onclick="() => Nav.NavigateTo('/medicaments')">Catalogue médicaments</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Derniers mouvements</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var s in (recentMovements ?? Enumerable.Empty<E_santeFrontend.Models.StockMouvementDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@s.Date.ToShortDateString() - @s.Type</span>
+                <span class="text-muted small">@s.Quantite</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Top médicaments</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var m in (topMedicaments ?? Enumerable.Empty<E_santeFrontend.Models.MedicamentDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@m.Nom</span>
+                <span class="text-muted small">@m.Code</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string movementsCount = "0";
+  private string medicamentsCount = "0";
+  private int[] activityData = new[] { 10, 7, 12, 9, 14, 8, 11 };
+  private List<E_santeFrontend.Models.StockMouvementDto>? recentMovements;
+  private List<E_santeFrontend.Models.MedicamentDto>? topMedicaments;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var moves = await StockService.GetMovementsAsync();
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      movementsCount = (moves?.Count ?? 0).ToString();
+      medicamentsCount = (meds?.Count ?? 0).ToString();
+      recentMovements = moves?.Take(5).ToList();
+      topMedicaments = meds?.Take(5).ToList();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

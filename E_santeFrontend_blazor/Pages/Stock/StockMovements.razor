@@ -1,0 +1,18 @@
+@page "/stock/movements"
+@inject E_santeFrontend.Services.StockService Stock
+
+<h3>Mouvements de stock</h3>
+<ul>
+  @foreach (var s in list)
+  {
+    <li>@s.Date.ToShortDateString(): @s.Type - @s.Quantite</li>
+  }
+</ul>
+
+@code {
+  private List<E_santeFrontend.Models.StockMouvementDto> list = new();
+  protected override async Task OnInitializedAsync()
+  {
+    list = await Stock.GetMovementsAsync() ?? new();
+  }
+}

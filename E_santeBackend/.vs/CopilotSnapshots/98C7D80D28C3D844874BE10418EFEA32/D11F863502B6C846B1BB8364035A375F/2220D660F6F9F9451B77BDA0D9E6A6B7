@@ -1,0 +1,16 @@
+﻿@namespace E_santeFrontend.Components
+<table class="table">
+  <thead>
+    <tr>
+      @ChildContent
+    </tr>
+  </thead>
+  <tbody>
+    @Rows
+  </tbody>
+</table>
+
+@code {
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter] public RenderFragment? Rows { get; set; }
+}

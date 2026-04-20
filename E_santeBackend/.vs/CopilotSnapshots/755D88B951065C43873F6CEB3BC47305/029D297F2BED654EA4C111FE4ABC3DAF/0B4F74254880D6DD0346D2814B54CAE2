@@ -1,0 +1,59 @@
+﻿@page "/dispensations"
+@layout PharmacienLayout
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject NavigationManager Nav
+
+<PageTitle>Dispensations - Pharmacien</PageTitle>
+
+<div class="page">
+  <h1>Dispensations</h1>
+  <p class="muted">Traitez les ordonnances et dispensez les médicaments.</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <table class="table">
+      <thead>
+        <tr><th>Patient</th><th>Date</th><th>Statut</th><th></th></tr>
+      </thead>
+      <tbody>
+        @foreach (var o in ords ?? new List<E_santeFrontend.Models.OrdonnanceDto>())
+        {
+          <tr>
+            <td>@(patients?.FirstOrDefault(p=>p.Id==o.PatientId)?.Prenom) @(patients?.FirstOrDefault(p=>p.Id==o.PatientId)?.Nom)</td>
+            <td>@o.Date</td>
+            <td>@o.Statut</td>
+            <td><button class="btn" @onclick="@(() => Nav.NavigateTo("/ordonnances/" + o.Id))">Traiter</button></td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code{
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.OrdonnanceDto>? ords;
+  private List<E_santeFrontend.Models.PatientDto>? patients;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      ords = await OrdonnanceService.GetOrdonnancesAsync();
+      patients = await PatientService.GetPatientsAsync();
+    }
+    catch (Exception ex) { error = ex.Message; }
+    finally { loading = false; }
+  }
+}

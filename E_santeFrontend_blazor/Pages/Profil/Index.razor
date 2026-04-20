@@ -1,0 +1,52 @@
+@page "/profil"
+@layout PatientLayout
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+
+<PageTitle>Profil</PageTitle>
+
+<div class="page">
+  <h1>Mon profil</h1>
+  <p class="muted">Gérez vos informations personnelles</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else
+  {
+    <div class="card">
+      <div class="card-row"><strong>Nom</strong><span>@(name ?? "—")</span></div>
+      <div class="card-row"><strong>Email</strong><span>@(email ?? "—")</span></div>
+    </div>
+  }
+</div>
+
+@code{
+  private bool loading;
+  private string? name;
+  private string? email;
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    var t = await Storage.GetItemAsync("auth_token");
+    if (!string.IsNullOrWhiteSpace(t)) name = TryGetClaim(t, "name");
+    email = TryGetClaim(t, "email");
+    loading = false;
+  }
+
+  private static string? TryGetClaim(string jwt, string claim)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return null;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4) { case 2: payload += "=="; break; case 3: payload += "="; break; }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty(claim, out var v)) return v.GetString();
+    }
+    catch { }
+    return null;
+  }
+}

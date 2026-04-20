@@ -1,0 +1,67 @@
+@page "/admin/medicaments"
+@layout AdminLayout
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+
+<PageTitle>Médicaments - Admin</PageTitle>
+
+<div class="page">
+  <h2>Médicaments</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (meds?.Any() == true)
+        {
+          foreach (var m in meds)
+          {
+            <tr>
+              <td>@m.Nom</td>
+              <td>@m.Code</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="2">Aucun médicament</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.MedicamentDto>? meds;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      meds = await MedicamentService.GetMedicamentsAsync();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

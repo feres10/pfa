@@ -1,0 +1,129 @@
+﻿@page "/admin/pharmaciens"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AdminService AdminService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject HttpClient Http
+
+<PageTitle>Pharmaciens - Admin</PageTitle>
+
+<div class="admin-page">
+  <div class="header">
+    <h1>Pharmaciens</h1>
+    <div class="actions">
+      <input class="search-input" placeholder="Rechercher (nom, prénom, licence)" @bind="search" />
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="error">@error</div>
+  }
+  else
+  {
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Téléphone</th>
+            <th>Licence</th>
+            <th>PharmacieId</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (filtered?.Any() == true)
+          {
+            foreach (var p in filtered)
+            {
+              <tr>
+                <td>@p.Nom</td>
+                <td>@p.Prenom</td>
+                <td>@p.Telephone</td>
+                <td>@p.Licence</td>
+                <td>@p.PharmacieId</td>
+                <td class="actions-cell">
+                  <button class="btn btn-danger" @onclick="() => Delete(p.Id)">Supprimer</button>
+                </td>
+              </tr>
+            }
+          }
+          else
+          {
+            <tr>
+              <td colspan="6" class="no-data">Aucun pharmacien</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private string search = string.Empty;
+  private List<PharmacienReadDto>? pharmaciens;
+  private IEnumerable<PharmacienReadDto>? filtered
+    => string.IsNullOrWhiteSpace(search)
+      ? pharmaciens
+      : pharmaciens?.Where(p =>
+           (p.Nom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (p.Prenom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (p.Licence ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+      );
+
+  protected override async Task OnInitializedAsync()
+  {
+    await LoadAsync();
+  }
+
+  private async Task LoadAsync()
+  {
+    loading = true;
+    try
+    {
+      // backend route: api/Pharmacien
+      pharmaciens = await Http.GetFromJsonAsync<List<PharmacienReadDto>>("api/Pharmacien",
+        new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+      StateHasChanged();
+    }
+  }
+
+  private async Task Delete(int id)
+  {
+    var resp = await Http.DeleteAsync($"api/Pharmacien/{id}");
+    if (resp.IsSuccessStatusCode)
+    {
+      await LoadAsync();
+    }
+    else
+    {
+      error = "Suppression impossible";
+    }
+  }
+
+  public class PharmacienReadDto
+  {
+    public int Id { get; set; }
+    public string? Nom { get; set; }
+    public string? Prenom { get; set; }
+    public string? Telephone { get; set; }
+    public string? Licence { get; set; }
+    public int PharmacieId { get; set; }
+  }
+}

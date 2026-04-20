@@ -1,0 +1,20 @@
+.page-header[b-zqhtxai632]{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+.header-content[b-zqhtxai632]{display:block}
+.page-title[b-zqhtxai632]{margin:0;font-size:1.75rem;font-weight:800;color:#0f172a}
+.page-subtitle[b-zqhtxai632]{margin:0;color:#64748b}
+
+.consultations-list[b-zqhtxai632]{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:1rem}
+.consultation-card[b-zqhtxai632]{background:#fff;border:1px solid #e6eef6;border-radius:12px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(15,23,42,0.04);transition:transform .18s ease}
+.consultation-card:hover[b-zqhtxai632]{transform:translateY(-6px)}
+.consultation-time[b-zqhtxai632]{font-weight:700;color:#1e293b;padding:1rem 1rem 0 1rem}
+.consultation-body[b-zqhtxai632]{display:flex;align-items:center;padding:1rem;border-top:1px solid #f1f5f9}
+.patient-avatar[b-zqhtxai632]{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,#8b5cf6 0%,#7c3aed 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1.25rem;margin-right:1rem;box-shadow:0 8px 16px rgba(124,58,237,0.12)}
+.consultation-info[b-zqhtxai632]{flex:1}
+.patient-name[b-zqhtxai632]{margin:0;font-size:1.05rem;font-weight:700;color:#0f172a}
+.patient-reason[b-zqhtxai632]{margin:0;color:#64748b}
+.consultation-actions[b-zqhtxai632]{display:flex;gap:.5rem}
+.btn-text[b-zqhtxai632]{padding:.6rem .9rem;border-radius:10px;background:linear-gradient(135deg,#8b5cf6 0%,#7c3aed 100%);color:#fff;border:none;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(124,58,237,.18)}
+.btn-text:hover[b-zqhtxai632]{transform:translateY(-2px)}
+.content-placeholder[b-zqhtxai632]{padding:2rem;background:#fff;border-radius:12px;border:1px dashed #e6eef6;color:#64748b}
+
+@media(max-width:900px){.consultations-list[b-zqhtxai632]{grid-template-columns:1fr}.consultation-body[b-zqhtxai632]{flex-direction:row;gap:1rem}}

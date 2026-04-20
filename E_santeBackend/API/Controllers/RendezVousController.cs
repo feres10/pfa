@@ -1,0 +1,136 @@
+using E_santeBackend.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class RendezVousController : ControllerBase
+    {
+        private readonly EHealthDbContext _db;
+
+        public RendezVousController(EHealthDbContext db)
+        {
+            _db = db;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var list = await _db.RendezVous
+                .AsNoTracking()
+                .Select(r => new {
+                    Id = r.Id,
+                    PatientId = r.PatientId,
+                    MedecinId = r.MedecinId,
+                    Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                    Heure = r.DateRDV.ToString("HH:mm"),
+                    Lieu = string.Empty,
+                    Statut = r.Statut
+                })
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var r = await _db.RendezVous.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (r == null) return NotFound();
+
+            var dto = new {
+                Id = r.Id,
+                PatientId = r.PatientId,
+                MedecinId = r.MedecinId,
+                Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                Heure = r.DateRDV.ToString("HH:mm"),
+                Lieu = string.Empty,
+                Statut = r.Statut
+            };
+
+            return Ok(dto);
+        }
+
+        public class CreateRendezvousDto
+        {
+            public int PatientId { get; set; }
+            public int MedecinId { get; set; }
+            public string? Date { get; set; } // yyyy-MM-dd
+            public string? Heure { get; set; } // HH:mm
+            public string? Lieu { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateRendezvousDto dto)
+        {
+            if (dto == null) return BadRequest(new { message = "Données manquantes" });
+
+            // Validate required fields
+            if (dto.PatientId <= 0) return BadRequest(new { message = "PatientId invalide" });
+            if (dto.MedecinId <= 0) return BadRequest(new { message = "MedecinId invalide" });
+            if (string.IsNullOrWhiteSpace(dto.Date) || string.IsNullOrWhiteSpace(dto.Heure)) return BadRequest(new { message = "Date et heure requises" });
+
+            // Verify patient and medecin exist
+            var patientExists = await _db.Patients.AnyAsync(p => p.Id == dto.PatientId);
+            if (!patientExists) return BadRequest(new { message = "Patient introuvable" });
+            var medecinExists = await _db.Medecins.AnyAsync(m => m.Id == dto.MedecinId);
+            if (!medecinExists) return BadRequest(new { message = "Médecin introuvable" });
+
+            try
+            {
+                // parse date and time
+                DateTime dateTime;
+                if (!DateTime.TryParse(dto.Date + "T" + dto.Heure, out dateTime))
+                {
+                    if (!DateTime.TryParseExact(dto.Date + " " + dto.Heure, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out dateTime))
+                    {
+                        return BadRequest(new { message = "Date ou heure invalide" });
+                    }
+                }
+
+                // Ensure DateTimeKind is UTC before saving to timestamptz (Postgres requires UTC or offset)
+                // Assume client provides local date/time; convert to UTC
+                var dateTimeLocal = DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
+                var dateTimeUtc = dateTimeLocal.ToUniversalTime();
+
+                var entity = new Domain.Entities.RendezVous
+                {
+                    PatientId = dto.PatientId,
+                    MedecinId = dto.MedecinId,
+                    DateRDV = dateTimeUtc,
+                    // Statut should be a status string, not the lieu
+                    Statut = "Planifié"
+                };
+
+                _db.RendezVous.Add(entity);
+                await _db.SaveChangesAsync();
+
+                var result = new {
+                    Id = entity.Id,
+                    PatientId = entity.PatientId,
+                    MedecinId = entity.MedecinId,
+                    Date = entity.DateRDV.ToString("yyyy-MM-dd"),
+                    Heure = entity.DateRDV.ToString("HH:mm"),
+                    Lieu = dto.Lieu ?? string.Empty,
+                    Statut = entity.Statut
+                };
+
+                return CreatedAtAction(nameof(GetById), new { id = entity.Id }, result);
+            }
+            catch (DbUpdateException dbEx)
+            {
+                // return inner exception message to client for debugging
+                var msg = dbEx.InnerException?.Message ?? dbEx.Message;
+                return BadRequest(new { message = "An error occurred while saving the entity changes. See inner exception.", details = msg });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
+}

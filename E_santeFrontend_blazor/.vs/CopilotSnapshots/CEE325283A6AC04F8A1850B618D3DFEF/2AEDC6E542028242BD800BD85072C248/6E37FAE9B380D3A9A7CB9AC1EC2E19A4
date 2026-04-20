@@ -1,0 +1,63 @@
+﻿@page "/register"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+
+<PageTitle>Inscription</PageTitle>
+
+<h1 class="mb-4">Créer un compte</h1>
+
+<EditForm Model="model" OnValidSubmit="RegisterAsync">
+  <DataAnnotationsValidator />
+  <ValidationSummary />
+
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Nom</label>
+      <InputText @bind-Value="model.Nom" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Prénom</label>
+      <InputText @bind-Value="model.Prenom" class="form-control" />
+    </div>
+    <div class="col-12">
+      <label class="form-label">Email</label>
+      <InputText @bind-Value="model.Email" class="form-control" />
+    </div>
+    <div class="col-12">
+      <label class="form-label">Mot de passe</label>
+      <InputText @bind-Value="model.Password" type="password" class="form-control" />
+    </div>
+  </div>
+
+  @if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert alert-danger mt-3">@error</div>
+  }
+
+  <button class="btn btn-primary mt-3" type="submit" disabled="@loading">
+    @(loading ? "Inscription..." : "S'inscrire")
+  </button>
+</EditForm>
+
+@code {
+  private RegisterDto model = new();
+  private bool loading;
+  private string? error;
+
+  private async Task RegisterAsync()
+  {
+    error = null;
+    loading = true;
+    var ok = await Auth.RegisterAsync(model);
+    loading = false;
+    if (ok)
+    {
+      Nav.NavigateTo("/login");
+    }
+    else
+    {
+      error = "Échec d'inscription. Réessayez.";
+    }
+  }
+}

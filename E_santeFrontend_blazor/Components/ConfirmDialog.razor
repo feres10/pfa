@@ -1,0 +1,24 @@
+@namespace E_santeFrontend.Components
+<div class="modal" style="display:@(IsOpen ? "block" : "none")">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        @Message
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" @onclick="OnCancel">Annuler</button>
+        <button class="btn btn-danger" @onclick="OnConfirm">Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter] public bool IsOpen { get; set; }
+  [Parameter] public string? Message { get; set; }
+  [Parameter] public EventCallback OnConfirm { get; set; }
+  [Parameter] public EventCallback OnCancel { get; set; }
+}

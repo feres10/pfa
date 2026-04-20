@@ -1,0 +1,160 @@
+﻿@page "/register"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+
+<PageTitle>Inscription</PageTitle>
+
+<div class="auth-page">
+  <div class="auth-container">
+    <!-- Left Side - Branding -->
+    <div class="auth-branding">
+      <div class="branding-content">
+        <a href="/home" class="back-link">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+        
+        <div class="branding-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h1 class="branding-title">E‑Santé</h1>
+        </div>
+        
+        <div class="branding-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Dossier médical</h3>
+              <p>Centralisez vos documents</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Rendez-vous</h3>
+              <p>Planifiez facilement</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Sécurisé</h3>
+              <p>Données protégées</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Register Form -->
+    <div class="auth-form-section">
+      <div class="auth-form-container">
+        <div class="form-header">
+          <h2 class="form-title">Créez votre compte</h2>
+          <p class="form-subtitle">Rejoignez E-Santé en quelques secondes</p>
+        </div>
+
+        <EditForm Model="model" OnValidSubmit="HandleRegister" class="auth-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">
+                <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+                Nom
+              </label>
+              <InputText class="form-input" @bind-Value="model.Nom" placeholder="Martin" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+                Prénom
+              </label>
+              <InputText class="form-input" @bind-Value="model.Prenom" placeholder="Sophie" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+              </svg>
+              Email
+            </label>
+            <InputText class="form-input" @bind-Value="model.Email" placeholder="sophie.martin@exemple.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+              Téléphone
+            </label>
+            <InputText class="form-input" @bind-Value="model.Telephone" placeholder="+33 6 12 34 56 78" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+              </svg>
+              Mot de passe
+            </label>
+            <InputText class="form-input" @bind-Value="model.Password" type="password" placeholder="••••••••" />
+          </div>
+
+          <button class="btn-submit" type="submit">
+            <span>Créer un compte</span>
+            <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+        </EditForm>
+
+        <div class="form-footer">
+          <span class="footer-text">Déjà inscrit ?</span>
+          <a href="/login" class="footer-link">Se connecter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  private RegisterDto model = new();
+
+  private async Task HandleRegister()
+  {
+    model.Role = "Patient";
+    var ok = await Auth.RegisterAsync(model);
+    if (ok)
+    {
+      Nav.NavigateTo("/login");
+    }
+  }
+}

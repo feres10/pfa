@@ -1,0 +1,12 @@
+﻿using E_santeBackend.Application.DTOs.Pharmacien;
+
+namespace E_santeBackend.Application.Interfaces
+{
+    public interface IPharmacienService
+    {
+        Task<List<PharmacienReadDto>> GetAllAsync();
+        Task<PharmacienReadDto?> GetByIdAsync(int id);
+        Task<bool> UpdateAsync(int id, PharmacienUpdateDto dto);
+        Task<bool> DeleteAsync(int id);
+    }
+}

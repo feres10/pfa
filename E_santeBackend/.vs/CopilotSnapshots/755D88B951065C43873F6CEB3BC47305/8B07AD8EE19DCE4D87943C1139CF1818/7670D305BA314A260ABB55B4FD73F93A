@@ -1,0 +1,86 @@
+﻿@page "/admin/pharmaciens"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Pharmaciens - Admin</PageTitle>
+
+<div class="page">
+  <h2>Pharmaciens</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Licence</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (pharmaciens?.Any() == true)
+        {
+          foreach (var p in pharmaciens)
+          {
+            <tr>
+              <td>@p.Nom</td>
+              <td>@p.Prenom</td>
+              <td>@p.Email</td>
+              <td>@p.Telephone</td>
+              <td>@p.Licence</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="5">Aucun pharmacien</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.AdminCreatePharmacienDto>? pharmaciens;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var http = (HttpClient)typeof(E_santeFrontend.Services.AdminService)
+        .GetField("_http", System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!
+        .GetValue(AdminService)!;
+      var resp = await http.GetAsync("api/admin/pharmaciens");
+      if (!resp.IsSuccessStatusCode)
+      {
+        error = resp.ReasonPhrase;
+      }
+      else
+      {
+        pharmaciens = await resp.Content.ReadFromJsonAsync<List<E_santeFrontend.Models.AdminCreatePharmacienDto>>(
+          new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = null }
+        );
+      }
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

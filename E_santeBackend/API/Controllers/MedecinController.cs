@@ -1,0 +1,55 @@
+using E_santeBackend.Application.DTOs.Medecin;
+using E_santeBackend.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class MedecinController : ControllerBase
+    {
+        private readonly IMedecinService _medecinService;
+
+        public MedecinController(IMedecinService medecinService)
+        {
+            _medecinService = medecinService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var medecins = await _medecinService.GetAllAsync();
+            return Ok(medecins);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var medecin = await _medecinService.GetByIdAsync(id);
+            if (medecin == null)
+                return NotFound();
+
+            return Ok(medecin);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] MedecinUpdateDto dto)
+        {
+            var result = await _medecinService.UpdateAsync(id, dto);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var ok = await _medecinService.DeleteAsync(id);
+            if (!ok) return NotFound();
+            return NoContent();
+        }
+    }
+}

@@ -1,0 +1,13 @@
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Components.WebAssembly.Http
+@using Microsoft.JSInterop
+@using E_santeFrontend
+@using E_santeFrontend.Layout
+@using E_santeFrontend.Components
+@using E_santeFrontend.Services
+@using E_santeFrontend.Models

@@ -1,0 +1,296 @@
+﻿@page "/dashboard/medecin"
+@layout MedecinLayout
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Tableau de bord Médecin</PageTitle>
+
+<div class="medecin-dashboard-content">
+  @if (loading)
+  {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement de vos données...</p>
+    </div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">
+      <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <span>@error</span>
+    </div>
+  }
+  else
+  {
+    <!-- Header Section -->
+    <div class="page-header">
+      <div class="header-content">
+        <h1 class="page-title">Bonjour, Dr. Laurent ?????</h1>
+        <p class="page-subtitle">Vous avez @rdvToday patients aujourd'hui</p>
+      </div>
+      <button class="btn-primary-action" @onclick="GoToNewOrdonnance">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+        </svg>
+        <span>Nouvelle Ordonnance</span>
+      </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card stat-card-1">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@rdvToday</div>
+          <div class="stat-label">Patients aujourd'hui</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-2">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@consultationsSemaine</div>
+          <div class="stat-label">Consultations semaine</div>
+          <div class="stat-trend positive">+15% vs mois dernier</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-3">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@ordonnancesCount</div>
+          <div class="stat-label">Ordonnances émises</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-4">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@patientsSuivis</div>
+          <div class="stat-label">Patients suivis</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+      <!-- Left Column -->
+      <div class="content-column">
+        <!-- Chart Card -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Consultations par Jour
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <div class="chart-bars">
+                @foreach (var (value, index) in activityData.Select((v, i) => (v, i)))
+                {
+                  <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="height: @(value * 3)px">
+                      <span class="bar-value">@value</span>
+                    </div>
+                    <span class="bar-label">@GetDayLabel(index)</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordonnances Table -->
+        <div class="card ordonnances-table-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Dernières Ordonnances
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="modern-table">
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Médicaments</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="patient-cell">
+                        <div class="patient-avatar">SM</div>
+                        <span>Sophie Martin</span>
+                      </div>
+                    </td>
+                    <td>2024-01-15</td>
+                    <td><span class="pills-count">3</span></td>
+                    <td><span class="badge badge-active">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="patient-cell">
+                        <div class="patient-avatar">MB</div>
+                        <span>Marie Bernard</span>
+                      </div>
+                    </td>
+                    <td>2024-01-13</td>
+                    <td><span class="pills-count">4</span></td>
+                    <td><span class="badge badge-pending">En attente</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="content-column">
+        <!-- Today's Appointments -->
+        <div class="card appointments-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Rendez-vous du Jour
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="appointments-list">
+              <div class="appointment-item">
+                <div class="appointment-time">09:00</div>
+                <div class="appointment-patient">
+                  <div class="patient-avatar">SM</div>
+                  <div class="patient-info">
+                    <h4 class="patient-name">Sophie Martin</h4>
+                    <p class="patient-reason">Consultation générale</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appointment-item">
+                <div class="appointment-time">10:30</div>
+                <div class="appointment-patient">
+                  <div class="patient-avatar">JD</div>
+                  <div class="patient-info">
+                    <h4 class="patient-name">Jean Dubois</h4>
+                    <p class="patient-reason">Suivi médical</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appointment-item">
+                <div class="appointment-time">11:00</div>
+                <div class="appointment-patient">
+                  <div class="patient-avatar">MB</div>
+                  <div class="patient-info">
+                    <h4 class="patient-name">Marie Bernard</h4>
+                    <p class="patient-reason">Renouvellement ordonnance</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appointment-item">
+                <div class="appointment-time">14:00</div>
+                <div class="appointment-patient">
+                  <div class="patient-avatar">PP</div>
+                  <div class="patient-info">
+                    <h4 class="patient-name">Pierre Petit</h4>
+                    <p class="patient-reason">Première consultation</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="appointment-item">
+                <div class="appointment-time">15:30</div>
+                <div class="appointment-patient">
+                  <div class="patient-avatar">CL</div>
+                  <div class="patient-info">
+                    <h4 class="patient-name">Claire Leroy</h4>
+                    <p class="patient-reason">Bilan de santé</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private string rdvToday = "8";
+  private string ordonnancesCount = "156";
+  private string consultationsSemaine = "34";
+  private string patientsSuivis = "145";
+  private int[] activityData = new[] { 20, 14, 30, 18, 28, 12, 8 };
+
+  private void GoToNewOrdonnance() => Nav.NavigateTo("/ordonnances/nouvelle");
+
+  private string GetDayLabel(int index)
+  {
+    return index switch
+    {
+      0 => "Lun",
+      1 => "Mar",
+      2 => "Mer",
+      3 => "Jeu",
+      4 => "Ven",
+      5 => "Sam",
+      6 => "Dim",
+      _ => ""
+    };
+  }
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      ordonnancesCount = (ords?.Count ?? 0).ToString();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

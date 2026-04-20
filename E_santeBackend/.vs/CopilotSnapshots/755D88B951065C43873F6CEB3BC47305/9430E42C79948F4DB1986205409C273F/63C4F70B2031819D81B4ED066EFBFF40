@@ -1,0 +1,47 @@
+﻿using E_santeBackend.Application.DTOs.Pharmacien;
+using E_santeBackend.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class PharmacienController : ControllerBase
+    {
+        private readonly IPharmacienService _pharmacienService;
+
+        public PharmacienController(IPharmacienService pharmacienService)
+        {
+            _pharmacienService = pharmacienService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var pharmaciens = await _pharmacienService.GetAllAsync();
+            return Ok(pharmaciens);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var pharmacien = await _pharmacienService.GetByIdAsync(id);
+            if (pharmacien == null)
+                return NotFound();
+
+            return Ok(pharmacien);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] PharmacienUpdateDto dto)
+        {
+            var result = await _pharmacienService.UpdateAsync(id, dto);
+            if (!result)
+                return NotFound();
+
+            return NoContent();
+        }
+    }
+}

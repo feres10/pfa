@@ -1,0 +1,101 @@
+﻿using E_santeBackend.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class ConsultationController : ControllerBase
+    {
+        private readonly EHealthDbContext _db;
+
+        public ConsultationController(EHealthDbContext db)
+        {
+            _db = db;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var list = await _db.Consultations
+                .AsNoTracking()
+                .Select(c => new {
+                    c.Id,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Heure = c.Date.ToString("HH:mm"),
+                    c.Diagnostic,
+                    c.MedecinId,
+                    c.PatientId
+                })
+                .ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("medecin/{medecinId}")]
+        public async Task<IActionResult> GetByMedecin(int medecinId)
+        {
+            var list = await _db.Consultations
+                .AsNoTracking()
+                .Where(c => c.MedecinId == medecinId)
+                .Select(c => new {
+                    c.Id,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Heure = c.Date.ToString("HH:mm"),
+                    c.Diagnostic,
+                    c.MedecinId,
+                    c.PatientId
+                })
+                .ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("medecin/{medecinId}/today")]
+        public async Task<IActionResult> GetTodayByMedecin(int medecinId)
+        {
+            var today = DateTime.UtcNow.Date;
+            var list = await _db.Consultations
+                .AsNoTracking()
+                .Where(c => c.MedecinId == medecinId && c.Date.Date == today)
+                .Select(c => new {
+                    c.Id,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Heure = c.Date.ToString("HH:mm"),
+                    c.Diagnostic,
+                    c.MedecinId,
+                    c.PatientId
+                })
+                .ToListAsync();
+            return Ok(list);
+        }
+
+        [HttpGet("me/today")]
+        public async Task<IActionResult> GetTodayForCurrent()
+        {
+            // Try to get the user id from the JWT 'sub' claim
+            var sub = User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(sub, out var userId))
+                return Unauthorized();
+
+            var today = DateTime.UtcNow.Date;
+            var list = await _db.Consultations
+                .AsNoTracking()
+                .Where(c => c.MedecinId == userId && c.Date.Date == today)
+                .Select(c => new {
+                    c.Id,
+                    Date = c.Date.ToString("yyyy-MM-dd"),
+                    Heure = c.Date.ToString("HH:mm"),
+                    c.Diagnostic,
+                    c.MedecinId,
+                    c.PatientId
+                })
+                .ToListAsync();
+
+            return Ok(list);
+        }
+    }
+}

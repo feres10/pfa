@@ -1,0 +1,190 @@
+﻿@page "/"
+@page "/home"
+@inject NavigationManager Nav
+
+<PageTitle>E‑Santé</PageTitle>
+
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="certification-badge">
+        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Plateforme certifiée santé
+      </span>
+      
+      <h1 class="hero-title">
+        Votre santé, <span class="gradient-text">simplifiée</span>
+      </h1>
+      
+      <p class="hero-description">
+        Une plateforme complète pour la gestion de santé. Médecins, pharmaciens et patients
+        réunis dans un écosystème digital sécurisé et intuitif.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary-gradient" @onclick="GoToDashboard">
+          <span>Accéder à mon espace</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <button class="btn-outline" @onclick="LearnMore">
+          <span>En savoir plus</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-visual">
+      <div class="floating-card card-1">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Ordonnances</div>
+          <div class="card-subtitle">Gestion numérique</div>
+        </div>
+      </div>
+      
+      <div class="floating-card card-2">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Rendez-vous</div>
+          <div class="card-subtitle">Planification facile</div>
+        </div>
+      </div>
+      
+      <div class="floating-card card-3">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-text">
+          <div class="card-title">Suivi Patient</div>
+          <div class="card-subtitle">Historique complet</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <h2 class="section-title">Fonctionnalités Principales</h2>
+      <p class="section-subtitle">Tout ce dont vous avez besoin pour gérer votre santé efficacement</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Ordonnances Numériques</h3>
+        <p class="feature-description">Créez, consultez et gérez vos ordonnances en ligne de manière sécurisée.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Suivi Patient</h3>
+        <p class="feature-description">Accédez à l'historique complet et au suivi personnalisé de chaque patient.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Gestion des Médicaments</h3>
+        <p class="feature-description">Catalogue complet avec suivi des stocks et alertes automatiques.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Rendez-vous en Ligne</h3>
+        <p class="feature-description">Planifiez et gérez vos rendez-vous facilement depuis votre espace.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Données Sécurisées</h3>
+        <p class="feature-description">Vos informations médicales sont protégées par un chiffrement avancé.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon feature-icon-6">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="feature-title">Tableaux de Bord</h3>
+        <p class="feature-description">Visualisez vos statistiques et indicateurs en temps réel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">10K+</div>
+        <div class="stat-label">Patients actifs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Professionnels de santé</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50K+</div>
+        <div class="stat-label">Ordonnances créées</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99.9%</div>
+        <div class="stat-label">Disponibilité</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="cta-title">Prêt à simplifier votre santé ?</h2>
+      <p class="cta-description">Rejoignez des milliers d'utilisateurs qui font confiance à E-Santé</p>
+      <button class="btn-primary-gradient" @onclick="GoToDashboard">
+        <span>Commencer maintenant</span>
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+</div>
+
+@code {
+  private void GoToLogin() => Nav.NavigateTo("/login");
+  private void GoToDashboard() => Nav.NavigateTo("/dashboard");
+  private void LearnMore() => Nav.NavigateTo("/home#features");
+}

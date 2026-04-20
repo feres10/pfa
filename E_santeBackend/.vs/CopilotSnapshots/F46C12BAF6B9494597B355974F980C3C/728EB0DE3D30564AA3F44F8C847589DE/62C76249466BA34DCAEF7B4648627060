@@ -1,0 +1,31 @@
+﻿@page "/patients/{id:int}/edit"
+@inject E_santeFrontend.Services.PatientService Patients
+
+<h3>Modifier Patient</h3>
+@if (model is null)
+{
+  <p>Chargement...</p>
+}
+else
+{
+  <EditForm Model="model" OnValidSubmit="Save">
+    <InputText @bind-Value="model.Nom" />
+    <InputText @bind-Value="model.Prenom" />
+    <InputText @bind-Value="model.Email" />
+    <button class="btn btn-primary" type="submit">Enregistrer</button>
+  </EditForm>
+}
+
+@code {
+  [Parameter] public int id { get; set; }
+  private E_santeFrontend.Models.PatientDto? model;
+  protected override async Task OnParametersSetAsync()
+  {
+    model = await Patients.GetPatientAsync(id);
+  }
+  private async Task Save()
+  {
+    if (model is not null)
+      await Patients.UpdatePatientAsync(id, model);
+  }
+}

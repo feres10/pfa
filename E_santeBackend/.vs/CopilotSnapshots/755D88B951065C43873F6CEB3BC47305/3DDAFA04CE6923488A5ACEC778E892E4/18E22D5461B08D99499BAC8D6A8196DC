@@ -1,0 +1,296 @@
+﻿@page "/dashboard/pharmacien"
+@layout PharmacienLayout
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.StockService StockService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Tableau de bord Pharmacien - E-Santé</PageTitle>
+
+<div class="dashboard-pharmacien">
+  @if (loading)
+  {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement du tableau de bord...</p>
+    </div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">
+      <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <span>@error</span>
+    </div>
+  }
+  else
+  {
+    <!-- Welcome Header -->
+    <div class="dashboard-header">
+      <div class="welcome-section">
+        <h1 class="dashboard-title">Bienvenue, <span class="gradient-text">Pharmacie Centrale</span></h1>
+        <p class="dashboard-subtitle">
+          <svg class="subtitle-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+          </svg>
+          @ordonnancesEnAttente ordonnances en attente de traitement
+        </p>
+      </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card stat-card-primary">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Ordonnances à Traiter</div>
+          <div class="stat-value">@ordonnancesEnAttente</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-success">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Dispensations Jour</div>
+          <div class="stat-value">@dispensationsJour</div>
+          <div class="stat-badge badge-success">+6% vs mois dernier</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-warning">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Stock Critique</div>
+          <div class="stat-value">@stockCritique</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-info">
+        <div class="stat-icon-wrapper">
+          <svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-label">Ventes du Jour</div>
+          <div class="stat-value">@ventesJour</div>
+          <div class="stat-badge badge-info">+12% vs mois dernier</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts & Alerts Section -->
+    <div class="dashboard-content">
+      <!-- Dispensations Chart -->
+      <div class="content-card chart-card">
+        <div class="card-header">
+          <div class="card-title-section">
+            <h3 class="card-title">Dispensations par Jour</h3>
+            <p class="card-subtitle">Aperçu de la semaine</p>
+          </div>
+          <div class="date-range">
+            <svg class="date-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            <span>Lun - Sam</span>
+          </div>
+        </div>
+        <div class="chart-container">
+          <Components.StatChart Title="Dispensations" Subtitle="Lun - Sam" Data="@activityData" />
+        </div>
+      </div>
+
+      <!-- Critical Stock Alerts -->
+      <div class="content-card alert-card">
+        <div class="card-header">
+          <div class="card-title-section">
+            <h3 class="card-title card-title-warning">
+              <svg class="title-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              Stock Critique
+            </h3>
+            <p class="card-subtitle">Produits nécessitant une attention</p>
+          </div>
+        </div>
+        <div class="alert-list">
+          @if (alerts?.Count > 0)
+          {
+            @foreach (var alert in alerts)
+            {
+              <div class="alert-item">
+                <div class="alert-item-icon">
+                  <svg viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <div class="alert-item-content">
+                  <div class="alert-item-name">@alert.name</div>
+                  <div class="alert-item-category">@alert.category</div>
+                  <div class="alert-item-info">
+                    <span class="alert-units">@alert.units unités</span>
+                    <span class="alert-separator">•</span>
+                    <span class="alert-threshold">Seuil @alert.seuil</span>
+                  </div>
+                </div>
+              </div>
+            }
+          }
+          else
+          {
+            <div class="no-alerts">
+              <svg class="no-alerts-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <p>Aucun produit en stock critique</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Prescriptions Table -->
+    <div class="prescriptions-section">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <h2 class="section-title">Ordonnances à Traiter</h2>
+          <span class="section-badge">@ordonnancesEnAttente en attente</span>
+        </div>
+        <button class="btn-view-all" @onclick="GoToOrdonnances">
+          <span>Voir toutes</span>
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table class="prescriptions-table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Médecin</th>
+              <th>Date</th>
+              <th>Nb. Médicaments</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            @if (ordonnancesTable?.Count > 0)
+            {
+              @foreach (var ord in ordonnancesTable)
+              {
+                <tr class="table-row">
+                  <td>
+                    <div class="patient-cell">
+                      <div class="patient-avatar">
+                        <span>@GetInitials(ord.patient)</span>
+                      </div>
+                      <span class="patient-name">@ord.patient</span>
+                    </div>
+                  </td>
+                  <td class="medecin-cell">@ord.medecin</td>
+                  <td class="date-cell">@ord.date</td>
+                  <td class="meds-cell">
+                    <span class="meds-badge">@ord.meds</span>
+                  </td>
+                  <td>
+                    <span class="status-badge status-@GetStatusClass(ord.statut)">@ord.statut</span>
+                  </td>
+                  <td>
+                    <button class="btn-action" @onclick="GoToOrdonnances">
+                      <svg class="action-icon" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                      </svg>
+                      Traiter
+                    </button>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private string ordonnancesEnAttente = "12";
+  private string dispensationsJour = "45";
+  private string stockCritique = "3";
+  private string ventesJour = "890 €";
+  private int[] activityData = new[] { 18, 14, 22, 16, 24, 12 };
+  private List<(string name, string category, int units, int seuil)>? alerts = new()
+  {
+    ("Amoxicilline 500mg", "Antibiotique", 12, 30)
+  };
+  private List<(string patient, string medecin, string date, int meds, string statut)>? ordonnancesTable = new()
+  {
+    ("Sophie Martin", "Dr. Laurent", "2024-01-15", 3, "active"),
+    ("Jean Dubois", "Dr. Moreau", "2024-01-14", 2, "traitée"),
+    ("Marie Bernard", "Dr. Laurent", "2024-01-13", 4, "en attente"),
+    ("Pierre Petit", "Dr. Roux", "2024-01-12", 1, "active"),
+    ("Claire Leroy", "Dr. Moreau", "2024-01-11", 2, "traitée")
+  };
+
+  private void GoToOrdonnances() => Nav.NavigateTo("/ordonnances");
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      dispensationsJour = (meds?.Count ?? 45).ToString();
+      ordonnancesEnAttente = (ords?.Count ?? 12).ToString();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private string GetInitials(string name)
+  {
+    var parts = name.Split(' ');
+    if (parts.Length >= 2)
+    {
+      return $"{parts[0][0]}{parts[1][0]}".ToUpper();
+    }
+    return name.Length > 0 ? name[0].ToString().ToUpper() : "?";
+  }
+
+  private string GetStatusClass(string statut)
+  {
+    return statut.ToLower() switch
+    {
+      "active" => "active",
+      "traitée" => "completed",
+      "en attente" => "pending",
+      _ => "default"
+    };
+  }
+}

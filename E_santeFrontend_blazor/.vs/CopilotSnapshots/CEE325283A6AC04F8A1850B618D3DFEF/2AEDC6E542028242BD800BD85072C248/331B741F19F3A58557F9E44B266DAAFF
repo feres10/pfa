@@ -1,0 +1,54 @@
+﻿@page "/dashboard/pharmacien"
+@inject E_santeFrontend.Services.StockService StockService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+
+<PageTitle>Dashboard Pharmacien</PageTitle>
+
+<h1 class="mb-4">Tableau de bord Pharmacien</h1>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-md-6">
+            <CardInfo Title="Mouvements de stock" Value="@movementsCount" />
+        </div>
+        <div class="col-md-6">
+            <CardInfo Title="Médicaments" Value="@medicamentsCount" />
+        </div>
+    </div>
+}
+
+@code {
+    private string movementsCount = "0";
+    private string medicamentsCount = "0";
+    private bool loading;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            var movs = await StockService.GetMovementsAsync();
+            var meds = await MedicamentService.GetMedicamentsAsync();
+            movementsCount = (movs?.Count ?? 0).ToString();
+            medicamentsCount = (meds?.Count ?? 0).ToString();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

@@ -1,0 +1,245 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = E_santeFrontend
+build_property.RootNamespace = E_santeFrontend
+build_property.ProjectDir = C:\Users\User\Desktop\2émé genie info\1er semestre\.netfinal\projet.net\E_santeFrontend_blazor\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\User\Desktop\2émé genie info\1er semestre\.netfinal\projet.net\E_santeFrontend_blazor
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/CardInfo.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDYXJkSW5mby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/ConfirmDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xDb25maXJtRGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/DataTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xEYXRhVGFibGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/ModalForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RhbEZvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/NotificationBell.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xOb3RpZmljYXRpb25CZWxsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Components/StatChart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTdGF0Q2hhcnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Medicaments.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cTWVkaWNhbWVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Ordonnances.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cT3Jkb25uYW5jZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Auth/ForgotPassword.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxGb3Jnb3RQYXNzd29yZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Consultations/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc3VsdGF0aW9uc1xJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Dispensations/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlzcGVuc2F0aW9uc1xJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/DossierMedical/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9zc2llck1lZGljYWxcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medecin/Ordonnances.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkZWNpblxPcmRvbm5hbmNlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medicaments/MedicamentDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWNhbWVudHNcTWVkaWNhbWVudERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medicaments/MedicamentList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkaWNhbWVudHNcTWVkaWNhbWVudExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Patients/PatientDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudHNcUGF0aWVudERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Patients/PatientEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudHNcUGF0aWVudEVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Stock/StockMovements.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RvY2tcU3RvY2tNb3ZlbWVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Weather.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Shared/Error.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEVycm9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Shared/NotFound.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5vdEZvdW5kLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/AdminLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XEFkbWluTGF5b3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-hbugisdqq4
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-gl3scobpsi
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/MedecinLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1lZGVjaW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-i9vhn3z68v
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-t323e6tatf
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/PatientLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XFBhdGllbnRMYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-otef7cmcx0
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Layout/PharmacienLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XFBoYXJtYWNpZW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-gfc5ff7h7g
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Medecins.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cTWVkZWNpbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-10vqkmkef8
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Patients.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGF0aWVudHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-doks6nvdda
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Pharmaciens.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGhhcm1hY2llbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-vv6e7l9gty
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Admin/Profil.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUHJvZmlsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-fzjqt3tll8
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Auth/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-rk5vvgq17k
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Auth/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSZWdpc3Rlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ppw10y21ut
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Dashboard/DashboardAdmin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXERhc2hib2FyZEFkbWluLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-w3u6g8qm86
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Dashboard/DashboardMedecin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXERhc2hib2FyZE1lZGVjaW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-fxbltnx4ou
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Dashboard/DashboardPatient.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXERhc2hib2FyZFBhdGllbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-v5viv9axgz
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Dashboard/DashboardPharmacien.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXERhc2hib2FyZFBoYXJtYWNpZW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-jjo5t4zllk
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-5wps7urrub
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medecin/Agenda.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkZWNpblxBZ2VuZGEucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-kgzot7oq1t
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medecin/Consultations.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkZWNpblxDb25zdWx0YXRpb25zLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-zqhtxai632
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Medecin/Profil.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWVkZWNpblxQcm9maWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-lrokl1nghw
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Ordonnances/New.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3Jkb25uYW5jZXNcTmV3LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-o9z462o2g6
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Ordonnances/OrdonnanceDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3Jkb25uYW5jZXNcT3Jkb25uYW5jZURldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-12riwhj7im
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Ordonnances/OrdonnancesList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3Jkb25uYW5jZXNcT3Jkb25uYW5jZXNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-sw7vna7hf1
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Patients/PatientCreate.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudHNcUGF0aWVudENyZWF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-1oihi3ueb6
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Patients/PatientsList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF0aWVudHNcUGF0aWVudHNMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-xfzoi3t5i0
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Pharmacien/Ordonnances.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGhhcm1hY2llblxPcmRvbm5hbmNlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-v1jb6f7jqc
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/ProfilPharmacien.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsUGhhcm1hY2llbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-el3xxxe3yj
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Profil/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJvZmlsXEluZGV4LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-qdyce6cda8
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/RendezVous/New.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVuZGV6Vm91c1xOZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-m4xvjjhdr0
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/RendezVous/RendezVousList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVuZGV6Vm91c1xSZW5kZXpWb3VzTGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-b6udzvc3u1
+
+[C:/Users/User/Desktop/2émé genie info/1er semestre/.netfinal/projet.net/E_santeFrontend_blazor/Pages/Stock/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3RvY2tcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-josh13ozdd

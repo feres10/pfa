@@ -1,0 +1,111 @@
+using System.Collections.Generic;
+using Microsoft.JSInterop;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using E_santeFrontend.Models;
+
+namespace E_santeFrontend.Services
+{
+    public class PatientService
+    {
+        private readonly HttpClient _http;
+        private readonly E_santeFrontend.Helpers.LocalStorageService _storage;
+        private readonly Microsoft.JSInterop.IJSRuntime _js;
+
+        public PatientService(HttpClient http, E_santeFrontend.Helpers.LocalStorageService storage, Microsoft.JSInterop.IJSRuntime js)
+        {
+            _http = http;
+            _storage = storage;
+            _js = js;
+        }
+
+        private async Task EnsureAuthHeaderAsync()
+        {
+            try
+            {
+                // Apply stored base address if present (set during successful login)
+                try
+                {
+                    var baseAddr = await _storage.GetItemAsync("auth_base");
+                    if (!string.IsNullOrWhiteSpace(baseAddr))
+                    {
+                        try { _http.BaseAddress = new System.Uri(baseAddr); } catch { }
+                    }
+                }
+                catch { }
+
+                var token = await _storage.GetItemAsync("auth_token");
+                try { await _js.InvokeAsync<object>("console.log", new object?[] { token }); } catch { }
+                // Normalize if stored value is JSON like {"token":"..."}
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    var t = token.Trim();
+                    if (t.StartsWith("{") && t.Contains("token", System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        try
+                        {
+                            using var doc = System.Text.Json.JsonDocument.Parse(t);
+                            if (doc.RootElement.TryGetProperty("token", out var v))
+                            {
+                                var clean = v.GetString();
+                                if (!string.IsNullOrWhiteSpace(clean))
+                                {
+                                    token = clean;
+                                    await _storage.SetItemAsync("auth_token", clean);
+                                }
+                            }
+                        }
+                        catch { }
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    _http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    try { await _js.InvokeAsync<object>("console.log", new object?[] { "[PatientService] Authorization header applied" }); } catch { }
+                }
+                else
+                {
+                    try { await _js.InvokeAsync<object>("console.warn", new object?[] { "[PatientService] no token found in localStorage" }); } catch { }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                try { await _js.InvokeAsync<object>("console.error", new object?[] { ex.Message }); } catch { }
+            }
+        }
+
+        public async Task<List<PatientDto>> GetPatientsAsync()
+        {
+            await EnsureAuthHeaderAsync();
+            return await _http.GetFromJsonAsync<List<PatientDto>>("api/patient") ?? new List<PatientDto>();
+        }
+
+        public async Task<PatientDto?> GetPatientAsync(int id)
+        {
+            await EnsureAuthHeaderAsync();
+            return await _http.GetFromJsonAsync<PatientDto>($"api/patient/{id}");
+        }
+
+        public async Task<bool> CreatePatientAsync(PatientDto dto)
+        {
+            await EnsureAuthHeaderAsync();
+            var resp = await _http.PostAsJsonAsync("api/patient", dto);
+            return resp.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> DeletePatientAsync(int id)
+        {
+            await EnsureAuthHeaderAsync();
+            var resp = await _http.DeleteAsync($"api/patient/{id}");
+            return resp.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> UpdatePatientAsync(int id, PatientDto dto)
+        {
+            await EnsureAuthHeaderAsync();
+            var resp = await _http.PutAsJsonAsync($"api/patient/{id}", dto);
+            return resp.IsSuccessStatusCode;
+        }
+    }
+}

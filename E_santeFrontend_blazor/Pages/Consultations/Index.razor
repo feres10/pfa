@@ -1,0 +1,78 @@
+@page "/consultations"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.ConsultationService ConsultationService
+@inject E_santeFrontend.Services.AdminService AdminService
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Consultations</PageTitle>
+
+<div class="page">
+  <h1>Consultations</h1>
+  <p class="muted">Consultations du jour pour votre cabinet</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else if (consultations?.Any() == true)
+  {
+    <div class="consultations-list">
+      @foreach (var c in consultations)
+      {
+        <div class="consultation-item">
+          <div class="consultation-time">@c.Heure</div>
+          <div class="consultation-info">
+            <div class="consultation-patient">@GetPatientName(c.PatientId)</div>
+            <div class="consultation-diagnostic">@c.Diagnostic</div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  else
+  {
+    <div>Aucune consultation trouvée.</div>
+  }
+</div>
+
+@code {
+  private bool loading = true;
+  private string? error;
+  private List<E_santeFrontend.Models.ConsultationDto>? consultations;
+  private int medecinId = 0;
+  private List<E_santeFrontend.Models.PatientDto>? patients;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var medecins = await AdminService.GetMedecinsAsync();
+      medecinId = medecins?.FirstOrDefault()?.Id ?? 0;
+      patients = await PatientService.GetPatientsAsync();
+
+      if (medecinId > 0)
+      {
+        consultations = await ConsultationService.GetConsultationsTodayByMedecinAsync(medecinId);
+      }
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private string GetPatientName(int id)
+  {
+    var p = patients?.FirstOrDefault(x => x.Id == id);
+    return p != null ? $"{p.Prenom} {p.Nom}" : "Patient inconnu";
+  }
+}

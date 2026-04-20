@@ -1,0 +1,109 @@
+.page[b-kgzot7oq1t] {
+  padding: 1.25rem;
+  font-family: var(--bs-body-font-family, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+  color: #222;
+}
+
+.page-header[b-kgzot7oq1t] {
+  margin-bottom: 1rem;
+}
+
+.header-content[b-kgzot7oq1t] {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-title[b-kgzot7oq1t] {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.page-subtitle[b-kgzot7oq1t] {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.week-grid[b-kgzot7oq1t] {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+}
+
+.day-column[b-kgzot7oq1t] {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.04), 0 1px 3px rgba(16,24,40,0.06);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+}
+
+.day-title[b-kgzot7oq1t] {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.appointments-list[b-kgzot7oq1t] {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.appointment-item[b-kgzot7oq1t] {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.4rem;
+  border-radius: 6px;
+  transition: background 120ms ease;
+}
+
+.appointment-item:hover[b-kgzot7oq1t] { background: #f8fafc; }
+
+.appt-time[b-kgzot7oq1t] {
+  width: 62px;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 0.92rem;
+}
+
+.appt-info[b-kgzot7oq1t] {
+  display: flex;
+  flex-direction: column;
+}
+
+.appt-patient[b-kgzot7oq1t] {
+  font-weight: 600;
+  color: #0b1220;
+  font-size: 0.95rem;
+}
+
+.appt-place[b-kgzot7oq1t] {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.no-appointments[b-kgzot7oq1t] {
+  margin-top: auto;
+  color: #9ca3af;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+@media (max-width: 1024px) {
+  .week-grid[b-kgzot7oq1t] { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .week-grid[b-kgzot7oq1t] { grid-template-columns: repeat(1, 1fr); }
+  .header-content[b-kgzot7oq1t] { flex-direction: column; align-items: flex-start; }
+}

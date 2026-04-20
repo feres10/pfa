@@ -1,0 +1,62 @@
+﻿@page "/admin/profil"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AuthService Auth
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+
+<PageTitle>Profil Admin</PageTitle>
+
+<div class="page">
+  <h2>Mon Profil</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else
+  {
+    <div class="card">
+      <div><strong>Nom:</strong> @name</div>
+      <div><strong>Email:</strong> @email</div>
+      <div><strong>Rôle:</strong> @role</div>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? name;
+  private string? email;
+  private string? role;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var token = await Storage.GetItemAsync("auth_token");
+      if (!string.IsNullOrWhiteSpace(token))
+      {
+        name = TryGetClaim(token, "name") ?? TryGetClaim(token, "unique_name");
+        email = TryGetClaim(token, "email");
+      }
+      role = await Storage.GetItemAsync("auth_role");
+    }
+    finally { loading = false; }
+  }
+
+  private static string? TryGetClaim(string jwt, string claim)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return null;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4) { case 2: payload += "=="; break; case 3: payload += "="; break; }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty(claim, out var v)) return v.GetString();
+      if (claim == "name" && doc.RootElement.TryGetProperty("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", out var v2)) return v2.GetString();
+    }
+    catch { }
+    return null;
+  }
+}

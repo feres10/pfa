@@ -1,0 +1,79 @@
+﻿@page "/stock"
+@layout PharmacienLayout
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject NavigationManager Nav
+
+<PageTitle>Stock - Pharmacien</PageTitle>
+
+<div class="page">
+  <h1>Stock</h1>
+  <p class="muted">Résumé du stock et accès aux mouvements.</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-title">Total médicaments</div>
+        <div class="card-value">@totalMedicaments</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Produits bas</div>
+        <div class="card-value">@lowCount</div>
+      </div>
+      <div class="card">
+        <button class="btn" @onclick="() => Nav.NavigateTo("/stock/movements")">Voir mouvements</button>
+      </div>
+    </div>
+
+    <div class="list">
+      <h3>Médicaments bas en stock</h3>
+      @if (lowStock?.Any() == true)
+      {
+        <ul>
+          @foreach(var m in lowStock)
+          {
+            <li>@m.Nom — @m.Stock unités — exp: @m.DateExpiration?.ToString("yyyy-MM-dd")</li>
+          }
+        </ul>
+      }
+      else
+      {
+        <p>Aucun produit critique.</p>
+      }
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.MedicamentDto>? lowStock;
+  private int totalMedicaments;
+  private int lowCount;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      totalMedicaments = meds?.Count ?? 0;
+      var soon = System.DateTime.UtcNow.AddDays(30);
+      lowStock = meds?.Where(m => m.Stock <= 10 || (m.DateExpiration.HasValue && m.DateExpiration.Value <= soon)).ToList();
+      lowCount = lowStock?.Count ?? 0;
+    }
+    catch (System.Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally { loading = false; }
+  }
+}

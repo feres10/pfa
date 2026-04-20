@@ -1,0 +1,77 @@
+﻿@inherits LayoutComponentBase
+
+<header class="modern-header">
+  <div class="header-container">
+    <a class="logo-link" href="/home">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">E‑Santé</span>
+    </a>
+    
+    <nav class="nav-menu">
+      <a class="nav-link" href="/home#features">Fonctionnalités</a>
+      <a class="nav-link" href="/dashboard">Espaces</a>
+    </nav>
+    
+    <a class="btn-login" href="/login">
+      <span>Se connecter</span>
+      <svg class="login-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<main class="main-content">
+  @Body
+</main>
+
+<footer class="modern-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="logo-text">E‑Santé</span>
+        </div>
+        <p class="footer-description">
+          Simplifiez la gestion de votre santé avec notre plateforme sécurisée et intuitive.
+        </p>
+      </div>
+      
+      <div class="footer-links">
+        <div class="footer-column">
+          <h4 class="footer-title">Plateforme</h4>
+          <a href="/home#features" class="footer-link">Fonctionnalités</a>
+          <a href="/dashboard" class="footer-link">Espaces</a>
+          <a href="/login" class="footer-link">Se connecter</a>
+        </div>
+        
+        <div class="footer-column">
+          <h4 class="footer-title">Ressources</h4>
+          <a href="#" class="footer-link">Documentation</a>
+          <a href="#" class="footer-link">Support</a>
+          <a href="#" class="footer-link">FAQ</a>
+        </div>
+        
+        <div class="footer-column">
+          <h4 class="footer-title">Légal</h4>
+          <a href="#" class="footer-link">Confidentialité</a>
+          <a href="#" class="footer-link">Conditions d'utilisation</a>
+          <a href="#" class="footer-link">Mentions légales</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2024 E-Santé. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>

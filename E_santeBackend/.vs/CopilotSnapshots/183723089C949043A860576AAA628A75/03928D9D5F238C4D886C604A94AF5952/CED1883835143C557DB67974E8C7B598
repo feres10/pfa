@@ -1,0 +1,46 @@
+﻿@page "/register"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+
+<PageTitle>Inscription</PageTitle>
+
+<h3 class="mb-4">Inscription</h3>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-6">
+    <EditForm Model="model" OnValidSubmit="Register">
+      <div class="mb-3">
+        <label class="form-label">Nom</label>
+        <InputText class="form-control" @bind-Value="model.Nom" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Prénom</label>
+        <InputText class="form-control" @bind-Value="model.Prenom" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="model.Email" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mot de passe</label>
+        <InputText class="form-control" @bind-Value="model.Password" type="password" />
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">S'inscrire</button>
+      </div>
+    </EditForm>
+  </div>
+</div>
+
+@code {
+  private RegisterDto model = new();
+
+  private async Task Register()
+  {
+    var ok = await Auth.RegisterAsync(model);
+    if (ok)
+    {
+      Nav.NavigateTo("/login");
+    }
+  }
+}

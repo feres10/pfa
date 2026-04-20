@@ -1,0 +1,144 @@
+﻿@page "/patients/{id:int}"
+@layout MedecinLayout
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.PatientService Patients
+@inject NavigationManager Navigation
+
+<PageTitle>Détails Patient - E-Santé</PageTitle>
+
+@if (loading)
+{
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement des informations du patient...</p>
+  </div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+  <div class="alert-error">
+    <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+    </svg>
+    <span>@error</span>
+  </div>
+}
+else if (model is not null)
+{
+  <div class="page-header">
+    <button class="btn-back" @onclick="@(() => Navigation.NavigateTo("/patients"))">
+      <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+      </svg>
+      <span>Retour aux patients</span>
+    </button>
+    <button class="btn-primary-action" @onclick="@(() => Navigation.NavigateTo($"/patients/{id}/edit"))">
+      <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+      </svg>
+      <span>Modifier</span>
+    </button>
+  </div>
+
+  <div class="patient-details-container">
+    <div class="patient-profile-card">
+      <div class="profile-header">
+        <div class="patient-avatar-xl">
+          <span>@GetInitials(model.Nom, model.Prenom)</span>
+        </div>
+        <div class="profile-info">
+          <h1 class="patient-name-large">@model.Prenom @model.Nom</h1>
+          <div class="patient-badges">
+            <span class="badge badge-success">Actif</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-grid">
+      <div class="details-section">
+        <div class="section-header">
+          <svg class="section-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <h2 class="section-title">Informations Personnelles</h2>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">Nom complet</span>
+            <span class="info-value">@model.Prenom @model.Nom</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Email</span>
+            <span class="info-value">@model.Email</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">Téléphone</span>
+            <span class="info-value">@model.Telephone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <div class="section-header">
+          <svg class="section-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/>
+          </svg>
+          <h2 class="section-title">Historique Médical</h2>
+        </div>
+        <div class="empty-state">
+          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Aucun historique médical disponible</p>
+        </div>
+      </div>
+
+      <div class="details-section">
+        <div class="section-header">
+          <svg class="section-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+          </svg>
+          <h2 class="section-title">Rendez-vous à venir</h2>
+        </div>
+        <div class="empty-state">
+          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>Aucun rendez-vous programmé</p>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  [Parameter] public int id { get; set; }
+  private PatientDto? model;
+  private bool loading;
+  private string? error;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    loading = true;
+    try
+    {
+      model = await Patients.GetPatientAsync(id);
+    }
+    catch (Exception ex)
+    {
+      error = $"Erreur lors du chargement: {ex.Message}";
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private string GetInitials(string nom, string prenom)
+  {
+    var n = !string.IsNullOrEmpty(nom) ? nom[0].ToString().ToUpper() : "";
+    var p = !string.IsNullOrEmpty(prenom) ? prenom[0].ToString().ToUpper() : "";
+    return $"{p}{n}";
+  }
+}

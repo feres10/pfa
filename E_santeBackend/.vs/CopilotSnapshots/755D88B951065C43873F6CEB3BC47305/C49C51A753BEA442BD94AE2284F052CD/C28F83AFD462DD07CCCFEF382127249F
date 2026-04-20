@@ -1,0 +1,104 @@
+﻿@page "/admin/profil"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AuthService Auth
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+
+<PageTitle>Profil Admin</PageTitle>
+
+<div class="profile-page">
+  <div class="profile-header">
+    <div class="header-left">
+      <div class="avatar">
+        <span>@GetInitials(name ?? email)</span>
+      </div>
+      <div class="identity">
+        <h1>@(string.IsNullOrWhiteSpace(name) ? email : name)</h1>
+        <p class="role-badge">@role</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" disabled>Modifier le profil</button>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="info-card">
+      <div class="info-row">
+        <span class="label">Nom</span>
+        <span class="value">@(!string.IsNullOrWhiteSpace(name) ? name : "—")</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Email</span>
+        <span class="value">@email</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Rôle</span>
+        <span class="value">@role</span>
+      </div>
+    </div>
+
+    <div class="security-card">
+      <h2>Sécurité</h2>
+      <p>Pour votre sécurité, ne partagez pas vos informations de connexion.</p>
+      <div class="actions">
+        <button class="btn btn-outline" disabled>Changer le mot de passe</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  private bool loading;
+  private string? name;
+  private string? email;
+  private string? role;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var token = await Storage.GetItemAsync("auth_token");
+      if (!string.IsNullOrWhiteSpace(token))
+      {
+        name = TryGetClaim(token, "name")
+            ?? TryGetClaim(token, "unique_name")
+            ?? TryGetClaim(token, "given_name")
+            ?? TryGetClaim(token, "preferred_username")
+            ?? TryGetClaim(token, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name");
+        email = TryGetClaim(token, "email")
+            ?? TryGetClaim(token, "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
+        if (string.IsNullOrWhiteSpace(name) && !string.IsNullOrWhiteSpace(email))
+        {
+          name = email;
+        }
+      }
+      role = await Storage.GetItemAsync("auth_role");
+    }
+    finally { loading = false; }
+  }
+
+  private static string? TryGetClaim(string jwt, string claim)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return null;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4) { case 2: payload += "=="; break; case 3: payload += "="; break; }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty(claim, out var v)) return v.GetString();
+    }
+    catch { }
+    return null;
+  }
+
+  private string GetInitials(string? s)
+  {
+    if (string.IsNullOrWhiteSpace(s)) return "AD";
+    var parts = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length == 1) return parts[0][0].ToString().ToUpper();
+    return ($"{parts[0][0]}{parts[^1][0]}").ToUpper();
+  }
+}

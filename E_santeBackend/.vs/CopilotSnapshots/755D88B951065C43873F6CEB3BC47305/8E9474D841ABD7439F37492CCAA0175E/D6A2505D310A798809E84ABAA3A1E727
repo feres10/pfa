@@ -1,0 +1,125 @@
+﻿using E_santeBackend.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class RendezVousController : ControllerBase
+    {
+        private readonly EHealthDbContext _db;
+
+        public RendezVousController(EHealthDbContext db)
+        {
+            _db = db;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var list = await _db.RendezVous
+                .AsNoTracking()
+                .Select(r => new {
+                    Id = r.Id,
+                    PatientId = r.PatientId,
+                    MedecinId = r.MedecinId,
+                    Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                    Heure = r.DateRDV.ToString("HH:mm"),
+                    Lieu = string.Empty,
+                    Statut = r.Statut
+                })
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var r = await _db.RendezVous.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (r == null) return NotFound();
+
+            var dto = new {
+                Id = r.Id,
+                PatientId = r.PatientId,
+                MedecinId = r.MedecinId,
+                Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                Heure = r.DateRDV.ToString("HH:mm"),
+                Lieu = string.Empty,
+                Statut = r.Statut
+            };
+
+            return Ok(dto);
+        }
+
+        public class CreateRendezvousDto
+        {
+            public int PatientId { get; set; }
+            public int MedecinId { get; set; }
+            public string? Date { get; set; } // yyyy-MM-dd
+            public string? Heure { get; set; } // HH:mm
+            public string? Lieu { get; set; }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] CreateRendezvousDto dto)
+        {
+            if (dto == null) return BadRequest();
+            try
+            {
+                // parse date and time
+                DateTime dateTime;
+                if (!string.IsNullOrWhiteSpace(dto.Date) && !string.IsNullOrWhiteSpace(dto.Heure))
+                {
+                    if (!DateTime.TryParse(dto.Date + "T" + dto.Heure, out dateTime))
+                    {
+                        // try alternate parsing
+                        if (!DateTime.TryParseExact(dto.Date + " " + dto.Heure, "yyyy-MM-dd HH:mm", null, System.Globalization.DateTimeStyles.None, out dateTime))
+                        {
+                            return BadRequest(new { message = "Date ou heure invalide" });
+                        }
+                    }
+                }
+                else if (!string.IsNullOrWhiteSpace(dto.Date))
+                {
+                    if (!DateTime.TryParse(dto.Date, out dateTime))
+                        return BadRequest(new { message = "Date invalide" });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Date requise" });
+                }
+
+                var entity = new Domain.Entities.RendezVous
+                {
+                    PatientId = dto.PatientId,
+                    MedecinId = dto.MedecinId,
+                    DateRDV = dateTime,
+                    Statut = dto.Lieu ?? "Planifié"
+                };
+
+                _db.RendezVous.Add(entity);
+                await _db.SaveChangesAsync();
+
+                var result = new {
+                    Id = entity.Id,
+                    PatientId = entity.PatientId,
+                    MedecinId = entity.MedecinId,
+                    Date = entity.DateRDV.ToString("yyyy-MM-dd"),
+                    Heure = entity.DateRDV.ToString("HH:mm"),
+                    Lieu = dto.Lieu ?? string.Empty,
+                    Statut = entity.Statut
+                };
+
+                return CreatedAtAction(nameof(GetById), new { id = entity.Id }, result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
+}

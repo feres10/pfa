@@ -1,0 +1,115 @@
+﻿@page "/dashboard/medecin"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Dashboard Médecin</PageTitle>
+
+<h3 class="mb-4">Tableau de bord Médecin</h3>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Patients" Subtitle="Suivis" Value="@patientsCount" Icon="bi-people" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Rendez-vous" Subtitle="Aujourd'hui" Value="@rdvToday" Icon="bi-calendar-check" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Ordonnances" Subtitle="Créées" Value="@ordonnancesCount" Icon="bi-clipboard-check" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-8">
+      <Components.StatChart Title="Consultations" Subtitle="7 derniers jours" Data="@activityData" />
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Actions rapides</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" @onclick="GoToPatients">Gérer les patients</button>
+            <button class="btn btn-secondary" @onclick="GoToOrdonnances">Ordonnances</button>
+            <button class="btn btn-secondary" @onclick="GoToRendezvous">Planning</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Patients récents</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var p in (recentPatients ?? Enumerable.Empty<E_santeFrontend.Models.PatientDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@p.Nom @p.Prenom</span>
+                <span class="text-muted small">@p.Email</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Ordonnances récentes</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var o in (recentOrdonnances ?? Enumerable.Empty<E_santeFrontend.Models.OrdonnanceDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@o.Description</span>
+                <a href="/ordonnances/@o.Id" class="text-muted small">Voir</a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string patientsCount = "0";
+  private string ordonnancesCount = "0";
+  private string rdvToday = "8";
+  private int[] activityData = new[] { 4, 7, 5, 9, 8, 6, 10 };
+  private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+  private List<E_santeFrontend.Models.OrdonnanceDto>? recentOrdonnances;
+
+  private void GoToPatients() => Nav.NavigateTo("/patients");
+  private void GoToOrdonnances() => Nav.NavigateTo("/ordonnances");
+  private void GoToRendezvous() => Nav.NavigateTo("/rendezvous");
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      patientsCount = (patients?.Count ?? 0).ToString();
+      ordonnancesCount = (ords?.Count ?? 0).ToString();
+      recentPatients = patients?.Take(5).ToList();
+      recentOrdonnances = ords?.Take(5).ToList();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

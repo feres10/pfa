@@ -1,0 +1,29 @@
+﻿@page "/patients"
+@inject E_santeFrontend.Services.PatientService Patients
+
+<h3>Patients</h3>
+<Components.DataTable>
+  <ChildContent>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Email</th>
+  </ChildContent>
+  <Rows>
+    @foreach (var p in list)
+    {
+      <tr>
+        <td>@p.Nom</td>
+        <td>@p.Prenom</td>
+        <td>@p.Email</td>
+      </tr>
+    }
+  </Rows>
+</Components.DataTable>
+
+@code {
+  private List<E_santeFrontend.Models.PatientDto> list = new();
+  protected override async Task OnInitializedAsync()
+  {
+    list = await Patients.GetPatientsAsync() ?? new();
+  }
+}

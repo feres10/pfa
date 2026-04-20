@@ -1,0 +1,54 @@
+﻿@page "/dashboard/medecin"
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Dashboard Médecin</PageTitle>
+
+<h1 class="mb-4">Tableau de bord Médecin</h1>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+    <div class="row g-4">
+        <div class="col-md-6">
+            <CardInfo Title="Patients" Value="@patientsCount" />
+        </div>
+        <div class="col-md-6">
+            <CardInfo Title="Ordonnances" Value="@ordonnancesCount" />
+        </div>
+    </div>
+}
+
+@code {
+    private string patientsCount = "0";
+    private string ordonnancesCount = "0";
+    private bool loading;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            var patients = await PatientService.GetPatientsAsync();
+            var ords = await OrdonnanceService.GetOrdonnancesAsync();
+            patientsCount = (patients?.Count ?? 0).ToString();
+            ordonnancesCount = (ords?.Count ?? 0).ToString();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

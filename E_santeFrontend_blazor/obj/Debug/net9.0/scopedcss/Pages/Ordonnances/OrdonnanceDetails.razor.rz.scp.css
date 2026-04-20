@@ -1,0 +1,36 @@
+/* Scoped styles for Ordonnance details view */
+.ordonnance-details .card[b-12riwhj7im] {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(30,40,50,0.06);
+  padding: 18px;
+  margin: 12px 0;
+}
+.ordonnance-details .card-header[b-12riwhj7im] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f3f5;
+  padding-bottom: 12px;
+}
+.ordonnance-details .patient-name[b-12riwhj7im] {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #263238;
+}
+.ordonnance-details .status-badge[b-12riwhj7im] {
+  background: #eef6ff;
+  color: #0b66ff;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-weight: 600;
+}
+.ordonnance-details .card-body[b-12riwhj7im] { padding-top: 12px; }
+.ordonnance-details .section[b-12riwhj7im] { margin-bottom: 16px; }
+.ordonnance-details .lines-table[b-12riwhj7im] { width: 100%; border-collapse: collapse; }
+.ordonnance-details .lines-table th[b-12riwhj7im] { text-align: left; padding: 8px 6px; color:#4b5563; font-weight:600; }
+.ordonnance-details .lines-table td[b-12riwhj7im] { padding: 8px 6px; border-top:1px solid #f4f6f8; }
+.ordonnance-details .total[b-12riwhj7im] { text-align: right; margin-top: 8px; font-size: 1.05rem; }
+.ordonnance-details .card-actions[b-12riwhj7im] { margin-top: 14px; display:flex; gap:8px; }
+.ordonnance-details .btn[b-12riwhj7im] { padding: 8px 12px; border-radius:8px; }
+.ordonnance-details .btn-outline[b-12riwhj7im] { background:transparent; border:1px solid #e6eef9; }

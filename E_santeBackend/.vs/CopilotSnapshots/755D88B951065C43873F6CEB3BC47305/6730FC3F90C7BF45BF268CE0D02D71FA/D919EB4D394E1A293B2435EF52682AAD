@@ -1,0 +1,71 @@
+﻿@page "/admin/patients"
+@layout AdminLayout
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Patients - Admin</PageTitle>
+
+<div class="page">
+  <h2>Patients</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (patients?.Any() == true)
+        {
+          foreach (var p in patients)
+          {
+            <tr>
+              <td>@p.Nom</td>
+              <td>@p.Prenom</td>
+              <td>@p.Email</td>
+              <td>@p.Telephone</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="4">Aucun patient</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.PatientDto>? patients;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      patients = await PatientService.GetPatientsAsync();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

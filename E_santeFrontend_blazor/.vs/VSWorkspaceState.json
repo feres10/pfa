@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Helpers",
+    "\\Models",
+    "\\Pages",
+    "\\Pages\\Dashboard",
+    "\\Pages\\Ordonnances",
+    "\\Pages\\Patients",
+    "\\Services",
+    "\\wwwroot",
+    "\\wwwroot\\css"
+  ],
+  "SelectedNode": "\\wwwroot\\css\\app.css",
+  "PreviewInSolutionExplorer": false
+}

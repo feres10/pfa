@@ -1,0 +1,151 @@
+﻿@page "/patients/create"
+@layout MedecinLayout
+@inject PatientService Patients
+@inject NavigationManager Navigation
+
+<PageTitle>Nouveau Patient - E-Santé</PageTitle>
+
+@if (!string.IsNullOrEmpty(error))
+{
+  <div class="alert-error">
+    <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+    </svg>
+    <span>@error</span>
+  </div>
+}
+
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">Nouveau Patient</h1>
+    <p class="page-subtitle">Ajouter un nouveau patient à votre liste</p>
+  </div>
+  <button class="btn-back" @onclick="@(() => Navigation.NavigateTo("/patients"))">
+    <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+    </svg>
+    <span>Retour</span>
+  </button>
+</div>
+
+<div class="form-container">
+  <div class="form-card">
+    <div class="form-header-section">
+      <div class="patient-avatar-placeholder">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="patient-info">
+        <h2 class="patient-name">Ajouter un nouveau patient</h2>
+        <p class="patient-meta">Remplissez les informations ci-dessous</p>
+      </div>
+    </div>
+
+    <EditForm Model="model" OnValidSubmit="Create" class="edit-form">
+      <DataAnnotationsValidator />
+      
+      <div class="form-section">
+        <h3 class="form-section-title">
+          <svg class="section-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          Informations Personnelles
+        </h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="nom">Nom *</label>
+            <InputText id="nom" @bind-Value="model.Nom" class="form-input" placeholder="Nom de famille" />
+            <ValidationMessage For="@(() => model.Nom)" class="validation-message" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prenom">Prénom *</label>
+            <InputText id="prenom" @bind-Value="model.Prenom" class="form-input" placeholder="Prénom" />
+            <ValidationMessage For="@(() => model.Prenom)" class="validation-message" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="dateNaissance">Date de naissance *</label>
+            <InputDate id="dateNaissance" @bind-Value="model.DateNaissance" class="form-input" />
+            <ValidationMessage For="@(() => model.DateNaissance)" class="validation-message" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="cin">CIN *</label>
+            <InputText id="cin" @bind-Value="model.Cin" class="form-input" placeholder="Numéro CIN" />
+            <ValidationMessage For="@(() => model.Cin)" class="validation-message" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="form-section-title">
+          <svg class="section-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+          </svg>
+          Coordonnées
+        </h3>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="telephone">Téléphone *</label>
+            <InputText id="telephone" @bind-value="model.Telephone" class="form-input" placeholder="+33 6 12 34 56 78" />
+            <ValidationMessage For="@(() => model.Telephone)" class="validation-message" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" @onclick="@(() => Navigation.NavigateTo("/patients"))">
+          <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+          <span>Annuler</span>
+        </button>
+        <button type="submit" class="btn-primary" disabled="@saving">
+          @if (saving)
+          {
+            <div class="btn-spinner"></div>
+            <span>Création en cours...</span>
+          }
+          else
+          {
+            <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"/>
+            </svg>
+            <span>Créer le patient</span>
+          }
+        </button>
+      </div>
+    </EditForm>
+  </div>
+</div>
+
+@code {
+  private PatientCreateDto model = new();
+  private bool saving;
+  private string? error;
+
+  private async Task Create()
+  {
+    saving = true;
+    error = null;
+
+    try
+    {
+      await Patients.CreatePatientAsync(model);
+      Navigation.NavigateTo("/patients");
+    }
+    catch (Exception ex)
+    {
+      error = $"Erreur lors de la création: {ex.Message}";
+    }
+    finally
+    {
+      saving = false;
+    }
+  }
+}

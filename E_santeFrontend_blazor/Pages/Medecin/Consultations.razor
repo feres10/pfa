@@ -1,0 +1,94 @@
+@page "/medecin/consultations"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.ConsultationService ConsultationService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject NavigationManager Nav
+
+<PageTitle>Consultations - Médecin</PageTitle>
+
+<div class="page">
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Consultations - Aujourd'hui</h1>
+      <p class="page-subtitle">Liste des consultations programmées pour aujourd'hui</p>
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading-state">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else if (consultations?.Any() == true)
+  {
+    <div class="consultations-list">
+      @foreach (var c in consultations.OrderBy(c => c.Heure))
+      {
+        <div class="consultation-card">
+          <div class="consultation-time">@c.Heure</div>
+          <div class="consultation-body">
+            <div class="patient-avatar">@GetInitials(GetPatientName(c.PatientId))</div>
+            <div class="consultation-info">
+              <h4 class="patient-name">@GetPatientName(c.PatientId)</h4>
+              <p class="patient-reason">@(!string.IsNullOrWhiteSpace(c.Diagnostic) ? c.Diagnostic : "Consultation")</p>
+            </div>
+            <div class="consultation-actions">
+              <button class="btn-text" @onclick="() => ViewPatient(c.PatientId)">Voir dossier</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+  else
+  {
+    <div class="content-placeholder">Aucune consultation aujourd'hui.</div>
+  }
+</div>
+
+@code {
+  private bool loading = true;
+  private string? error;
+  private List<E_santeFrontend.Models.ConsultationDto>? consultations;
+  private List<E_santeFrontend.Models.PatientDto>? patients;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      patients = await PatientService.GetPatientsAsync();
+      consultations = await ConsultationService.GetConsultationsTodayForCurrentAsync();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private string GetPatientName(int id)
+  {
+    var p = patients?.FirstOrDefault(x => x.Id == id);
+    return p != null ? $"{p.Prenom} {p.Nom}" : "Patient inconnu";
+  }
+
+  private string GetInitials(string name)
+  {
+    if (string.IsNullOrWhiteSpace(name)) return "?";
+    var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length >= 2) return ($"{parts[0][0]}{parts[1][0]}").ToUpper();
+    return parts[0].Substring(0, 1).ToUpper();
+  }
+
+  private void ViewPatient(int patientId)
+  {
+    Nav.NavigateTo($"/patients/{patientId}");
+  }
+}

@@ -1,0 +1,87 @@
+﻿@page "/admin/medecins"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Médecins - Admin</PageTitle>
+
+<div class="page">
+  <h2>Médecins</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Spécialité</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (medecins?.Any() == true)
+        {
+          foreach (var m in medecins)
+          {
+            <tr>
+              <td>@m.Nom</td>
+              <td>@m.Prenom</td>
+              <td>@m.Email</td>
+              <td>@m.Specialite</td>
+              <td>@m.CodeMedecin</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="5">Aucun médecin</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.AdminCreateMedecinDto>? medecins;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      // backend should expose a GET listing; if not, this will be adjusted
+      var http = (HttpClient)typeof(E_santeFrontend.Services.AdminService)
+        .GetField("_http", System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!
+        .GetValue(AdminService)!;
+      var resp = await http.GetAsync("api/admin/medecins");
+      if (!resp.IsSuccessStatusCode)
+      {
+        error = resp.ReasonPhrase;
+      }
+      else
+      {
+        medecins = await resp.Content.ReadFromJsonAsync<List<E_santeFrontend.Models.AdminCreateMedecinDto>>(
+          new System.Text.Json.JsonSerializerOptions { PropertyNamingPolicy = null }
+        );
+      }
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

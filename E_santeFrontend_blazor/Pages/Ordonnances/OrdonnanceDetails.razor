@@ -1,0 +1,108 @@
+@page "/pharmacien/ordonnances/{id:int}"
+@page "/ordonnances/{id:int}"
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject NavigationManager Nav
+
+<PageTitle>Ordonnance - Détails</PageTitle>
+
+<div class="ordonnance-details">
+  @if (model is null)
+  {
+    <div class="loading">Chargement de l'ordonnance...</div>
+  }
+  else
+  {
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="patient-name">@PatientDisplay</div>
+          <div class="meta"><strong>Date:</strong> @FormatDate(model.Date)</div>
+        </div>
+        <div class="status-badge">@model.Statut</div>
+      </div>
+
+      <div class="card-body">
+        <div class="section">
+          <h4>Lignes</h4>
+          @if (model.Lignes == null || !model.Lignes.Any())
+          {
+            <p>Aucune ligne dans cette ordonnance.</p>
+          }
+          else
+          {
+            <table class="lines-table">
+              <thead>
+                <tr><th>Médicament</th><th>Quantité</th><th>Prix unité</th><th>Sous-total</th></tr>
+              </thead>
+              <tbody>
+                  @foreach (var l in model.Lignes)
+                  {
+                    <tr>
+                      <td>@GetMedName(l.MedicamentId)</td>
+                      <td>@l.Quantite</td>
+                      <td>@l.PrixUnitaire.ToString("0.00")</td>
+                      <td>@( (l.PrixUnitaire * l.Quantite).ToString("0.00") )</td>
+                    </tr>
+                  }
+              </tbody>
+            </table>
+            <div class="total"><strong>Total:</strong> @TotalAmount.ToString("0.00")</div>
+          }
+        </div>
+
+        <div class="section">
+          <h4>Description</h4>
+          <p>@(string.IsNullOrWhiteSpace(model.Description) ? "(Aucune description)" : model.Description)</p>
+        </div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-outline" @onclick="() => Nav.NavigateTo(backUrl)">Retour</button>
+      </div>
+    </div>
+  }
+</div>
+
+@code {
+  [Parameter] public int id { get; set; }
+  private E_santeFrontend.Models.OrdonnanceDto? model;
+  private E_santeFrontend.Models.PatientDto? patient;
+  private Dictionary<int, string> medNames = new();
+  private string backUrl = "/ordonnances";
+
+  private decimal TotalAmount => model?.Lignes?.Sum(l => l.PrixUnitaire * l.Quantite) ?? 0m;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    model = await OrdonnanceService.GetOrdonnanceAsync(id);
+    if (model != null)
+    {
+      patient = await PatientService.GetPatientAsync(model.PatientId);
+
+      if (model.Lignes != null)
+      {
+        foreach (var l in model.Lignes)
+        {
+          if (!medNames.ContainsKey(l.MedicamentId))
+          {
+            var m = await MedicamentService.GetMedicamentAsync(l.MedicamentId);
+            medNames[l.MedicamentId] = m?.Nom ?? $"Méd.{l.MedicamentId}";
+          }
+        }
+      }
+    }
+
+    backUrl = Nav.Uri.Contains("/pharmacien/", StringComparison.OrdinalIgnoreCase) ? "/pharmacien/ordonnances" : "/ordonnances";
+  }
+
+  private string GetMedName(int id) => medNames.TryGetValue(id, out var n) ? n : $"Médicament #{id}";
+  private string PatientDisplay => patient is null ? "Patient inconnu" : $"{(string.IsNullOrWhiteSpace(patient.Prenom) ? "" : patient.Prenom + " ")}{patient.Nom}".Trim();
+  private string FormatDate(string? date)
+  {
+    if (string.IsNullOrWhiteSpace(date)) return "-";
+    if (DateTime.TryParse(date, out var dt)) return dt.ToString("dd MMM yyyy");
+    return date;
+  }
+}

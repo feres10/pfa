@@ -1,0 +1,21 @@
+@page "/medicaments/{id:int}"
+@inject E_santeFrontend.Services.MedicamentService Medicaments
+
+<h3>Détails Médicament</h3>
+@if (model is null)
+{
+  <p>Chargement...</p>
+}
+else
+{
+  <p>@model.Nom - @model.Code</p>
+}
+
+@code {
+  [Parameter] public int id { get; set; }
+  private E_santeFrontend.Models.MedicamentDto? model;
+  protected override async Task OnParametersSetAsync()
+  {
+    model = await Medicaments.GetMedicamentAsync(id);
+  }
+}

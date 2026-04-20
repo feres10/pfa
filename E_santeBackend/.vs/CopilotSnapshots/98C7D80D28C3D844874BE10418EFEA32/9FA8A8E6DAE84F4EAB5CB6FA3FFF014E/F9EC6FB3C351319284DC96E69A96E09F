@@ -1,0 +1,12 @@
+﻿@namespace E_santeFrontend.Components
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">@Title</h5>
+    <p class="card-text">@Value</p>
+  </div>
+</div>
+
+@code {
+  [Parameter] public string? Title { get; set; }
+  [Parameter] public string? Value { get; set; }
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Nouveau profil",
+    "Projects": [
+      {
+        "Path": "E_santeBackend.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\E_santeFrontend\\E_santeFrontend.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

@@ -1,0 +1,3 @@
+﻿@page "/forgot-password"
+<h3>Mot de passe oublié</h3>
+<p>Entrez votre email pour recevoir un lien de réinitialisation.</p>

@@ -1,0 +1,20 @@
+/* Ordonnance creation form styles */
+.form-card{background:#fff;border:1px solid #e6eef6;border-radius:12px;padding:1.25rem;max-width:960px}
+.page-title{font-size:2rem;font-weight:800;color:#0f172a;margin:0}
+.page-subtitle{color:#64748b;margin:0}
+.form-row{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.form-row label{font-weight:700;color:#475569}
+.form-input{padding:.6rem .75rem;border:1px solid #e6eef6;border-radius:8px;font-size:.95rem}
+.add-line-row{display:flex;gap:.75rem;align-items:center}
+.form-input.small{width:80px}
+.form-input.medium{width:120px}
+.lines-table{width:100%;border-collapse:collapse}
+.lines-table th,.lines-table td{padding:.6rem .75rem;border-bottom:1px solid #f1f5f9;text-align:left}
+.muted{color:#94a3b8}
+.form-actions{display:flex;gap:.75rem;margin-top:1rem}
+.btn-primary{padding:.8rem 1.1rem;border-radius:12px;background:linear-gradient(135deg,#8b5cf6 0%,#7c3aed 100%);color:#fff;border:none;cursor:pointer;font-weight:700}
+.btn-primary[disabled]{opacity:.5;cursor:not-allowed}
+.btn-outline{padding:.6rem .9rem;border-radius:10px;background:#fff;border:1px solid #e6eef6;color:#334155;cursor:pointer}
+.btn-icon{padding:.4rem .6rem;border-radius:8px;border:none;background:#fff;color:#ef4444;cursor:pointer}
+
+@media(max-width:900px){.form-card{max-width:100%}.add-line-row{flex-direction:column;align-items:stretch}.form-input.small,.form-input.medium{width:100%}}

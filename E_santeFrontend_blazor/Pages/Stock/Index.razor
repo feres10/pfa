@@ -1,0 +1,121 @@
+@page "/stock"
+@layout PharmacienLayout
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject NavigationManager Nav
+
+<PageTitle>Stock - Pharmacien</PageTitle>
+
+<div class="page">
+  <h1>Stock</h1>
+  <p class="muted">R�sum� du stock et acc�s aux mouvements.</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <div class="stock-summary">
+      <div class="summary-card">
+        <div class="title">Total médicaments</div>
+        <div class="value">@totalMedicaments</div>
+      </div>
+      <div class="summary-card">
+        <div class="title">Produits bas</div>
+        <div class="value">@lowCount</div>
+      </div>
+      <div class="summary-card actions">
+        <button class="btn" @onclick="GoToMovements">Voir mouvements</button>
+      </div>
+    </div>
+
+    <h3 class="section-title">Tous les médicaments</h3>
+    <div class="meds-grid">
+      @foreach(var m in meds ?? Enumerable.Empty<E_santeFrontend.Models.MedicamentDto>())
+      {
+        <div class="med-card">
+          <div class="med-head">
+            <div class="med-name">@m.Nom (@m.Code)</div>
+            @if (m.Stock <= 10)
+            {
+              <div class="badge low">Faible</div>
+            }
+            else
+            {
+              <div class="badge ok">OK</div>
+            }
+          </div>
+          <div class="med-body">
+            <div class="stock-count">Stock: <strong>@m.Stock</strong></div>
+            <div class="exp">Exp: @(m.DateExpiration?.ToString("yyyy-MM-dd") ?? "-")</div>
+          </div>
+            <div class="med-actions">
+            <button class="btn btn-outline" @onclick="() => GoToMovementsFor(m.Id)">Mouvements</button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <h3 class="section-title">Produits critiques</h3>
+    @if (lowStock?.Any() == true)
+    {
+      <div class="meds-grid">
+        @foreach(var m in lowStock)
+        {
+          <div class="med-card low-focus">
+            <div class="med-head">
+              <div class="med-name">@m.Nom (@m.Code)</div>
+              <div class="badge low">Critique</div>
+            </div>
+            <div class="med-body">
+              <div class="stock-count">Stock: <strong>@m.Stock</strong></div>
+              <div class="exp">Exp: @(m.DateExpiration?.ToString("yyyy-MM-dd") ?? "-")</div>
+            </div>
+            <div class="med-actions">
+              <button class="btn btn-outline" @onclick="() => GoToMovementsFor(m.Id)">Mouvements</button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+    else
+    {
+      <p>Aucun produit critique.</p>
+    }
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.MedicamentDto>? lowStock;
+  private int totalMedicaments;
+  private int lowCount;
+  private List<E_santeFrontend.Models.MedicamentDto>? meds;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      meds = await MedicamentService.GetMedicamentsAsync();
+      totalMedicaments = meds?.Count ?? 0;
+      var soon = System.DateTime.UtcNow.AddDays(30);
+      lowStock = meds?.Where(m => m.Stock <= 10 || (m.DateExpiration.HasValue && m.DateExpiration.Value <= soon)).ToList();
+      lowCount = lowStock?.Count ?? 0;
+    }
+    catch (System.Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally { loading = false; }
+  }
+
+  private void GoToMovements() => Nav.NavigateTo("/stock/movements");
+
+  private void GoToMovementsFor(int id) => Nav.NavigateTo($"/stock/movements?medicamentId={id}");
+}

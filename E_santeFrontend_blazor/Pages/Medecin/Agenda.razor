@@ -1,0 +1,162 @@
+@page "/medecin/agenda"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+@inject NavigationManager Nav
+
+<PageTitle>Agenda - Médecin</PageTitle>
+
+<div class="page">
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Agenda - Cette semaine</h1>
+      <p class="page-subtitle">Rendez?vous jour par jour</p>
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading-state">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <div class="week-grid">
+      @foreach (var day in weekDays)
+      {
+        <div class="day-column">
+          <h3 class="day-title">@day.Label (@day.Date.ToString("dd/MM"))</h3>
+          @if (day.Appointments?.Any() == true)
+          {
+            <ul class="appointments-list">
+              @foreach (var a in day.Appointments.OrderBy(x => x.Heure))
+              {
+                <li class="appointment-item">
+                  <div class="appt-time">@a.Heure</div>
+                  <div class="appt-info">
+                    <div class="appt-patient">@a.PatientName</div>
+                    <div class="appt-place">@a.Lieu</div>
+                  </div>
+                </li>
+              }
+            </ul>
+          }
+          else
+          {
+            <div class="no-appointments">Aucun rendez?vous</div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
+
+@code{
+  private bool loading = true;
+  private string? error;
+
+  private class ApptItem { public string Heure = ""; public int PatientId; public string PatientName = ""; public string Lieu = ""; }
+  private class DayColumn { public DateTime Date; public string Label = ""; public List<ApptItem>? Appointments; }
+
+  private List<DayColumn> weekDays = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var token = await Storage.GetItemAsync("auth_token");
+      int medecinId = 0;
+      if (!string.IsNullOrWhiteSpace(token))
+      {
+        medecinId = TryGetSubFromJwt(token);
+      }
+
+      // fall back if not found
+      if (medecinId <= 0)
+      {
+        // try to get first medecin as fallback via API
+        try
+        {
+          var m = await (new E_santeFrontend.Services.AdminService(new HttpClient(), Storage)).GetMedecinsAsync();
+          medecinId = m?.FirstOrDefault()?.Id ?? 0;
+        }
+        catch { medecinId = 0; }
+      }
+
+      var rendezvous = await RendezvousService.GetRendezvousAsync();
+      var patients = await PatientService.GetPatientsAsync();
+
+      // build week starting Monday
+      var today = DateTime.UtcNow.Date;
+      var monday = StartOfWeek(today, DayOfWeek.Monday);
+
+      weekDays = Enumerable.Range(0, 7).Select(i => new DayColumn { Date = monday.AddDays(i), Label = GetDayLabel(i), Appointments = new List<ApptItem>() }).ToList();
+
+      foreach (var r in rendezvous)
+      {
+        if (r.MedecinId != medecinId) continue;
+        if (!DateTime.TryParse(r.Date, out var dt)) continue;
+        var apptDate = dt.Date;
+        var col = weekDays.FirstOrDefault(d => d.Date == apptDate);
+        if (col == null) continue;
+        var patientName = (patients?.FirstOrDefault(p => p.Id == r.PatientId)?.Prenom ?? "") + " " + (patients?.FirstOrDefault(p => p.Id == r.PatientId)?.Nom ?? "");
+        col.Appointments.Add(new ApptItem { Heure = r.Heure ?? "", PatientId = r.PatientId, PatientName = patientName, Lieu = r.Lieu ?? "" });
+      }
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private static DateTime StartOfWeek(DateTime dt, DayOfWeek start)
+  {
+    int diff = (7 + (dt.DayOfWeek - start)) % 7;
+    return dt.AddDays(-1 * diff).Date;
+  }
+
+  private static string GetDayLabel(int index)
+  {
+    return index switch
+    {
+      0 => "Lun",
+      1 => "Mar",
+      2 => "Mer",
+      3 => "Jeu",
+      4 => "Ven",
+      5 => "Sam",
+      6 => "Dim",
+      _ => ""
+    };
+  }
+
+  private int TryGetSubFromJwt(string jwt)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return 0;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4)
+      {
+        case 2: payload += "=="; break;
+        case 3: payload += "="; break;
+      }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty("sub", out var s)) return s.GetInt32();
+      if (doc.RootElement.TryGetProperty(System.Security.Claims.ClaimTypes.NameIdentifier, out var n)) return n.GetInt32();
+      return 0;
+    }
+    catch { return 0; }
+  }
+}

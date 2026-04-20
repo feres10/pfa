@@ -1,0 +1,1212 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\consultationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\consultationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\application\\interfaces\\ipharmacienservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:application\\interfaces\\ipharmacienservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\data\\ehealthdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\data\\ehealthdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\shared\\constants\\appconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:shared\\constants\\appconstants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\application\\services\\medecinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:application\\services\\medecinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\patientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\patientrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\domain\\entities\\medecin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:domain\\entities\\medecin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\domain\\entities\\dossiermedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:domain\\entities\\dossiermedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\domain\\entities\\consultation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:domain\\entities\\consultation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\domain\\entities\\compteutilisateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:domain\\entities\\compteutilisateur.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\domain\\entities\\assurance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:domain\\entities\\assurance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\paiementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\paiementrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\pharmacienrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\pharmacienrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\stockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\medicamentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\medicamentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\repositories\\medecinrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\repositories\\medecinrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\infrastructure\\data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:infrastructure\\data\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\stockcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\application\\services\\stockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:application\\services\\stockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\rendezvouscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\rendezvouscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\e_santebackend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:e_santebackend.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\application\\services\\pharmacienservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:application\\services\\pharmacienservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\pharmaciencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\pharmaciencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\application\\interfaces\\imedecinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:application\\interfaces\\imedecinservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|c:\\users\\user\\desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\e_santebackend\\api\\controllers\\medecincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E5244C1E-2CD1-4194-A2DA-F6093A8ADFEE}|E_santeBackend.csproj|solutionrelative:api\\controllers\\medecincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1690033061\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Agenda.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Ordonnances\\New.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Ordonnances.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\OrdonnanceService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Consultations.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\MedecinLayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Consultations\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\ConsultationDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\ConsultationService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardMedecin.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPatient.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PatientLayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\RendezVousList.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\RendezvousService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Profil\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\DossierMedical\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\RendezvousDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\ProfilPharmacien.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dispensations\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\NavMenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPharmacien.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Pharmacien\\Ordonnances.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PharmacienLayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\AdminService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\OrdonnanceDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Ordonnances.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medicaments.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\AdminLayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\MedicamentDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T15:38:45.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppConstants.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Shared\\Constants\\AppConstants.cs",
+              "RelativeDocumentMoniker": "Shared\\Constants\\AppConstants.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Shared\\Constants\\AppConstants.cs",
+              "RelativeToolTip": "Shared\\Constants\\AppConstants.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-22T15:37:29.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-22T14:05:06.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EHealthDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Data\\EHealthDbContext.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Data\\EHealthDbContext.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Data\\EHealthDbContext.cs",
+              "RelativeToolTip": "Infrastructure\\Data\\EHealthDbContext.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAA8wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:05.858Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ConsultationController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\ConsultationController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\ConsultationController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\ConsultationController.cs",
+              "RelativeToolTip": "API\\Controllers\\ConsultationController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:52:25.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MedecinService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\MedecinService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\MedecinService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\MedecinService.cs",
+              "RelativeToolTip": "Application\\Services\\MedecinService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.579Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IPharmacienService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Interfaces\\IPharmacienService.cs",
+              "RelativeDocumentMoniker": "Application\\Interfaces\\IPharmacienService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Interfaces\\IPharmacienService.cs",
+              "RelativeToolTip": "Application\\Interfaces\\IPharmacienService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Consultation.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Consultation.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Consultation.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Consultation.cs",
+              "RelativeToolTip": "Domain\\Entities\\Consultation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T11:31:19.172Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DossierMedical.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\DossierMedical.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\DossierMedical.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\DossierMedical.cs",
+              "RelativeToolTip": "Domain\\Entities\\DossierMedical.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T11:31:22.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "API\\Middlewares\\ExceptionMiddleware.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "API\\Middlewares\\ExceptionMiddleware.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:53:19.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Medecin.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Medecin.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Medecin.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Medecin.cs",
+              "RelativeToolTip": "Domain\\Entities\\Medecin.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T11:31:25.478Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 74,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Program.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Program.cs",
+              "ToolTip": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Program.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-21T14:36:02.5Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "ToolTip": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T23:00:41.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CompteUtilisateur.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\CompteUtilisateur.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\CompteUtilisateur.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\CompteUtilisateur.cs",
+              "RelativeToolTip": "Domain\\Entities\\CompteUtilisateur.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T11:31:10.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PatientRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PatientRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\PatientRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PatientRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\PatientRepository.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAawC4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:42.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 75,
+              "Title": "DashboardAdmin.razor",
+              "DocumentMoniker": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "ToolTip": "C:\\Users\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Haytham\\Desktop\\projet.net\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQBAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-21T14:59:49.919Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Assurance.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Assurance.cs",
+              "RelativeDocumentMoniker": "Domain\\Entities\\Assurance.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Domain\\Entities\\Assurance.cs",
+              "RelativeToolTip": "Domain\\Entities\\Assurance.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T11:31:06.817Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "Agenda.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Agenda.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Agenda.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Agenda.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Agenda.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T09:39:52.771Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "New.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Ordonnances\\New.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Ordonnances\\New.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Ordonnances\\New.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Ordonnances\\New.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAIBJwFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T09:35:43.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Ordonnances.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Ordonnances.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Ordonnances.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Ordonnances.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Ordonnances.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T09:34:29.902Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "OrdonnanceService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\OrdonnanceService.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\OrdonnanceService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\OrdonnanceService.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\OrdonnanceService.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:33:40.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Consultations.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Consultations.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Consultations.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Consultations.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Medecin\\Consultations.razor",
+              "ViewState": "AgIAAFsAAAAAAAAAAABRwF4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T09:18:32.046Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PaiementRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PaiementRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\PaiementRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PaiementRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\PaiementRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:49.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "PharmacienRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PharmacienRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\PharmacienRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\PharmacienRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\PharmacienRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:35.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "StockRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\StockRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\StockRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\StockRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\StockRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:31.802Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "MedecinLayout.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\MedecinLayout.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\MedecinLayout.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\MedecinLayout.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\MedecinLayout.razor",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T08:59:54.289Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Consultations\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Consultations\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Consultations\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Consultations\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T09:04:54.165Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MedicamentRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\MedicamentRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\MedicamentRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\MedicamentRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\MedicamentRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:24.559Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MedecinRepository.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\MedecinRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Repositories\\MedecinRepository.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Repositories\\MedecinRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Repositories\\MedecinRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T09:00:18.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DbInitializer.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Data\\DbInitializer.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Data\\DbInitializer.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Infrastructure\\Data\\DbInitializer.cs",
+              "RelativeToolTip": "Infrastructure\\Data\\DbInitializer.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAQwBUAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:59:35.416Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "StockController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\StockController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\StockController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\StockController.cs",
+              "RelativeToolTip": "API\\Controllers\\StockController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:54:24.551Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "ConsultationDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\ConsultationDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\ConsultationDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\ConsultationDto.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\ConsultationDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:52:49.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ConsultationService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\ConsultationService.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\ConsultationService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\ConsultationService.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\ConsultationService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:52:39.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Program.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Program.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Program.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAewAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T23:32:03.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "DashboardMedecin.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardMedecin.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardMedecin.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardMedecin.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardMedecin.razor",
+              "ViewState": "AgIAAEcBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-19T08:39:01.432Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-12-19T08:52:40.093Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "StockService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\StockService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\StockService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\StockService.cs",
+              "RelativeToolTip": "Application\\Services\\StockService.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T08:55:48.04Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "New.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor",
+              "ViewState": "AgIAAH4AAAAAAAAAAAArwI0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:55:44.087Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "RendezVousController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\RendezVousController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\RendezVousController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\RendezVousController.cs",
+              "RelativeToolTip": "API\\Controllers\\RendezVousController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T23:52:05.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "DashboardPatient.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPatient.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPatient.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPatient.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPatient.razor",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:44:50.834Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "PatientLayout.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PatientLayout.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\PatientLayout.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PatientLayout.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\PatientLayout.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:43:21.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "RendezVousList.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\RendezVousList.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\RendezVousList.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\RendezVousList.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\RendezVousList.razor",
+              "ViewState": "AgIAAEMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:38:56.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1690033061\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1690033061\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1690033061\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\-1690033061\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:38:33.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "RendezvousService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\RendezvousService.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\RendezvousService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\RendezvousService.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\RendezvousService.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAewFsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T23:30:51.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "New.razor.css",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor.css",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor.css",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor.css",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\RendezVous\\New.razor.css",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAAAF8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-19T05:18:47.327Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Profil\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Profil\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Profil\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Profil\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:31:51.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\DossierMedical\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\DossierMedical\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\DossierMedical\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\DossierMedical\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:31:31.87Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "RendezvousDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\RendezvousDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\RendezvousDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\RendezvousDto.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\RendezvousDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T23:31:04.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "ProfilPharmacien.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\ProfilPharmacien.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\ProfilPharmacien.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\ProfilPharmacien.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\ProfilPharmacien.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:09:48.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dispensations\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dispensations\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dispensations\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dispensations\\Index.razor",
+              "ViewState": "AgIAABwAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:09:12.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "Index.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Stock\\Index.razor",
+              "ViewState": "AgIAABQAAAAAAAAAAAAhwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:08:26.022Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T22:57:27.021Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T22:57:07.857Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "DashboardPharmacien.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPharmacien.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPharmacien.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPharmacien.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardPharmacien.razor",
+              "ViewState": "AgIAAE8BAAAAAAAAAAArwHIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:32:47.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "Ordonnances.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Pharmacien\\Ordonnances.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Pharmacien\\Ordonnances.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Pharmacien\\Ordonnances.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Pharmacien\\Ordonnances.razor",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:20:16.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "PharmacienLayout.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PharmacienLayout.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\PharmacienLayout.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\PharmacienLayout.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\PharmacienLayout.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T23:17:20.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "E_santeBackend.csproj",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\E_santeBackend.csproj",
+              "RelativeDocumentMoniker": "E_santeBackend.csproj",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\E_santeBackend.csproj",
+              "RelativeToolTip": "E_santeBackend.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-18T22:57:03.758Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "MedecinController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\MedecinController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\MedecinController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\MedecinController.cs",
+              "RelativeToolTip": "API\\Controllers\\MedecinController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "Profil.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "AdminService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\AdminService.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\AdminService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Services\\AdminService.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Services\\AdminService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "Medecins.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.73Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "Medecins.razor.css",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor.css",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor.css",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor.css",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medecins.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-18T16:40:23.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "IMedecinService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Interfaces\\IMedecinService.cs",
+              "RelativeDocumentMoniker": "Application\\Interfaces\\IMedecinService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Interfaces\\IMedecinService.cs",
+              "RelativeToolTip": "Application\\Interfaces\\IMedecinService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "OrdonnanceDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\OrdonnanceDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\OrdonnanceDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\OrdonnanceDto.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\OrdonnanceDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:30:30.397Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "DashboardAdmin.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Dashboard\\DashboardAdmin.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.818Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "Ordonnances.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Ordonnances.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Ordonnances.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Ordonnances.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Ordonnances.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.866Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 66,
+              "Title": "Medicaments.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medicaments.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medicaments.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medicaments.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Medicaments.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.912Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 67,
+              "Title": "Pharmaciens.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.484Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "PharmacienController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\PharmacienController.cs",
+              "RelativeDocumentMoniker": "API\\Controllers\\PharmacienController.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\API\\Controllers\\PharmacienController.cs",
+              "RelativeToolTip": "API\\Controllers\\PharmacienController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "PharmacienService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\PharmacienService.cs",
+              "RelativeDocumentMoniker": "Application\\Services\\PharmacienService.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\2\u00E9m\u00E9 genie info\\1er semestre\\.netfinal\\projet.net\\E_santeBackend\\Application\\Services\\PharmacienService.cs",
+              "RelativeToolTip": "Application\\Services\\PharmacienService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:23.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 68,
+              "Title": "Pharmaciens.razor.css",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor.css",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor.css",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor.css",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Pharmaciens.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-18T16:40:23.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 69,
+              "Title": "Patients.razor.css",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor.css",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor.css",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor.css",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-18T16:40:23.247Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 70,
+              "Title": "Patients.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Patients.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:23.2Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 71,
+              "Title": "Profil.razor.css",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor.css",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor.css",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor.css",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Pages\\Admin\\Profil.razor.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-12-18T16:40:23.154Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 72,
+              "Title": "AdminLayout.razor",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\AdminLayout.razor",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\AdminLayout.razor",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Layout\\AdminLayout.razor",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Layout\\AdminLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-18T16:40:22.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "MedicamentDto.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\MedicamentDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\MedicamentDto.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\projet.net\\E_santeFrontend\\Models\\MedicamentDto.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\projet.net\\E_santeFrontend\\Models\\MedicamentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T16:40:22.82Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 318,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

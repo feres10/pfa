@@ -1,0 +1,25 @@
+.stock-summary { display:flex; gap:1rem; align-items:center; margin-bottom:1rem; }
+.summary-card { background:#fff; padding:0.75rem 1rem; border-radius:10px; box-shadow:0 1px 2px rgba(16,24,40,0.04); min-width:160px; }
+.summary-card .title { color:#6b7280; font-size:0.9rem; }
+.summary-card .value { font-size:1.35rem; font-weight:700; color:#0b1220; }
+.summary-card.actions { display:flex; align-items:center; justify-content:center; }
+
+.section-title { margin-top:1.25rem; color:#374151; }
+.meds-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:0.75rem; }
+.med-card { background:#fff; border-radius:10px; padding:0.8rem; box-shadow:0 1px 2px rgba(16,24,40,0.04); display:flex; flex-direction:column; gap:0.5rem; }
+.med-head { display:flex; justify-content:space-between; align-items:center; }
+.med-name { font-weight:600; color:#0b1220; }
+.badge { padding:0.2rem 0.5rem; border-radius:999px; font-size:0.8rem; }
+.badge.low { background:#fff1f2; color:#9f1239; }
+.badge.ok { background:#ecfdf5; color:#065f46; }
+.med-body { color:#6b7280; display:flex; justify-content:space-between; }
+.stock-count strong { color:#0b1220; }
+.med-actions { display:flex; gap:0.5rem; }
+.btn { padding:0.45rem 0.7rem; border-radius:8px; border:1px solid #e2e8f0; background:#fff; cursor:pointer; }
+.btn-outline { background:#fff; border:1px solid #dbeafe; }
+
+.low-focus { border:1px solid #fee2e2; }
+
+@media (max-width:1200px) { .meds-grid { grid-template-columns:repeat(3,1fr); } }
+@media (max-width:900px) { .meds-grid { grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px) { .meds-grid { grid-template-columns:repeat(1,1fr); } .stock-summary { flex-direction:column; align-items:flex-start; } }

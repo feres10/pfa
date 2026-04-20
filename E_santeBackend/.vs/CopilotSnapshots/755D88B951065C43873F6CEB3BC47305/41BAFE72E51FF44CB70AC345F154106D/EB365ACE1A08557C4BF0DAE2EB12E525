@@ -1,0 +1,75 @@
+﻿@page "/admin/medecins"
+@layout AdminLayout
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Médecins - Admin</PageTitle>
+
+<div class="page">
+  <h2>Médecins</h2>
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <p class="error">@error</p>
+  }
+  else
+  {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Spécialité</th>
+          <th>Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (medecins?.Any() == true)
+        {
+          foreach (var m in medecins)
+          {
+            <tr>
+              <td>@m.Nom</td>
+              <td>@m.Prenom</td>
+              <td>@m.Email</td>
+              <td>@m.Specialite</td>
+              <td>@m.CodeMedecin</td>
+            </tr>
+          }
+        }
+        else
+        {
+          <tr><td colspan="5">Aucun médecin</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Services.AdminService.MedecinListItem>? medecins;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      medecins = await AdminService.GetMedecinsAsync();
+      if (medecins == null)
+        error = AdminService.LastError ?? "Impossible de charger les médecins.";
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

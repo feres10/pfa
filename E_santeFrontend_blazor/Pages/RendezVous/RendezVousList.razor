@@ -1,0 +1,69 @@
+@page "/rendezvous"
+@layout PatientLayout
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject NavigationManager Nav
+
+<PageTitle>Rendez-vous - E-Santé</PageTitle>
+
+<div class="page">
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Mes Rendez-vous</h1>
+      <p class="page-subtitle">Gérez vos consultations médicales</p>
+    </div>
+    <button class="btn-primary-action" @onclick="NewRendezvous">
+      <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+      </svg>
+      <span>Nouveau Rendez-vous</span>
+    </button>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading-state">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else if (rendezvous?.Count > 0)
+  {
+    <ul class="rendezvous-list">
+      @foreach(var r in rendezvous)
+      {
+        <li>@r.Date @r.Heure - @r.Lieu - @r.Statut</li>
+      }
+    </ul>
+  }
+  else
+  {
+    <div class="content-placeholder">
+      <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+        <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Fonctionnalité en cours de développement</h3>
+      <p>La gestion des rendez-vous sera bientôt disponible</p>
+    </div>
+  }
+</div>
+
+@code{
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.RendezvousDto> rendezvous = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      rendezvous = await RendezvousService.GetRendezvousAsync();
+    }
+    catch(Exception ex) { error = ex.Message; }
+    finally { loading = false; }
+  }
+
+  private void NewRendezvous() => Nav.NavigateTo("/rendezvous/new");
+}

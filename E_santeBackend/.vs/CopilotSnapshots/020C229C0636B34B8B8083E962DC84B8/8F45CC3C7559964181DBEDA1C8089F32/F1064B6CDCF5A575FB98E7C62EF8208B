@@ -1,0 +1,124 @@
+﻿using E_santeBackend.Application.DTOs.Admin;
+using E_santeBackend.Domain.Entities;
+using E_santeBackend.Infrastructure.Data;
+using E_santeBackend.Shared.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize(Roles = "Admin")]
+    public class AdminController : ControllerBase
+    {
+        private readonly EHealthDbContext _context;
+
+        public AdminController(EHealthDbContext context)
+        {
+            _context = context;
+        }
+
+        [HttpPost("medecins")]
+        public async Task<IActionResult> CreateMedecin([FromBody] CreateMedecinDto dto)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Nom == "Medecin");
+            if (role == null) return BadRequest(new { message = "Role Medecin introuvable" });
+
+            var existing = await _context.Comptes.FirstOrDefaultAsync(c => c.Email == dto.Email);
+            if (existing != null) return BadRequest(new { message = "Email d�j� utilis�" });
+
+            var compte = new CompteUtilisateur
+            {
+                Email = dto.Email ?? string.Empty,
+                MotDePasse = PasswordHasher.HashPassword(dto.Password ?? "Password123!"),
+                Actif = true,
+                RoleId = role.Id
+            };
+
+            _context.Comptes.Add(compte);
+            await _context.SaveChangesAsync();
+
+            var medecin = new Medecin
+            {
+                Nom = dto.Nom ?? string.Empty,
+                Prenom = dto.Prenom ?? string.Empty,
+                Specialite = dto.Specialite ?? string.Empty,
+                CodeMedecin = dto.CodeMedecin ?? string.Empty,
+                CompteUtilisateur = compte
+            };
+
+            _context.Medecins.Add(medecin);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(null, new { id = medecin.Id });
+        }
+
+        [HttpPost("pharmaciens")]
+        public async Task<IActionResult> CreatePharmacien([FromBody] CreatePharmacienDto dto)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Nom == "Pharmacien");
+            if (role == null) return BadRequest(new { message = "Role Pharmacien introuvable" });
+
+            var existing = await _context.Comptes.FirstOrDefaultAsync(c => c.Email == dto.Email);
+            if (existing != null) return BadRequest(new { message = "Email d�j� utilis�" });
+
+            // Validate Pharmacie existence to avoid FK exception
+            var pharmacie = await _context.Pharmacies.FirstOrDefaultAsync(p => p.Id == dto.PharmacieId);
+            if (pharmacie == null)
+            {
+                return BadRequest(new { message = "PharmacieId invalide: pharmacie introuvable" });
+            }
+
+            var compte = new CompteUtilisateur
+            {
+                Email = dto.Email ?? string.Empty,
+                MotDePasse = PasswordHasher.HashPassword(dto.Password ?? "Password123!"),
+                Actif = true,
+                RoleId = role.Id
+            };
+
+            _context.Comptes.Add(compte);
+            await _context.SaveChangesAsync();
+
+            var pharmacien = new Pharmacien
+            {
+                Nom = dto.Nom ?? string.Empty,
+                Prenom = dto.Prenom ?? string.Empty,
+                Telephone = dto.Telephone ?? string.Empty,
+                Licence = dto.Licence ?? string.Empty,
+                PharmacieId = dto.PharmacieId,
+                CompteUtilisateur = compte
+            };
+
+            _context.Pharmaciens.Add(pharmacien);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(null, new { id = pharmacien.Id });
+        }
+
+        [HttpPost("admins")]
+        public async Task<IActionResult> CreateAdmin([FromBody] CreateAdminDto dto)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Nom == "Admin");
+            if (role == null) return BadRequest(new { message = "Role Admin introuvable" });
+
+            var existing = await _context.Comptes.FirstOrDefaultAsync(c => c.Email == dto.Email);
+            if (existing != null) return BadRequest(new { message = "Email d�j� utilis�" });
+
+            var compte = new CompteUtilisateur
+            {
+                Email = dto.Email ?? string.Empty,
+                MotDePasse = PasswordHasher.HashPassword(dto.Password ?? "Admin123!"),
+                Actif = true,
+                RoleId = role.Id
+            };
+
+            _context.Comptes.Add(compte);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(null, new { id = compte.Id });
+        }
+    }
+}

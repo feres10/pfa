@@ -1,0 +1,110 @@
+﻿using E_santeBackend.Application.DTOs.Auth;
+using E_santeBackend.Application.Interfaces;
+using E_santeBackend.Domain.Entities;
+using E_santeBackend.Infrastructure.Data;
+using E_santeBackend.Shared.Helpers;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_santeBackend.Application.Services
+{
+    public class AuthService : IAuthService
+    {
+        private readonly EHealthDbContext _context;
+        private readonly JwtHelper _jwtHelper;
+
+        public AuthService(EHealthDbContext context, JwtHelper jwtHelper)
+        {
+            _context = context;
+            _jwtHelper = jwtHelper;
+        }
+
+        public async Task<string?> LoginAsync(LoginDto loginDto)
+        {
+            var compte = await _context.Comptes
+                .Include(c => c.Role)
+                .FirstOrDefaultAsync(c => c.Email == loginDto.Email);
+
+            if (compte == null || !compte.Actif)
+                return null;
+
+            if (string.IsNullOrEmpty(compte.MotDePasse) || !PasswordHasher.VerifyPassword(loginDto.Password, compte.MotDePasse))
+                return null;
+
+            // Resolve role name safely to avoid NRE when navigation property is missing
+            string roleName = compte.Role?.Nom
+                ?? await _context.Roles
+                        .Where(r => r.Id == compte.RoleId)
+                        .Select(r => r.Nom)
+                        .FirstOrDefaultAsync() ?? "User";
+
+            return _jwtHelper.GenerateToken(compte.Id, compte.Email, roleName);
+        }
+
+        public async Task<bool> RegisterAsync(RegisterDto registerDto)
+        {
+            var existingCompte = await _context.Comptes
+                .FirstOrDefaultAsync(c => c.Email == registerDto.Email);
+
+            if (existingCompte != null)
+                return false;
+
+            var role = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Nom == registerDto.Role);
+
+            if (role == null)
+                return false;
+
+            var compte = new CompteUtilisateur
+            {
+                Email = registerDto.Email,
+                MotDePasse = PasswordHasher.HashPassword(registerDto.Password),
+                Actif = true,
+                RoleId = role.Id
+            };
+
+            _context.Comptes.Add(compte);
+            await _context.SaveChangesAsync();
+
+            switch (registerDto.Role)
+            {
+                case "Patient":
+                    var patient = new Patient
+                    {
+                        Nom = registerDto.Nom,
+                        Prenom = registerDto.Prenom,
+                        Telephone = registerDto.Telephone ?? string.Empty,
+                        Cin = string.Empty,
+                        DateNaissance = DateTime.UtcNow
+                    };
+                    _context.Patients.Add(patient);
+                    break;
+
+                case "Medecin":
+                    var medecin = new Medecin
+                    {
+                        Nom = registerDto.Nom,
+                        Prenom = registerDto.Prenom,
+                        Specialite = string.Empty,
+                        CodeMedecin = string.Empty
+                    };
+                    _context.Medecins.Add(medecin);
+                    break;
+
+                case "Pharmacien":
+                    var pharmacien = new Pharmacien
+                    {
+                        Nom = registerDto.Nom,
+                        Prenom = registerDto.Prenom,
+                        Telephone = registerDto.Telephone ?? string.Empty,
+                        Licence = string.Empty,
+                        PharmacieId = 1
+                    };
+                    _context.Pharmaciens.Add(pharmacien);
+                    break;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+    }
+}

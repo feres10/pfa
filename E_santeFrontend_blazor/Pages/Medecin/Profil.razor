@@ -1,0 +1,178 @@
+@page "/medecin/profil"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.MedecinService MedecinService
+@inject E_santeFrontend.Services.AdminService AdminService
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+@inject NavigationManager Nav
+
+<PageTitle>Mon profil</PageTitle>
+
+<div class="profile-page">
+  <div class="header">
+    <h1>Mon profil</h1>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement du profil...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="loading">@error</div>
+  }
+  else if (model != null)
+  {
+    <div class="profile-header">
+      <div class="header-left">
+        <div class="avatar">@GetInitials()</div>
+        <div class="identity">
+          <h1>@(model.Nom) @(model.Prenom)</h1>
+          <div class="role-badge">Médecin · @model.Specialite</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" @onclick="Save">Enregistrer</button>
+        <button class="btn btn-outline" @onclick="Back">Retour</button>
+      </div>
+    </div>
+
+    <div class="profile-content">
+      <div class="info-card">
+        <div class="profile-card">
+          <div class="profile-row">
+            <div class="label">Nom</div>
+            <div class="value"><input @bind="edit.Nom" /></div>
+          </div>
+          <div class="profile-row">
+            <div class="label">Prénom</div>
+            <div class="value"><input @bind="edit.Prenom" /></div>
+          </div>
+          <div class="profile-row">
+            <div class="label">Email</div>
+            <div class="value"><input @bind="edit.Email" type="email" /></div>
+          </div>
+          <div class="profile-row">
+            <div class="label">Spécialité</div>
+            <div class="value"><input @bind="edit.Specialite" /></div>
+          </div>
+          <div class="profile-row">
+            <div class="label">Code</div>
+            <div class="value"><input @bind="edit.CodeMedecin" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="security-card">
+        <h2>Paramètres</h2>
+        <div class="info-row">
+          <div class="label">Identifiant</div>
+          <div class="value">@model.Id</div>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
+
+@code{
+  private E_santeFrontend.Models.MedecinDto? model;
+  private E_santeFrontend.Models.MedecinUpdateDto edit = new();
+  private bool loading = true;
+  private string? error;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var token = await Storage.GetItemAsync("auth_token");
+      int medecinId = 0;
+      if (!string.IsNullOrWhiteSpace(token))
+      {
+        // Normalize token if stored as JSON envelope like {"token":"..."}
+        var t = token.Trim();
+        if (t.StartsWith("{") && t.Contains("token", System.StringComparison.OrdinalIgnoreCase))
+        {
+          try
+          {
+            using var doc = System.Text.Json.JsonDocument.Parse(t);
+            if (doc.RootElement.TryGetProperty("token", out var tv))
+            {
+              var clean = tv.GetString();
+              if (!string.IsNullOrWhiteSpace(clean)) token = clean;
+            }
+          }
+          catch { }
+        }
+
+        medecinId = TryGetSubFromJwt(token);
+      }
+
+      // Fallback: try to get first medecin via API (useful in dev or if token lacks sub)
+      if (medecinId <= 0)
+      {
+        try
+        {
+          var list = await AdminService.GetMedecinsAsync();
+          medecinId = list?.FirstOrDefault()?.Id ?? 0;
+        }
+        catch { medecinId = 0; }
+      }
+
+      if (medecinId <= 0)
+      {
+        error = "Impossible d'identifier le médecin";
+        return;
+      }
+
+      model = await MedecinService.GetByIdAsync(medecinId);
+      if (model != null)
+      {
+        edit.Nom = model.Nom; edit.Prenom = model.Prenom; edit.Email = model.Email; edit.Specialite = model.Specialite; edit.CodeMedecin = model.CodeMedecin;
+      }
+    }
+    catch(Exception ex) { error = ex.Message; }
+    finally { loading = false; }
+  }
+
+  private async Task Save()
+  {
+    if (model == null) return;
+    var ok = await MedecinService.UpdateAsync(model.Id, edit);
+    if (!ok) error = "Échec de la mise à jour";
+    else Nav.NavigateTo("/dashboard/medecin");
+  }
+
+  private void Back() => Nav.NavigateTo("/dashboard/medecin");
+
+  private int TryGetSubFromJwt(string jwt)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return 0;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4)
+      {
+        case 2: payload += "=="; break;
+        case 3: payload += "="; break;
+      }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty("sub", out var s)) return s.GetInt32();
+      return 0;
+    }
+    catch { return 0; }
+  }
+
+  private string GetInitials()
+  {
+    if (model == null) return "M";
+    var n = (model.Nom ?? string.Empty).Trim();
+    var p = (model.Prenom ?? string.Empty).Trim();
+    var first = n.Length > 0 ? n[0].ToString().ToUpperInvariant() : string.Empty;
+    var second = p.Length > 0 ? p[0].ToString().ToUpperInvariant() : string.Empty;
+    var initials = (first + second).Trim();
+    return string.IsNullOrEmpty(initials) ? "M" : initials;
+  }
+}

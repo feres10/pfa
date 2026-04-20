@@ -1,0 +1,109 @@
+﻿@page "/dashboard/patient"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Dashboard Patient</PageTitle>
+
+<h3 class="mb-4">Tableau de bord Patient</h3>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Rendez-vous" Subtitle="À venir" Value="@rdvCount" Icon="bi-calendar-event" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Ordonnances" Subtitle="Actives" Value="@ordonnancesCount" Icon="bi-file-medical" /></div>
+    <div class="col-12 col-md-3"><Components.CardInfo Title="Notifications" Subtitle="Non lues" Value="5" Icon="bi-bell" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-8">
+      <Components.StatChart Title="Activité" Subtitle="7 derniers jours" Data="@activityData" />
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Actions rapides</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" @onclick="@(() => Nav.NavigateTo(\"/rendezvous\"))">Voir les rendez-vous</button>
+            <button class="btn btn-secondary" @onclick="@(() => Nav.NavigateTo(\"/ordonnances\"))">Mes ordonnances</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Prochains rendez-vous</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var r in (upcomingRdv ?? new List<(DateTime date, string subject)>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@r.date.ToShortDateString()</span>
+                <span class="text-muted small">@r.subject</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3">Ordonnances récentes</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var o in (recentOrdonnances ?? Enumerable.Empty<E_santeFrontend.Models.OrdonnanceDto>()))
+            {
+              <li class="d-flex justify-content-between align-items-center py-2 border-bottom border-opacity-25">
+                <span>@o.Description</span>
+                <a href="/ordonnances/@o.Id" class="text-muted small">Voir</a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string rdvCount = "2";
+  private string ordonnancesCount = "0";
+  private int[] activityData = new[] { 2, 3, 1, 4, 3, 2, 5 };
+  private List<E_santeFrontend.Models.OrdonnanceDto>? recentOrdonnances;
+  private List<(DateTime date, string subject)>? upcomingRdv = new()
+  {
+    (DateTime.Now.AddDays(1), "Consultation générale"),
+    (DateTime.Now.AddDays(3), "Suivi traitement"),
+  };
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      ordonnancesCount = (ords?.Count ?? 0).ToString();
+      recentOrdonnances = ords?.Take(5).ToList();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

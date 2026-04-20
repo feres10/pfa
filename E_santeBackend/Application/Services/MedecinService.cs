@@ -1,0 +1,66 @@
+using E_santeBackend.Application.DTOs.Medecin;
+using E_santeBackend.Application.Interfaces;
+using E_santeBackend.Infrastructure.Repositories;
+
+namespace E_santeBackend.Application.Services
+{
+    public class MedecinService : IMedecinService
+    {
+        private readonly MedecinRepository _repository;
+
+        public MedecinService(MedecinRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<List<MedecinReadDto>> GetAllAsync()
+        {
+            var medecins = await _repository.GetAllAsync();
+            return medecins.Select(m => new MedecinReadDto
+            {
+                Id = m.Id,
+                Nom = m.Nom,
+                Prenom = m.Prenom,
+                Email = m.CompteUtilisateur != null ? m.CompteUtilisateur.Email : string.Empty,
+                Specialite = m.Specialite,
+                CodeMedecin = m.CodeMedecin
+            }).ToList();
+        }
+
+        public async Task<MedecinReadDto?> GetByIdAsync(int id)
+        {
+            var medecin = await _repository.GetByIdAsync(id);
+            if (medecin == null) return null;
+
+            return new MedecinReadDto
+            {
+                Id = medecin.Id,
+                Nom = medecin.Nom,
+                Prenom = medecin.Prenom,
+                Email = medecin.CompteUtilisateur != null ? medecin.CompteUtilisateur.Email : string.Empty,
+                Specialite = medecin.Specialite,
+                CodeMedecin = medecin.CodeMedecin
+            };
+        }
+
+        public async Task<bool> UpdateAsync(int id, MedecinUpdateDto dto)
+        {
+            var medecin = await _repository.GetByIdAsync(id);
+            if (medecin == null) return false;
+
+            if (!string.IsNullOrEmpty(dto.Specialite)) medecin.Specialite = dto.Specialite;
+            if (!string.IsNullOrEmpty(dto.CodeMedecin)) medecin.CodeMedecin = dto.CodeMedecin;
+
+            await _repository.UpdateAsync(medecin);
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var medecin = await _repository.GetByIdAsync(id);
+            if (medecin == null) return false;
+            await _repository.DeleteAsync(medecin);
+            return true;
+        }
+    }
+}

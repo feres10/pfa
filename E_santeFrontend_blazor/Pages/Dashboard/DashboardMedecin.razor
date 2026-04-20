@@ -1,0 +1,327 @@
+@page "/dashboard/medecin"
+@layout MedecinLayout
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Tableau de bord Médecin</PageTitle>
+
+<div class="medecin-dashboard-content">
+  @if (loading)
+  {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Chargement de vos données...</p>
+    </div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">
+      <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+      </svg>
+      <span>@error</span>
+    </div>
+  }
+  else
+  {
+    <!-- Header Section -->
+    <div class="page-header">
+      <div class="header-content">
+        <h1 class="page-title">Bonjour, @doctorDisplayName</h1>
+        <p class="page-subtitle">Vous avez @rdvToday patients aujourd'hui</p>
+      </div>
+      <button class="btn-primary-action" @onclick="GoToNewOrdonnance">
+        <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+        </svg>
+        <span>Nouvelle Ordonnance</span>
+      </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+      <div class="stat-card stat-card-1">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@rdvToday</div>
+          <div class="stat-label">Patients aujourd'hui</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-2">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@consultationsSemaine</div>
+          <div class="stat-label">Consultations semaine</div>
+          <div class="stat-trend positive">@consultationsTrend</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-3">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@ordonnancesCount</div>
+          <div class="stat-label">Ordonnances émises</div>
+        </div>
+      </div>
+
+      <div class="stat-card stat-card-4">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">@patientsSuivis</div>
+          <div class="stat-label">Patients suivis</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="content-grid">
+      <!-- Left Column -->
+      <div class="content-column">
+        <!-- Chart Card -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Consultations par Jour
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <div class="chart-bars">
+                @foreach (var (value, index) in activityData.Select((v, i) => (v, i)))
+                {
+                  <div class="chart-bar-wrapper">
+                    <div class="chart-bar" style="height: @(value * 3)px">
+                      <span class="bar-value">@value</span>
+                    </div>
+                    <span class="bar-label">@GetDayLabel(index)</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordonnances Table -->
+        <div class="card ordonnances-table-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Dernières Ordonnances
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="modern-table">
+                <thead>
+                  <tr>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Médicaments</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @if (recentOrdonnances?.Any() == true)
+                  {
+                    @foreach (var o in recentOrdonnances)
+                    {
+                      <tr>
+                        <td>
+                          <div class="patient-cell">
+                            <div class="patient-avatar">@GetInitials(o.PatientName)</div>
+                            <span>@o.PatientName</span>
+                          </div>
+                        </td>
+                        <td>@o.Date</td>
+                        <td><span class="pills-count">@o.MedsCount</span></td>
+                        <td><span class="badge">@o.Statut</span></td>
+                      </tr>
+                    }
+                  }
+                  else
+                  {
+                    <tr><td colspan="4">Aucune ordonnance récente</td></tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="content-column">
+        <!-- Today's Appointments -->
+        <div class="card appointments-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Rendez-vous du Jour
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="appointments-list">
+              @if (todayAppointments?.Any() == true)
+              {
+                @foreach (var a in todayAppointments)
+                {
+                  <div class="appointment-item">
+                    <div class="appointment-time">@a.Heure</div>
+                    <div class="appointment-patient">
+                      <div class="patient-avatar">@GetInitials(a.PatientName)</div>
+                      <div class="patient-info">
+                        <h4 class="patient-name">@a.PatientName</h4>
+                        <p class="patient-reason">@a.Reason</p>
+                      </div>
+                    </div>
+                  </div>
+                }
+              }
+              else
+              {
+                <div>Aucun rendez-vous aujourd'hui</div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading = true;
+  private string? error;
+
+  private int medecinId = 0;
+  private int rdvToday = 0;
+  private int ordonnancesCount = 0;
+  private int consultationsSemaine = 0;
+  private string consultationsTrend = "+0% vs mois dernier";
+  private int patientsSuivis = 0;
+  private int[] activityData = new int[7];
+
+  private string doctorDisplayName = "Dr.";
+
+  private List<(int Id, string PatientName, string Date, int MedsCount, string Statut)>? recentOrdonnances;
+  private List<(string Heure, string PatientName, string Reason)>? todayAppointments;
+
+  private void GoToNewOrdonnance() => Nav.NavigateTo("/ordonnances/nouvelle");
+
+  private string GetDayLabel(int index)
+  {
+    return index switch
+    {
+      0 => "Lun",
+      1 => "Mar",
+      2 => "Mer",
+      3 => "Jeu",
+      4 => "Ven",
+      5 => "Sam",
+      6 => "Dim",
+      _ => ""
+    };
+  }
+
+  private string GetInitials(string name)
+  {
+    var parts = (name ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length >= 2) return ($"{parts[0][0]}{parts[1][0]}").ToUpper();
+    return name?.Length > 0 ? name![0].ToString().ToUpper() : "?";
+  }
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      var rdvs = await RendezvousService.GetRendezvousAsync();
+      var medecins = await AdminService.GetMedecinsAsync();
+
+      // Determine medecinId from logged user if possible, otherwise first medecin
+      medecinId = medecins?.FirstOrDefault()?.Id ?? 0;
+      doctorDisplayName = medecins?.FirstOrDefault() is var md && md != null ? $"Dr. {md.Prenom} {md.Nom}" : "Dr.";
+
+      // Filter data by medecinId
+      var myPatients = patients?.Where(p => true).ToList() ?? new List<E_santeFrontend.Models.PatientDto>(); // replace with actual relation if available
+
+      var myOrdonnances = ords?.Where(o => o.MedecinId == medecinId).ToList() ?? new List<E_santeFrontend.Models.OrdonnanceDto>();
+      ordonnancesCount = myOrdonnances.Count;
+
+      var weekAgo = DateTime.UtcNow.Date.AddDays(-6);
+      var parsedRdvs = rdvs ?? new List<E_santeFrontend.Models.RendezvousDto>();
+      var myRdvs = parsedRdvs.Where(r => r.MedecinId == medecinId).ToList();
+
+      // appointments today
+      var today = DateTime.UtcNow.Date;
+      todayAppointments = myRdvs
+        .Where(r => DateTime.TryParse(r.Date, out var d) && DateTime.Parse(r.Date).Date == today)
+        .Select(r => (Heure: r.Heure ?? "", PatientName: GetPatientName(patients, r.PatientId), Reason: "Consultation"))
+        .ToList();
+
+      rdvToday = todayAppointments.Count;
+
+      // consultations this week
+      consultationsSemaine = myRdvs.Count(r => DateTime.TryParse(r.Date, out var d) && DateTime.Parse(r.Date).Date >= weekAgo && DateTime.Parse(r.Date).Date <= today);
+
+      // build activityData for last 7 days
+      for (int i = 0; i < 7; i++)
+      {
+        var day = weekAgo.AddDays(i);
+        activityData[i] = myRdvs.Count(r => DateTime.TryParse(r.Date, out var d) && DateTime.Parse(r.Date).Date == day);
+      }
+
+      // recent ordonnances (take 6)
+      recentOrdonnances = myOrdonnances
+        .OrderByDescending(o => DateTime.TryParse(o.Date, out var d) ? DateTime.Parse(o.Date) : DateTime.MinValue)
+        .Take(6)
+        .Select(o => (o.Id, PatientName: GetPatientName(patients, o.PatientId), Date: o.Date ?? "", MedsCount: 0, Statut: o.Statut ?? ""))
+        .ToList();
+
+      // patients suivis: count of unique patient ids in myOrdonnances or consultations
+      patientsSuivis = myOrdonnances.Select(o => o.PatientId).Distinct().Count();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+
+  private string GetPatientName(List<E_santeFrontend.Models.PatientDto>? patients, int id)
+  {
+    return (patients?.FirstOrDefault(p => p.Id == id)?.Prenom ?? "") + " " + (patients?.FirstOrDefault(p => p.Id == id)?.Nom ?? "");
+  }
+}

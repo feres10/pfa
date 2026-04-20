@@ -1,0 +1,23 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace E_santeFrontend.Models
+{
+    public class PatientCreateDto
+    {
+        [Required(ErrorMessage = "Le nom est requis")]
+        public string Nom { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Le prénom est requis")]
+        public string Prenom { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "La date de naissance est requise")]
+        public DateTime DateNaissance { get; set; } = DateTime.Now.AddYears(-30);
+
+        [Required(ErrorMessage = "Le CIN est requis")]
+        public string Cin { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Le téléphone est requis")]
+        [Phone(ErrorMessage = "Le format du téléphone n'est pas valide")]
+        public string Telephone { get; set; } = string.Empty;
+    }
+}

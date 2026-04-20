@@ -1,0 +1,59 @@
+﻿@page "/ordonnances"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.OrdonnanceService Ordonnances
+
+<PageTitle>Ordonnances</PageTitle>
+
+<h1 class="mb-4">Ordonnances</h1>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+    <E_santeFrontend.Components.DataTable HasRows="@(items?.Count > 0)" EmptyState="<p class=\"text-muted m-0\">Aucune ordonnance trouvée.</p>">
+        <ChildContent>
+            <th>#</th>
+            <th>Patient</th>
+            <th>Description</th>
+        </ChildContent>
+        <Rows>
+            @foreach (var o in items!)
+            {
+                <tr>
+                    <td>@o.Id</td>
+                    <td>@o.PatientId</td>
+                    <td>@o.Description</td>
+                </tr>
+            }
+        </Rows>
+    </E_santeFrontend.Components.DataTable>
+}
+
+@code {
+    private List<OrdonnanceDto>? items;
+    private bool loading;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            items = await Ordonnances.GetOrdonnancesAsync();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

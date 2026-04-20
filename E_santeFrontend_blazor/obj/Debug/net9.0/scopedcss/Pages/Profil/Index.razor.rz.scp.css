@@ -1,0 +1,12 @@
+.page[b-qdyce6cda8] { padding: 2rem; }
+.page h1[b-qdyce6cda8] { font-size:2rem; color:#0b1220; }
+.muted[b-qdyce6cda8] { color:#6b7280; }
+.card[b-qdyce6cda8] { max-width:520px; margin-top:1.5rem; background:#fff; padding:1.25rem; border-radius:12px; border:1px solid #eef2ff; box-shadow:0 10px 30px rgba(2,6,23,0.04); }
+.card-row[b-qdyce6cda8] { display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid #f1f5f9; }
+.card-row strong[b-qdyce6cda8] { color:#374151; }
+.card-row span[b-qdyce6cda8] { color:#111827; }
+
+@media (max-width:700px) {
+  .page[b-qdyce6cda8] { padding:1rem; }
+  .card[b-qdyce6cda8] { width:100%; }
+}

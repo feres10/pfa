@@ -1,0 +1,147 @@
+﻿@page "/dashboard/patient"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+
+<PageTitle>Tableau de bord</PageTitle>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-outline-primary" @onclick="GoToRendezvous"><i class="bi bi-calendar"></i> Prendre Rendez-vous</button>
+  </div>
+
+  <h5 class="mb-2">Bonjour, Sophie</h5>
+  <p class="text-muted mb-4">Bienvenue dans votre espace santé personnel</p>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Ordonnances Actives" Subtitle="" Value="@ordonnancesCount" Icon="bi-file-medical" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Prochain RDV" Subtitle="" Value="@nextRdvDate" Icon="bi-calendar-event" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Médicaments en Cours" Subtitle="" Value="@medsInProgress" Icon="bi-capsule" /></div>
+    <div class="col-12 col-lg-3"><Components.CardInfo Title="Notifications" Subtitle="" Value="@notificationsCount" Icon="bi-bell" /></div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-7">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3"><i class="bi bi-clock me-2"></i>Prochain Rendez-vous</h6>
+          <div class="d-flex align-items-center mb-3">
+            <div class="me-3 text-center" style="width:64px;">
+              <div class="fw-bold fs-5">@nextRdvDate</div>
+            </div>
+            <div>
+              <div class="fw-semibold">Dr. Laurent</div>
+              <div class="text-muted small">Médecine générale</div>
+              <div class="text-muted small"><i class="bi bi-clock me-1"></i>10:30</div>
+            </div>
+          </div>
+          <div class="text-muted small mb-3"><i class="bi bi-geo-alt me-1"></i>15 Rue de la Santé, 75014 Paris</div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-light flex-fill" @onclick="GoToRendezvous">Modifier</button>
+            <button class="btn btn-danger flex-fill">Annuler</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow mt-3">
+        <div class="card-body">
+          <h6 class="mb-3"><i class="bi bi-file-medical me-2"></i>Mes Ordonnances</h6>
+          <ul class="list-unstyled m-0">
+            @foreach (var o in (recentOrdonnances ?? Enumerable.Empty<E_santeFrontend.Models.OrdonnanceDto>()))
+            {
+              <li class="py-2 border-bottom border-opacity-25">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <div class="fw-semibold">@o.Description</div>
+                    <div class="text-muted small">Dr. Laurent • 15 Jan 2024</div>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-secondary">active</span>
+                  </div>
+                </div>
+              </li>
+            }
+          </ul>
+          <div class="text-center mt-3">
+            <a href="/ordonnances" class="small">Voir toutes mes ordonnances</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h6 class="mb-3"><i class="bi bi-person-badge me-2"></i>Mon Médecin Traitant</h6>
+          <div class="fw-semibold mb-1">Dr. Marie Laurent</div>
+          <div class="text-muted small mb-2">Médecine générale</div>
+          <div class="text-muted small mb-1"><i class="bi bi-telephone me-1"></i>01 23 45 67 89</div>
+          <div class="text-muted small mb-3"><i class="bi bi-geo-alt me-1"></i>15 Rue de la Santé, 75014 Paris</div>
+          <button class="btn btn-light w-100">Contacter</button>
+        </div>
+      </div>
+
+      <div class="card shadow mt-3">
+        <div class="card-body">
+          <h6 class="mb-3"><i class="bi bi-bell me-2"></i>Notifications</h6>
+          <div class="list-group">
+            <div class="list-group-item bg-transparent text-white border-light mb-2">
+              <div class="fw-semibold">Rappel rendez-vous</div>
+              <div class="text-muted small">Vous avez un rendez-vous demain à 10h</div>
+            </div>
+            <div class="list-group-item bg-transparent text-white border-light mb-2">
+              <div class="fw-semibold">Ordonnance prête</div>
+              <div class="text-muted small">Votre ordonnance est disponible en pharmacie</div>
+            </div>
+            <div class="list-group-item bg-transparent text-white border-light">
+              <div class="fw-semibold">Stock faible</div>
+              <div class="text-muted small">Amoxicilline 500mg en rupture de stock</div>
+            </div>
+          </div>
+          <div class="text-end mt-3">
+            <button class="btn btn-light btn-sm">Marquer tout comme lu</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+  private bool loading;
+  private string? error;
+  private string ordonnancesCount = "0";
+  private string notificationsCount = "2";
+  private string medsInProgress = "4";
+  private string nextRdvDate = "20 Jan";
+  private List<E_santeFrontend.Models.OrdonnanceDto>? recentOrdonnances;
+
+  private void GoToRendezvous() => Nav.NavigateTo("/rendezvous");
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      ordonnancesCount = (ords?.Count ?? 0).ToString();
+      recentOrdonnances = ords?.Take(2).ToList();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

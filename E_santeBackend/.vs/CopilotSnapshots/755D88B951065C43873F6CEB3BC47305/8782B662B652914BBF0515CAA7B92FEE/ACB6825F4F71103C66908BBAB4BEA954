@@ -1,0 +1,84 @@
+﻿@page "/rendezvous/new"
+@layout PatientLayout
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject NavigationManager Nav
+
+<PageTitle>Nouveau rendez-vous</PageTitle>
+
+<div class="page">
+  <h1>Prendre rendez-vous</h1>
+  <p class="muted">Choisissez une date et une heure</p>
+
+  @if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+
+  <div class="form-row">
+    <label>Date</label>
+    <input type="date" value="@date" @onchange="OnDateChanged" />
+  </div>
+  <div class="form-row">
+    <label>Heure</label>
+    <input type="time" value="@heure" @onchange="OnHeureChanged" />
+  </div>
+  <div class="form-row">
+    <label>Médecin Id</label>
+    <input type="number" value="@medecinId" @onchange="OnMedecinChanged" />
+  </div>
+  <div class="form-row">
+    <label>Lieu</label>
+    <input type="text" value="@lieu" @onchange="OnLieuChanged" />
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" @onclick="Create">Prendre</button>
+    <button class="btn-outline" @onclick="Cancel">Annuler</button>
+  </div>
+</div>
+
+@code{
+  private string? date;
+  private string? heure;
+  private int medecinId;
+  private string? lieu;
+  private string? error;
+
+  private void OnDateChanged(ChangeEventArgs e) => date = e?.Value?.ToString();
+  private void OnHeureChanged(ChangeEventArgs e) => heure = e?.Value?.ToString();
+  private void OnLieuChanged(ChangeEventArgs e) => lieu = e?.Value?.ToString();
+  private void OnMedecinChanged(ChangeEventArgs e) { if (int.TryParse(e?.Value?.ToString(), out var v)) medecinId = v; }
+
+  private async Task Create()
+  {
+    error = null;
+    try
+    {
+      // try to resolve current patient id from PatientService (take first as placeholder)
+      var patients = await PatientService.GetPatientsAsync();
+      var patientId = patients?.FirstOrDefault()?.Id ?? 0;
+
+      var dto = new {
+        PatientId = patientId,
+        MedecinId = medecinId,
+        Date = date,
+        Heure = heure,
+        Lieu = lieu
+      };
+
+      var created = await RendezvousService.CreateAsync(dto);
+      if (created != null)
+      {
+        Nav.NavigateTo($"/rendezvous/{created.Id}");
+      }
+      else
+      {
+        error = "Impossible de créer le rendez-vous";
+      }
+    }
+    catch (Exception ex) { error = ex.Message; }
+  }
+
+  private void Cancel() => Nav.NavigateTo("/rendezvous");
+}

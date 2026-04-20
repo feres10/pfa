@@ -1,0 +1,74 @@
+﻿@page "/ordonnances/nouvelle"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Nouvelle Ordonnance</PageTitle>
+
+<div class="page">
+  <h1>Nouvelle Ordonnance</h1>
+
+  <div class="form-row">
+    <label>Patient</label>
+    <select @bind="selectedPatientId">
+      <option value="0">-- Choisir --</option>
+      @foreach(var p in patients)
+      {
+        <option value="@p.Id">@p.Prenom @p.Nom</option>
+      }
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label>Médicaments (format: id:qty:price, une par ligne)</label>
+    <textarea @bind="lines" rows="6" style="width:100%"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" @onclick="Create">Créer</button>
+    <button class="btn-outline" @onclick="() => Nav.NavigateTo('/medecin/ordonnances')">Annuler</button>
+  </div>
+</div>
+
+@code{
+  private List<E_santeFrontend.Models.PatientDto> patients = new();
+  private int selectedPatientId;
+  private string lines = string.Empty;
+  private string? error;
+
+  protected override async Task OnInitializedAsync()
+  {
+    patients = await PatientService.GetPatientsAsync();
+    var uri = Nav.ToAbsoluteUri(Nav.Uri);
+    if (Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query).TryGetValue("patientId", out var pid))
+    {
+      if (int.TryParse(pid, out var v)) selectedPatientId = v;
+    }
+  }
+
+  private async Task Create()
+  {
+    error = null;
+    if (selectedPatientId <= 0) { error = "Choisir un patient"; return; }
+    var dto = new {
+      PatientId = selectedPatientId,
+      PharmacienId = 1,
+      MedecinId = 1,
+      Lignes = lines.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(l => {
+        var parts = l.Split(':');
+        return new { MedicamentId = int.Parse(parts[0]), Quantite = int.Parse(parts[1]), PrixUnitaire = decimal.Parse(parts[2]) };
+      }).ToList()
+    };
+
+    var created = await OrdonnanceService.CreateAsync(dto);
+    if (created != null)
+    {
+      Nav.NavigateTo($"/ordonnances/{created.Id}");
+    }
+    else
+    {
+      error = "Impossible de créer l'ordonnance";
+    }
+  }
+}

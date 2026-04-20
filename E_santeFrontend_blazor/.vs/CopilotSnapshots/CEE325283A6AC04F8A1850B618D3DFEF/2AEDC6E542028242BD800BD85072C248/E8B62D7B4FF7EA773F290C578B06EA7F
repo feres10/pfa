@@ -1,0 +1,57 @@
+﻿@using E_santeFrontend.Components
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">E-santé</a>
+        <Components.NotificationBell Count="3" />
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="nav flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Accueil</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/login">Connexion</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/register">Inscription</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/patients">Patients</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/ordonnances">Ordonnances</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/medicaments">Médicaments</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/stock/movements">Stock</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/rendezvous">Rendez-vous</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/dashboard/patient">Dashboard Patient</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/dashboard/medecin">Dashboard Médecin</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/dashboard/pharmacien">Dashboard Pharmacien</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/dashboard/admin">Dashboard Admin</NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private void ToggleNavMenu() => collapseNavMenu = !collapseNavMenu;
+}

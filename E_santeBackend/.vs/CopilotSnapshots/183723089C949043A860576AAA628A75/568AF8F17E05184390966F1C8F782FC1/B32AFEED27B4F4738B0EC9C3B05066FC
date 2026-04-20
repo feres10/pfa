@@ -1,0 +1,139 @@
+﻿@page "/dashboard/admin"
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.NotificationService NotificationService
+
+<PageTitle>Tableau de bord</PageTitle>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <h5 class="mb-1">Bienvenue, Administrateur</h5>
+  <p class="text-muted mb-4">Voici un aperçu de votre système de santé</p>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Total Utilisateurs" Subtitle="+1% vs mois dernier" Value="@patientsCount" Icon="bi-people" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Patients Enregistrés" Subtitle="+6% vs mois dernier" Value="@patientsCount" Icon="bi-person-badge" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Médecins Actifs" Subtitle="" Value="@medecinsActifs" Icon="bi-heart-pulse" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Ordonnances Actives" Subtitle="+5% vs mois dernier" Value="@ordonnancesCount" Icon="bi-receipt" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Médicaments en Stock" Subtitle="" Value="@medicamentsCount" Icon="bi-capsule" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Alertes Stock" Subtitle="" Value="@alertsCount" Icon="bi-exclamation-triangle" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-xl-7">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Nouvelles Inscriptions</h6>
+          <Components.StatChart Title="Inscriptions" Subtitle="Oct - Jan" Data="@activityData" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-5">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Derniers Patients Inscrits</h6>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Nom</th><th>Prénom</th><th>Âge</th><th>Téléphone</th><th>Dernier RDV</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (var p in (recentPatients ?? Enumerable.Empty<E_santeFrontend.Models.PatientDto>()))
+                {
+                  <tr>
+                    <td>@p.Nom</td><td>@p.Prenom</td><td>—</td><td>@p.Telephone</td><td>—</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <h6 class="mb-3">État des Stocks Médicaments</h6>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Médicament</th><th>Catégorie</th><th>Stock</th><th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var m in (medsTable ?? Enumerable.Empty<(string name, string category, int stock)>()))
+            {
+              var status = m.stock < 20 ? "Stock faible" : "OK";
+              <tr>
+                <td>@m.name</td><td>@m.category</td><td>@m.stock</td>
+                <td>
+                  @if (status == "Stock faible")
+                  {
+                    <span class="badge bg-warning">@status</span>
+                  }
+                  else
+                  {
+                    <span class="badge bg-success">@status</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+    private string patientsCount = "0";
+    private string medicamentsCount = "0";
+    private string ordonnancesCount = "0";
+    private string medecinsActifs = "45";
+    private string alertsCount = "1";
+    private bool loading;
+    private string? error;
+    private int[] activityData = new[] { 200, 400, 600, 800 };
+    private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+    private List<(string name, string category, int stock)>? medsTable;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            var patients = await PatientService.GetPatientsAsync();
+            var meds = await MedicamentService.GetMedicamentsAsync();
+            var ords = await OrdonnanceService.GetOrdonnancesAsync();
+            var notes = await NotificationService.GetNotificationsAsync();
+
+            patientsCount = (patients?.Count ?? 0).ToString();
+            medicamentsCount = (meds?.Count ?? 0).ToString();
+            ordonnancesCount = (ords?.Count ?? 0).ToString();
+            recentPatients = patients?.Take(5).ToList();
+            medsTable = meds?.Take(6).Select(x => (x.Nom, x.Categorie ?? "—", x.Stock)).ToList();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

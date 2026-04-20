@@ -1,0 +1,237 @@
+﻿@page "/admin/statistiques"
+@layout AdminLayout
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Statistiques - Admin</PageTitle>
+
+<div class="stats-page">
+  <div class="stats-header">
+    <h1>Statistiques</h1>
+    <div class="header-actions">
+      <button class="btn btn-refresh" @onclick="LoadAsync">Rafraîchir</button>
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement des statistiques...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="error">@error</div>
+  }
+  else
+  {
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-left">
+          <div class="stat-icon icon-patients" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z" fill="#fff"/><path d="M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4v1H4v-1z" fill="#fff" opacity=".9"/></svg>
+          </div>
+          <div>
+            <div class="stat-label">Patients</div>
+            <div class="stat-value">@patientsCount <span class="stat-badge">@ComputeTrend(activityDataPatients)</span></div>
+          </div>
+        </div>
+        <div class="stat-chart">@((MarkupString)RenderSparkline(activityDataPatients, "#60A5FA"))</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-left">
+          <div class="stat-icon icon-medecins" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a4 4 0 100 8 4 4 0 000-8z" fill="#fff"/><path d="M4 20c0-2.21 3.58-4 8-4s8 1.79 8 4v1H4v-1z" fill="#fff" opacity=".9"/></svg>
+          </div>
+          <div>
+            <div class="stat-label">Médecins</div>
+            <div class="stat-value">@medecinsCount <span class="stat-badge">@ComputeTrend(activityDataMedecins)</span></div>
+          </div>
+        </div>
+        <div class="stat-chart">@((MarkupString)RenderSparkline(activityDataMedecins, "#F472B6"))</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-left">
+          <div class="stat-icon icon-ords" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="16" height="18" rx="2" fill="#fff"/><path d="M8 7h8" stroke="#fff" stroke-width="1.2" opacity=".9"/></svg>
+          </div>
+          <div>
+            <div class="stat-label">Ordonnances</div>
+            <div class="stat-value">@ordonnancesCount <span class="stat-badge">@ComputeTrend(activityDataOrdonnances)</span></div>
+          </div>
+        </div>
+        <div class="stat-chart">@((MarkupString)RenderSparkline(activityDataOrdonnances, "#34D399"))</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-left">
+          <div class="stat-icon icon-meds" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 12h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M12 7v10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="stat-label">Médicaments</div>
+            <div class="stat-value">@medicamentsCount <span class="stat-badge">@ComputeTrend(activityDataMedicaments)</span></div>
+          </div>
+        </div>
+        <div class="stat-chart">@((MarkupString)RenderSparkline(activityDataMedicaments, "#F59E0B"))</div>
+      </div>
+    </div>
+
+    <div class="panels">
+      <section class="panel left">
+        <h2>Activité récente</h2>
+        <p class="muted">Derniers chiffres agrégés du système.</p>
+        <ul>
+          <li>Total utilisateurs: <strong>@totalUsers</strong></li>
+          <li>Patients récents: <strong>@(recentPatients?.Count ?? 0)</strong></li>
+        </ul>
+
+        <h3>Derniers patients</h3>
+        <div class="recent-list">
+          @if (recentPatients?.Any() == true)
+          {
+            foreach (var p in recentPatients)
+            {
+              <div class="recent-item">
+                <div class="recent-avatar">@GetInitials(p.Nom, p.Prenom)</div>
+                <div class="recent-info">
+                  <div class="name">@p.Prenom @p.Nom</div>
+                  <div class="meta">@p.Telephone ?? "—"</div>
+                </div>
+              </div>
+            }
+          }
+          else
+          {
+            <div class="no-data">Aucun patient récent</div>
+          }
+        </div>
+      </section>
+
+      <section class="panel right">
+        <h2>Tendances</h2>
+        <p class="muted">Vue d'ensemble sur les dernières périodes.</p>
+        <div class="trend-list">
+          <div class="trend">
+            <div class="trend-name">Inscriptions</div>
+            <div class="trend-value">@trendPatients</div>
+          </div>
+          <div class="trend">
+            <div class="trend-name">Ordonnances</div>
+            <div class="trend-value">@trendOrdonnances</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private int patientsCount;
+  private int medecinsCount;
+  private int ordonnancesCount;
+  private int medicamentsCount;
+  private int totalUsers;
+  private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+
+  // simple activity arrays for sparklines
+  private int[] activityDataPatients = new int[6];
+  private int[] activityDataMedecins = new int[6];
+  private int[] activityDataOrdonnances = new int[6];
+  private int[] activityDataMedicaments = new int[6];
+
+  private string trendPatients = "";
+  private string trendOrdonnances = "";
+
+  protected override async Task OnInitializedAsync()
+  {
+    await LoadAsync();
+  }
+
+  private async Task LoadAsync()
+  {
+    loading = true;
+    error = null;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      var medecins = await AdminService.GetMedecinsAsync();
+
+      patientsCount = patients?.Count ?? 0;
+      medicamentsCount = meds?.Count ?? 0;
+      ordonnancesCount = ords?.Count ?? 0;
+      medecinsCount = medecins?.Count ?? 0;
+      totalUsers = patientsCount + medecinsCount;
+
+      recentPatients = patients?.OrderByDescending(p => p.Id).Take(5).ToList();
+
+      // build small synthetic sparklines from counts (for demo)
+      activityDataPatients = BuildActivitySeries(patientsCount);
+      activityDataMedecins = BuildActivitySeries(medecinsCount);
+      activityDataOrdonnances = BuildActivitySeries(ordonnancesCount);
+      activityDataMedicaments = BuildActivitySeries(medicamentsCount);
+
+      trendPatients = ComputeTrend(activityDataPatients);
+      trendOrdonnances = ComputeTrend(activityDataOrdonnances);
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally { loading = false; }
+  }
+
+  private static int[] BuildActivitySeries(int total)
+  {
+    // distribute total across 6 periods with simple variation
+    var r = new int[6];
+    if (total <= 0) return r;
+    var baseVal = Math.Max(1, total / 6);
+    var remaining = total - baseVal * 6;
+    for (int i = 0; i < 6; i++) r[i] = baseVal + (i < remaining ? 1 : 0);
+    // small random-ish variations (deterministic)
+    for (int i = 0; i < 6; i++) r[i] += (i % 2 == 0) ? 0 : 1;
+    return r;
+  }
+
+  private string ComputeTrend(int[] series)
+  {
+    if (series == null || series.Length < 2) return "+0";
+    var diff = series.Last() - series.First();
+    var sign = diff >= 0 ? "+" : "";
+    return $"{sign}{diff}";
+  }
+
+  private string RenderSparkline(int[] data, string color)
+  {
+    if (data == null || data.Length == 0) return string.Empty;
+    int w = 120, h = 40, pad = 4;
+    var max = data.Max();
+    if (max == 0) max = 1;
+    var points = new List<string>();
+    for (int i = 0; i < data.Length; i++)
+    {
+      var x = pad + i * (double)(w - pad * 2) / (data.Length - 1);
+      var y = pad + (1 - (double)data[i] / max) * (h - pad * 2);
+      points.Add($"{x.ToString(System.Globalization.CultureInfo.InvariantCulture)},{y.ToString(System.Globalization.CultureInfo.InvariantCulture)}");
+    }
+    var poly = string.Join(" ", points);
+    // return inline svg with given color
+    return $"<svg width='{w}' height='{h}' viewBox='0 0 {w} {h}' xmlns='http://www.w3.org/2000/svg'><polyline fill='none' stroke='{color}' stroke-width='2' points='{poly}' stroke-linecap='round' stroke-linejoin='round'/></svg>";
+  }
+
+  private string GetInitials(string? nom, string? prenom)
+  {
+    if (!string.IsNullOrWhiteSpace(nom) && !string.IsNullOrWhiteSpace(prenom))
+      return ($"{prenom[0]}{nom[0]}").ToUpper();
+    if (!string.IsNullOrWhiteSpace(nom)) return nom[0].ToString().ToUpper();
+    if (!string.IsNullOrWhiteSpace(prenom)) return prenom[0].ToString().ToUpper();
+    return "U";
+  }
+}

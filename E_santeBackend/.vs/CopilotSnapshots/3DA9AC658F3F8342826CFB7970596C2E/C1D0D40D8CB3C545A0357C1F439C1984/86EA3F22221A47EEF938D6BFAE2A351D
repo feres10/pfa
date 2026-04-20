@@ -1,0 +1,190 @@
+﻿@page "/login"
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.AuthService Auth
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Connexion</PageTitle>
+
+<div class="auth-page">
+  <div class="auth-container">
+    <!-- Left Side - Branding -->
+    <div class="auth-branding">
+      <div class="branding-content">
+        <a href="/home" class="back-link">
+          <svg viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+        
+        <div class="branding-logo">
+          <div class="logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h1 class="branding-title">E‑Santé</h1>
+        </div>
+        
+        <div class="branding-features">
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Sécurisé</h3>
+              <p>Vos données sont protégées</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>Rapide</h3>
+              <p>Accès instantané à vos services</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <h3>24/7</h3>
+              <p>Disponible à tout moment</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div class="auth-form-section">
+      <div class="auth-form-container">
+        <div class="form-header">
+          <h2 class="form-title">Bon retour !</h2>
+          <p class="form-subtitle">Connectez-vous à votre espace</p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(error))
+        {
+          <div class="alert-error">
+            <svg class="alert-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+            </svg>
+            <span>@error</span>
+          </div>
+        }
+
+        <EditForm Model="model" OnValidSubmit="HandleLogin" class="auth-form">
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+              </svg>
+              Email
+            </label>
+            <InputText class="form-input" @bind-Value="model.Email" placeholder="votre.email@exemple.com" />
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-link">
+              <label class="form-label">
+                <svg class="label-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+                Mot de passe
+              </label>
+              <a href="/forgot-password" class="forgot-link">Mot de passe oublié ?</a>
+            </div>
+            <InputText class="form-input" @bind-Value="model.Password" type="password" placeholder="••••••••" />
+          </div>
+
+          <button class="btn-submit" type="submit" disabled="@loading">
+            @if (loading)
+            {
+              <span class="spinner"></span>
+              <span>Connexion...</span>
+            }
+            else
+            {
+              <span>Se connecter</span>
+              <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            }
+          </button>
+        </EditForm>
+
+        <div class="form-footer">
+          <span class="footer-text">Pas encore de compte ?</span>
+          <a href="/register" class="footer-link">Créer un compte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  private E_santeFrontend.Models.LoginDto model = new();
+  private string? error;
+  private bool loading;
+
+  private async Task HandleLogin()
+  {
+    error = null;
+    loading = true;
+    var ok = await Auth.LoginAsync(model);
+    loading = false;
+    if (ok)
+    {
+      try { await Auth.ApplyTokenToHttpClientAsync(); } catch { }
+
+      try
+      {
+        var _ = await PatientService.GetPatientsAsync();
+      }
+      catch
+      {
+        error = "Accès refusé (401) : le token ne semble pas être transmis.";
+        return;
+      }
+
+      var role = Auth.CurrentRole;
+      if (string.IsNullOrWhiteSpace(role))
+      {
+        Nav.NavigateTo("/dashboard/patient");
+      }
+      else if (role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+      {
+        Nav.NavigateTo("/dashboard/admin");
+      }
+      else if (role.Equals("Medecin", StringComparison.OrdinalIgnoreCase))
+      {
+        Nav.NavigateTo("/dashboard/medecin");
+      }
+      else if (role.Equals("Pharmacien", StringComparison.OrdinalIgnoreCase))
+      {
+        Nav.NavigateTo("/dashboard/pharmacien");
+      }
+      else
+      {
+        Nav.NavigateTo("/dashboard/patient");
+      }
+    }
+    else
+    {
+      error = Auth.LastError ?? "Échec de connexion. Vérifiez vos identifiants.";
+    }
+  }
+}

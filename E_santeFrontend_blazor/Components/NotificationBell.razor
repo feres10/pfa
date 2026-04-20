@@ -1,0 +1,12 @@
+@namespace E_santeFrontend.Components
+<div class="position-relative">
+  <span class="bi bi-bell"></span>
+  @if (Count > 0)
+  {
+    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">@Count</span>
+  }
+</div>
+
+@code {
+  [Parameter] public int Count { get; set; }
+}

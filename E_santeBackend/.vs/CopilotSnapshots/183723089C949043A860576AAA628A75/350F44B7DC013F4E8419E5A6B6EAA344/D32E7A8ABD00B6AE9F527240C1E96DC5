@@ -1,0 +1,68 @@
+﻿@page "/login"
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+
+<PageTitle>Connexion</PageTitle>
+
+<div class="container py-4">
+  <a class="text-muted d-inline-flex align-items-center mb-3" href="/home">← Retour à l'accueil</a>
+
+  <div class="d-flex flex-column align-items-center">
+    <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center" style="width:56px;height:56px;">
+      <span class="fw-bold">⌁</span>
+    </div>
+    <h2 class="mt-3 mb-1">E‑Santé</h2>
+    <p class="text-muted mb-4">Connectez-vous à votre espace</p>
+
+    <div class="card shadow-sm" style="max-width:520px;width:100%;">
+      <div class="card-body">
+        @if (!string.IsNullOrEmpty(error))
+        {
+          <div class="alert alert-danger">@error</div>
+        }
+        <EditForm Model="model" OnValidSubmit="HandleLogin">
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <InputText class="form-control" @bind-Value="model.Email" />
+          </div>
+          <div class="mb-3">
+            <div class="d-flex justify-content-between">
+              <label class="form-label">Mot de passe</label>
+              <a href="/forgot-password" class="small text-muted">Mot de passe oublié ?</a>
+            </div>
+            <InputText class="form-control" @bind-Value="model.Password" type="password" />
+          </div>
+          <button class="btn btn-primary w-100" type="submit" disabled="@loading">
+            @(loading ? "Connexion..." : "Se connecter")
+          </button>
+        </EditForm>
+        <div class="text-center mt-3">
+          <span class="text-muted">Pas encore de compte ?</span>
+          <a href="/register" class="ms-1">Créer un compte</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  private E_santeFrontend.Models.LoginDto model = new();
+  private string? error;
+  private bool loading;
+
+  private async Task HandleLogin()
+  {
+    error = null;
+    loading = true;
+    var ok = await Auth.LoginAsync(model);
+    loading = false;
+    if (ok)
+    {
+      Nav.NavigateTo("/dashboard");
+    }
+    else
+    {
+      error = "Échec de connexion. Vérifiez vos identifiants.";
+    }
+  }
+}

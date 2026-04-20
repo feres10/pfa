@@ -1,0 +1,91 @@
+@page "/admin/patients"
+@layout AdminLayout
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Patients - Admin</PageTitle>
+
+<div class="admin-page">
+  <div class="header">
+    <h1>Patients</h1>
+    <div class="actions">
+      <input class="search-input" placeholder="Rechercher (nom, prénom, email, téléphone)" @bind="search" />
+    </div>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="error">@error</div>
+  }
+  else
+  {
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Téléphone</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (filtered?.Any() == true)
+          {
+            foreach (var p in filtered)
+            {
+              <tr>
+                <td>@p.Nom</td>
+                <td>@p.Prenom</td>
+                <td>@p.Email</td>
+                <td>@p.Telephone</td>
+              </tr>
+            }
+          }
+          else
+          {
+            <tr>
+              <td colspan="4" class="no-data">Aucun patient</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private string search = string.Empty;
+  private List<E_santeFrontend.Models.PatientDto>? patients;
+  private IEnumerable<E_santeFrontend.Models.PatientDto>? filtered
+    => string.IsNullOrWhiteSpace(search)
+      ? patients
+      : patients?.Where(p =>
+           (p.Nom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (p.Prenom ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (p.Email ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+        || (p.Telephone ?? "").Contains(search, StringComparison.OrdinalIgnoreCase)
+      );
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      patients = await PatientService.GetPatientsAsync();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally
+    {
+      loading = false;
+    }
+  }
+}

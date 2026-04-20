@@ -1,0 +1,89 @@
+﻿@page "/admin/statistiques"
+@layout AdminLayout
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Statistiques - Admin</PageTitle>
+
+<div class="stats-page">
+  <div class="header">
+    <h1>Statistiques</h1>
+  </div>
+
+  @if (loading)
+  {
+    <div class="loading">Chargement des statistiques...</div>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="error">@error</div>
+  }
+  else
+  {
+    <div class="cards">
+      <div class="card">
+        <div class="card-label">Patients</div>
+        <div class="card-value">@patientsCount</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Médecins</div>
+        <div class="card-value">@medecinsCount</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Ordonnances</div>
+        <div class="card-value">@ordonnancesCount</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Médicaments</div>
+        <div class="card-value">@medicamentsCount</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Activité récente</h2>
+      <p>Derniers chiffres agrégés du système.</p>
+      <ul>
+        <li>Total utilisateurs: @totalUsers</li>
+        <li>Patients récents: @(recentPatients?.Count ?? 0)</li>
+      </ul>
+    </div>
+  }
+</div>
+
+@code {
+  private bool loading;
+  private string? error;
+  private int patientsCount;
+  private int medecinsCount;
+  private int ordonnancesCount;
+  private int medicamentsCount;
+  private int totalUsers;
+  private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      var patients = await PatientService.GetPatientsAsync();
+      var meds = await MedicamentService.GetMedicamentsAsync();
+      var ords = await OrdonnanceService.GetOrdonnancesAsync();
+      var medecins = await AdminService.GetMedecinsAsync();
+
+      patientsCount = patients?.Count ?? 0;
+      medicamentsCount = meds?.Count ?? 0;
+      ordonnancesCount = ords?.Count ?? 0;
+      medecinsCount = medecins?.Count ?? 0;
+      totalUsers = patientsCount + medecinsCount;
+
+      recentPatients = patients?.Take(5).ToList();
+    }
+    catch (Exception ex)
+    {
+      error = ex.Message;
+    }
+    finally { loading = false; }
+  }
+}

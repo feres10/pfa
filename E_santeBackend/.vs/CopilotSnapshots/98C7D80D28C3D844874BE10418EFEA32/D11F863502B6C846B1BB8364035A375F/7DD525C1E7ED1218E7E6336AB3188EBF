@@ -1,0 +1,33 @@
+﻿@namespace E_santeFrontend.Components
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        @ChildContent
+      </tr>
+    </thead>
+    <tbody>
+      @if (HasRows)
+      {
+        @Rows
+      }
+      else
+      {
+        @if (EmptyState is not null)
+        {
+          <tr>
+            <td colspan="100%">@EmptyState</td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+
+@code {
+  [Parameter] public RenderFragment? ChildContent { get; set; }
+  [Parameter] public RenderFragment? Rows { get; set; }
+  [Parameter] public RenderFragment? EmptyState { get; set; }
+  [Parameter] public bool HasRows { get; set; }
+}

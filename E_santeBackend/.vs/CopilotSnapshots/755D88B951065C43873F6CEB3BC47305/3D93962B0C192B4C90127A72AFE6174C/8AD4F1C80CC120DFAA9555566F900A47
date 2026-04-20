@@ -1,0 +1,135 @@
+﻿@page "/rendezvous/new"
+@layout PatientLayout
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.AdminService AdminService
+@inject NavigationManager Nav
+
+<PageTitle>Nouveau rendez-vous</PageTitle>
+
+<div class="page">
+  <h1>Prendre rendez-vous</h1>
+  <p class="muted">Choisissez une date et une heure</p>
+
+  @if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+
+  <div class="form-row">
+    <label>Date</label>
+    <input type="date" value="@date" @onchange="OnDateChanged" />
+  </div>
+  <div class="form-row">
+    <label>Heure</label>
+    <input type="time" value="@heure" @onchange="OnHeureChanged" />
+  </div>
+  <div class="form-row">
+    <label>Médecin</label>
+    @if (medecins == null)
+    {
+      <div>Chargement...</div>
+    }
+    else if (medecins.Count == 0)
+    {
+      <div>Aucun médecin disponible</div>
+    }
+    else
+    {
+      <select @bind="medecinId">
+        @foreach (var m in medecins)
+        {
+          <option value="@m.Id">@((m.Prenom ?? "") + " " + (m.Nom ?? ""))</option>
+        }
+      </select>
+    }
+  </div>
+  <div class="form-row">
+    <label>Lieu</label>
+    <input type="text" value="@lieu" @onchange="OnLieuChanged" />
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" @onclick="Create">Prendre</button>
+    <button class="btn-outline" @onclick="Cancel">Annuler</button>
+  </div>
+</div>
+
+@code{
+  private string? date;
+  private string? heure;
+  private int medecinId;
+  private string? lieu;
+  private string? error;
+  private List<E_santeFrontend.Services.AdminService.MedecinListItem>? medecins;
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      medecins = await AdminService.GetMedecinsAsync();
+      if (medecins?.Count > 0)
+      {
+        medecinId = medecins[0].Id;
+      }
+    }
+    catch { medecins = new(); }
+  }
+
+  private void OnDateChanged(ChangeEventArgs e) => date = e?.Value?.ToString();
+  private void OnHeureChanged(ChangeEventArgs e) => heure = e?.Value?.ToString();
+  private void OnLieuChanged(ChangeEventArgs e) => lieu = e?.Value?.ToString();
+
+  private async Task Create()
+  {
+    error = null;
+    try
+    {
+      // resolve current patient id from PatientService (take first as placeholder)
+      var patients = await PatientService.GetPatientsAsync();
+      var patientId = patients?.FirstOrDefault()?.Id ?? 0;
+
+      // client-side validation
+      if (patientId <= 0)
+      {
+        error = "Patient introuvable. Connectez-vous ou vérifiez votre compte.";
+        return;
+      }
+      if (medecinId <= 0)
+      {
+        error = "Veuillez sélectionner un médecin.";
+        return;
+      }
+      if (string.IsNullOrWhiteSpace(date) || string.IsNullOrWhiteSpace(heure))
+      {
+        error = "La date et l'heure sont requises.";
+        return;
+      }
+
+      // normalize to ISO date/time strings (yyyy-MM-dd and HH:mm)
+      string normalizedDate = date!;
+      string normalizedHeure = heure!;
+
+      var dto = new {
+        PatientId = patientId,
+        MedecinId = medecinId,
+        Date = normalizedDate,
+        Heure = normalizedHeure,
+        Lieu = lieu
+      };
+
+      var created = await RendezvousService.CreateAsync(dto);
+      if (created != null)
+      {
+        Nav.NavigateTo($"/rendezvous/{created.Id}");
+      }
+    }
+    catch (HttpRequestException h)
+    {
+      error = h.Message;
+    }
+    catch (Exception ex) { error = ex.Message; }
+  }
+
+  private void Cancel() => Nav.NavigateTo("/rendezvous");
+}

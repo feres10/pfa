@@ -1,0 +1,12 @@
+.page-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}.header-content{display:block}.page-title{margin:0;font-size:1.5rem;font-weight:800;color:#0f172a}.page-subtitle{margin:0;color:#64748b}
+
+.profile-card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:1.25rem;max-width:720px}
+.form-row{display:flex;flex-direction:column;margin-bottom:.75rem}
+.form-row label{font-weight:600;color:#475569;margin-bottom:.35rem}
+.form-input{padding:.5rem .75rem;border:1px solid #e6eef6;border-radius:8px;font-size:.95rem}
+.form-actions{display:flex;gap:.75rem;margin-top:1rem}
+.btn{padding:.6rem 1rem;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+.btn-primary{background:linear-gradient(90deg,#7c3aed,#a78bfa);color:#fff}
+.btn-outline{background:#fff;border:1px solid #e2e8f0;color:#334155}
+
+@media(max-width:900px){.profile-card{max-width:100%}}

@@ -1,0 +1,92 @@
+﻿@page "/ordonnances/nouvelle"
+@layout MedecinLayout
+@using System.Web
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+
+<PageTitle>Nouvelle Ordonnance</PageTitle>
+
+<div class="page">
+  <h1>Nouvelle Ordonnance</h1>
+
+  @if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+
+  <div class="form-row">
+    <label>Patient</label>
+    <select @bind="selectedPatientId">
+      <option value="0">-- Choisir --</option>
+      @foreach(var p in patients)
+      {
+        <option value="@p.Id">@p.Prenom @p.Nom</option>
+      }
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label>Médicaments (format: id:qty:price, une par ligne)</label>
+    <textarea @bind="lines" rows="6" style="width:100%"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" @onclick="Create">Créer</button>
+    <button class="btn-outline" @onclick="Cancel">Annuler</button>
+  </div>
+</div>
+
+@code{
+  private List<E_santeFrontend.Models.PatientDto> patients = new();
+  private int selectedPatientId;
+  private string lines = string.Empty;
+  private string? error;
+
+  protected override async Task OnInitializedAsync()
+  {
+    patients = await PatientService.GetPatientsAsync();
+    var uri = new Uri(Nav.Uri);
+    var q = HttpUtility.ParseQueryString(uri.Query);
+    if (int.TryParse(q.Get("patientId"), out var pid)) selectedPatientId = pid;
+  }
+
+  private void Cancel() => Nav.NavigateTo("/medecin/ordonnances");
+
+  private async Task Create()
+  {
+    error = null;
+    if (selectedPatientId <= 0) { error = "Choisir un patient"; return; }
+    try
+    {
+      var lignes = new List<object>();
+      foreach(var l in lines.Split('\n', StringSplitOptions.RemoveEmptyEntries))
+      {
+        var parts = l.Split(':', StringSplitOptions.RemoveEmptyEntries);
+        if (parts.Length < 3) continue;
+        lignes.Add(new { MedicamentId = int.Parse(parts[0]), Quantite = int.Parse(parts[1]), PrixUnitaire = decimal.Parse(parts[2]) });
+      }
+
+      var dto = new {
+        PatientId = selectedPatientId,
+        PharmacienId = 1,
+        MedecinId = 1,
+        Lignes = lignes
+      };
+
+      var created = await OrdonnanceService.CreateAsync(dto);
+      if (created != null)
+      {
+        Nav.NavigateTo($"/ordonnances/{created.Id}");
+      }
+      else
+      {
+        error = "Impossible de créer l'ordonnance";
+      }
+    }
+    catch(Exception ex)
+    {
+      error = ex.Message;
+    }
+  }
+}

@@ -1,0 +1,88 @@
+﻿@page "/"
+@page "/home"
+@inject NavigationManager Nav
+
+<PageTitle>E‑Santé</PageTitle>
+
+<div class="container py-5">
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-dark" @onclick="GoToLogin">Se connecter →</button>
+  </div>
+
+  <div class="text-center my-5">
+    <span class="badge rounded-pill bg-light text-dark border">Plateforme certifiée santé</span>
+    <h1 class="display-4 fw-bold mt-3">Votre santé, <span class="text-secondary">simplifiée</span></h1>
+    <p class="lead text-muted mx-auto" style="max-width: 720px;">
+      Une plateforme complète pour la gestion de santé. Médecins, pharmaciens et patients
+      réunis dans un écosystème digital sécurisé et intuitif.
+    </p>
+    <div class="d-flex gap-3 justify-content-center mt-4">
+      <button class="btn btn-primary btn-lg" @onclick="GoToDashboard">
+        Accéder à mon espace
+      </button>
+      <button class="btn btn-outline-secondary btn-lg" @onclick="LearnMore">En savoir plus</button>
+    </div>
+  </div>
+
+  <div class="bg-light rounded-3 p-4 mt-5" id="features">
+    <h2 class="fw-bold text-center mb-2">Fonctionnalités Principales</h2>
+    <p class="text-muted text-center mb-4">Tout ce dont vous avez besoin pour gérer votre santé efficacement</p>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Ordonnances Numériques</h5>
+            <p class="card-text">Créez, consultez et gérez vos ordonnances en ligne de manière sécurisée.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Suivi Patient</h5>
+            <p class="card-text">Accédez à l'historique complet et au suivi personnalisé de chaque patient.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Gestion des Médicaments</h5>
+            <p class="card-text">Catalogue complet avec suivi des stocks et alertes automatiques.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Rendez-vous en Ligne</h5>
+            <p class="card-text">Planifiez et gérez vos rendez-vous facilement depuis votre espace.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Données Sécurisées</h5>
+            <p class="card-text">Vos informations médicales sont protégées par un chiffrement avancé.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Tableaux de Bord</h5>
+            <p class="card-text">Visualisez vos statistiques et indicateurs en temps réel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  private void GoToLogin() => Nav.NavigateTo("/login");
+  private void GoToDashboard() => Nav.NavigateTo("/dashboard");
+  private void LearnMore() => Nav.NavigateTo("/home#features");
+}

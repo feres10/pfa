@@ -1,0 +1,57 @@
+﻿@page "/medicaments"
+@using E_santeFrontend.Models
+@inject E_santeFrontend.Services.MedicamentService Medicaments
+
+<PageTitle>Médicaments</PageTitle>
+
+<h1 class="mb-4">Médicaments</h1>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+    <E_santeFrontend.Components.DataTable HasRows="@(items?.Count > 0)" EmptyState="<p class=\"text-muted m-0\">Aucun médicament trouvé.</p>">
+        <ChildContent>
+            <th>Nom</th>
+            <th>Code</th>
+        </ChildContent>
+        <Rows>
+            @foreach (var m in items!)
+            {
+                <tr>
+                    <td>@m.Nom</td>
+                    <td>@m.Code</td>
+                </tr>
+            }
+        </Rows>
+    </E_santeFrontend.Components.DataTable>
+}
+
+@code {
+    private List<MedicamentDto>? items;
+    private bool loading;
+    private string? error;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            items = await Medicaments.GetMedicamentsAsync();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+﻿@page "/ordonnances"
+@inject E_santeFrontend.Services.OrdonnanceService Ordonnances
+
+<h3>Ordonnances</h3>
+<ul>
+  @foreach (var o in list)
+  {
+    <li>@o.Description</li>
+  }
+</ul>
+
+@code {
+  private List<E_santeFrontend.Models.OrdonnanceDto> list = new();
+  protected override async Task OnInitializedAsync()
+  {
+    list = await Ordonnances.GetOrdonnancesAsync() ?? new();
+  }
+}

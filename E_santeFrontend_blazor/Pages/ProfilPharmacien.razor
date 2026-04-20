@@ -1,0 +1,89 @@
+@page "/profil-pharmacien"
+@layout PharmacienLayout
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+@inject NavigationManager Nav
+
+<PageTitle>Profil Pharmacien</PageTitle>
+
+<div class="profile-page">
+  <div class="profile-header">
+    <div class="header-left">
+      <div class="avatar">@GetInitials()</div>
+      <div class="identity">
+        <h1>@(name ?? "—")</h1>
+        <div class="role-badge">Pharmacien</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" @onclick="Back">Retour</button>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <div class="info-card">
+      <div class="card-row"><strong>Nom</strong><span>@(name ?? "—")</span></div>
+      <div class="card-row"><strong>Email</strong><span>@(email ?? "—")</span></div>
+      <div class="card-row"><strong>Téléphone</strong><span>@(phone ?? "—")</span></div>
+    </div>
+  </div>
+</div>
+
+@code{
+  private string? name;
+  private string? email;
+  private string? phone;
+
+  protected override async Task OnInitializedAsync()
+  {
+    var t = await Storage.GetItemAsync("auth_token");
+    if (!string.IsNullOrWhiteSpace(t))
+    {
+      var clean = NormalizeTokenEnvelope(t);
+      name = TryGetClaim(clean, "name") ?? TryGetClaim(clean, "email");
+      email = TryGetClaim(clean, "email");
+      phone = TryGetClaim(clean, "phone") ?? TryGetClaim(clean, "telephone");
+    }
+  }
+
+  private void Back() => Nav.NavigateTo("/dashboard/pharmacien");
+
+  private static string NormalizeTokenEnvelope(string token)
+  {
+    token = token.Trim();
+    if (token.StartsWith("{"))
+    {
+      try
+      {
+        using var doc = System.Text.Json.JsonDocument.Parse(token);
+        if (doc.RootElement.TryGetProperty("token", out var t)) return t.GetString() ?? token;
+      }
+      catch { }
+    }
+    return token.Trim('"');
+  }
+
+  private static string? TryGetClaim(string jwt, string claim)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return null;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4) { case 2: payload += "=="; break; case 3: payload += "="; break; }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = System.Text.Json.JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty(claim, out var v)) return v.GetString();
+    }
+    catch { }
+    return null;
+  }
+
+  private string GetInitials()
+  {
+    var n = (name ?? string.Empty).Trim();
+    if (string.IsNullOrWhiteSpace(n)) return "P";
+    var parts = n.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+    if (parts.Length == 1) return parts[0].Substring(0,1).ToUpperInvariant();
+    return (parts[0].Substring(0,1) + parts[^1].Substring(0,1)).ToUpperInvariant();
+  }
+}

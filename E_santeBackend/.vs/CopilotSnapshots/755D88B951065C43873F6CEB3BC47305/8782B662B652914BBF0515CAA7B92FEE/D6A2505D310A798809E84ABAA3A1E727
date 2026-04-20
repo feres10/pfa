@@ -1,0 +1,58 @@
+﻿using E_santeBackend.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_santeBackend.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
+    public class RendezVousController : ControllerBase
+    {
+        private readonly EHealthDbContext _db;
+
+        public RendezVousController(EHealthDbContext db)
+        {
+            _db = db;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var list = await _db.RendezVous
+                .AsNoTracking()
+                .Select(r => new {
+                    Id = r.Id,
+                    PatientId = r.PatientId,
+                    MedecinId = r.MedecinId,
+                    Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                    Heure = r.DateRDV.ToString("HH:mm"),
+                    Lieu = string.Empty,
+                    Statut = r.Statut
+                })
+                .ToListAsync();
+
+            return Ok(list);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var r = await _db.RendezVous.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            if (r == null) return NotFound();
+
+            var dto = new {
+                Id = r.Id,
+                PatientId = r.PatientId,
+                MedecinId = r.MedecinId,
+                Date = r.DateRDV.ToString("yyyy-MM-dd"),
+                Heure = r.DateRDV.ToString("HH:mm"),
+                Lieu = string.Empty,
+                Statut = r.Statut
+            };
+
+            return Ok(dto);
+        }
+    }
+}

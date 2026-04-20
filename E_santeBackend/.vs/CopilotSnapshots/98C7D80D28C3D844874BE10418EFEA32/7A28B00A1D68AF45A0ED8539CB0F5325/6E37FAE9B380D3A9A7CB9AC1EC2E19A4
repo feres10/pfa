@@ -1,0 +1,19 @@
+﻿@page "/register"
+@inject E_santeFrontend.Services.AuthService Auth
+
+<h3>Inscription</h3>
+<EditForm Model="model" OnValidSubmit="Register">
+  <InputText @bind-Value="model.Nom" />
+  <InputText @bind-Value="model.Prenom" />
+  <InputText @bind-Value="model.Email" />
+  <InputText @bind-Value="model.Password" type="password" />
+  <button class="btn btn-primary" type="submit">S'inscrire</button>
+</EditForm>
+
+@code {
+  private E_santeFrontend.Models.RegisterDto model = new();
+  private async Task Register()
+  {
+    var ok = await Auth.RegisterAsync(model);
+  }
+}

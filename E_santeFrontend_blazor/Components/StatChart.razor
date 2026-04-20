@@ -1,0 +1,33 @@
+@namespace E_santeFrontend.Components
+@inject IJSRuntime JS
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h6 class="m-0">@Title</h6>
+      <span class="text-muted small">@Subtitle</span>
+    </div>
+    <div style="height:220px">
+      <svg width="100%" height="220" preserveAspectRatio="none">
+        @if (Data?.Length > 0)
+        {
+          var max = Data.Max();
+          var step = 100.0 / (Data.Length - 1);
+          var points = new List<string>();
+          for (int i = 0; i < Data.Length; i++)
+          {
+            var x = i * step;
+            var y = 200 - (180 * (Data[i] / (double)max));
+            points.Add($"{x} {y}");
+          }
+          <polyline points="@string.Join(" ", points)" fill="none" stroke="var(--accent)" stroke-width="3" />
+        }
+      </svg>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter] public string? Title { get; set; }
+  [Parameter] public string? Subtitle { get; set; }
+  [Parameter] public int[] Data { get; set; } = Array.Empty<int>();
+}

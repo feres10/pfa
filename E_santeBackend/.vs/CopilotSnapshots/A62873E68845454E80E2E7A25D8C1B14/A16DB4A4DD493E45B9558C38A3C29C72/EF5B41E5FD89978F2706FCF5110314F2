@@ -1,0 +1,230 @@
+﻿@page "/dashboard/admin"
+@using E_santeFrontend.Models
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject E_santeFrontend.Services.NotificationService NotificationService
+@inject E_santeFrontend.Services.AdminService AdminService
+
+<PageTitle>Tableau de bord</PageTitle>
+
+@if (loading)
+{
+    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Chargement...</span></div>
+}
+else if (!string.IsNullOrEmpty(error))
+{
+    <div class="alert alert-danger">@error</div>
+}
+else
+{
+  <h5 class="mb-1">Bienvenue, Administrateur</h5>
+  <p class="text-muted mb-4">Voici un aper�u de votre syst�me de sant�</p>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h6>Cr�er un M�decin</h6>
+      <EditForm Model="newMedecin" OnValidSubmit="CreateMedecin">
+        @if (!string.IsNullOrWhiteSpace(adminErrorMedecin))
+        {
+          <div class="alert alert-danger">@adminErrorMedecin</div>
+        }
+        <div class="row g-2">
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newMedecin.Nom" placeholder="Nom" /></div>
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newMedecin.Prenom" placeholder="Pr�nom" /></div>
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newMedecin.Email" placeholder="Email" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newMedecin.Specialite" placeholder="Sp�cialit�" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newMedecin.CodeMedecin" placeholder="Code medecin" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newMedecin.Password" placeholder="Mot de passe" type="password" /></div>
+        </div>
+        <button class="btn btn-sm btn-primary mt-2">Cr�er M�decin</button>
+      </EditForm>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h6>Cr�er un Pharmacien</h6>
+      <EditForm Model="newPharmacien" OnValidSubmit="CreatePharmacien">
+        @if (!string.IsNullOrWhiteSpace(adminErrorPharmacien))
+        {
+          <div class="alert alert-danger">@adminErrorPharmacien</div>
+        }
+        <div class="row g-2">
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newPharmacien.Nom" placeholder="Nom" /></div>
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newPharmacien.Prenom" placeholder="Pr�nom" /></div>
+          <div class="col-md-4"><InputText class="form-control" @bind-Value="newPharmacien.Email" placeholder="Email" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newPharmacien.Telephone" placeholder="T�l�phone" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newPharmacien.Licence" placeholder="Licence" /></div>
+          <div class="col-md-4 mt-2"><InputNumber class="form-control" @bind-Value="newPharmacien.PharmacieId" placeholder="PharmacieId" /></div>
+          <div class="col-md-4 mt-2"><InputText class="form-control" @bind-Value="newPharmacien.Password" placeholder="Mot de passe" type="password" /></div>
+        </div>
+        <button class="btn btn-sm btn-primary mt-2">Cr�er Pharmacien</button>
+      </EditForm>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Total Utilisateurs" Subtitle="+1% vs mois dernier" Value="@patientsCount" Icon="bi-people" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Patients Enregistr�s" Subtitle="+6% vs mois dernier" Value="@patientsCount" Icon="bi-person-badge" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="M�decins Actifs" Subtitle="" Value="@medecinsActifs" Icon="bi-heart-pulse" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Ordonnances Actives" Subtitle="+5% vs mois dernier" Value="@ordonnancesCount" Icon="bi-receipt" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="M�dicaments en Stock" Subtitle="" Value="@medicamentsCount" Icon="bi-capsule" /></div>
+    <div class="col-12 col-lg-2"><Components.CardInfo Title="Alertes Stock" Subtitle="" Value="@alertsCount" Icon="bi-exclamation-triangle" /></div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-xl-7">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Nouvelles Inscriptions</h6>
+          <Components.StatChart Title="Inscriptions" Subtitle="Oct - Jan" Data="@activityData" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-xl-5">
+      <div class="card shadow h-100">
+        <div class="card-body">
+          <h6 class="mb-3">Derniers Patients Inscrits</h6>
+          <div class="table-responsive">
+            <table class="table table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Nom</th><th>Pr�nom</th><th>�ge</th><th>T�l�phone</th><th>Dernier RDV</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach (var p in (recentPatients ?? Enumerable.Empty<E_santeFrontend.Models.PatientDto>()))
+                {
+                  <tr>
+                    <td>@p.Nom</td><td>@p.Prenom</td><td>�</td><td>@p.Telephone</td><td>�</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-body">
+      <h6 class="mb-3">�tat des Stocks M�dicaments</h6>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>M�dicament</th><th>Cat�gorie</th><th>Stock</th><th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var m in (medsTable ?? Enumerable.Empty<(string name, string category, int stock)>()))
+            {
+              var status = m.stock < 20 ? "Stock faible" : "OK";
+              <tr>
+                <td>@m.name</td><td>@m.category</td><td>@m.stock</td>
+                <td>
+                  @if (status == "Stock faible")
+                  {
+                    <span class="badge bg-warning">@status</span>
+                  }
+                  else
+                  {
+                    <span class="badge bg-success">@status</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+
+@code {
+    private string patientsCount = "0";
+    private string medicamentsCount = "0";
+    private string ordonnancesCount = "0";
+    private string medecinsActifs = "45";
+    private string alertsCount = "1";
+    private bool loading;
+    private string? error;
+    private int[] activityData = new[] { 200, 400, 600, 800 };
+    private List<E_santeFrontend.Models.PatientDto>? recentPatients;
+    private List<(string name, string category, int stock)>? medsTable;
+
+    protected override async Task OnInitializedAsync()
+    {
+        loading = true;
+        try
+        {
+            var patients = await PatientService.GetPatientsAsync();
+            var meds = await MedicamentService.GetMedicamentsAsync();
+            var ords = await OrdonnanceService.GetOrdonnancesAsync();
+            var notes = await NotificationService.GetNotificationsAsync();
+
+            patientsCount = (patients?.Count ?? 0).ToString();
+            medicamentsCount = (meds?.Count ?? 0).ToString();
+            ordonnancesCount = (ords?.Count ?? 0).ToString();
+            recentPatients = patients?.Take(5).ToList();
+            medsTable = meds?.Take(6).Select(x => (x.Nom ?? "�", x.Code ?? "�", 0)).ToList();
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+        }
+    }
+
+      private AdminCreateMedecinDto newMedecin = new();
+      private AdminCreatePharmacienDto newPharmacien = new();
+      private string? adminErrorMedecin;
+      private string? adminErrorPharmacien;
+
+      private async Task CreateMedecin()
+      {
+        try
+        {
+          var ok = await AdminService.CreateMedecinAsync(newMedecin);
+          if (ok)
+          {
+            // refresh counts
+            var patients = await PatientService.GetPatientsAsync();
+            patientsCount = (patients?.Count ?? 0).ToString();
+            adminErrorMedecin = null;
+            newMedecin = new();
+          }
+          else
+          {
+            adminErrorMedecin = AdminService.LastError;
+          }
+        }
+        catch { }
+      }
+
+      private async Task CreatePharmacien()
+      {
+        try
+        {
+          var ok = await AdminService.CreatePharmacienAsync(newPharmacien);
+          if (ok)
+          {
+            var patients = await PatientService.GetPatientsAsync();
+            patientsCount = (patients?.Count ?? 0).ToString();
+            adminErrorPharmacien = null;
+            newPharmacien = new();
+          }
+          else
+          {
+            adminErrorPharmacien = AdminService.LastError;
+          }
+        }
+        catch { }
+      }
+}

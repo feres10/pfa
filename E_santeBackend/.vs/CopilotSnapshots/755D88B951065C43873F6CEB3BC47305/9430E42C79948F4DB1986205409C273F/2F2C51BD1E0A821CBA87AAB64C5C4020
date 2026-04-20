@@ -1,0 +1,58 @@
+﻿using E_santeBackend.Application.DTOs.Pharmacien;
+using E_santeBackend.Application.Interfaces;
+using E_santeBackend.Infrastructure.Repositories;
+
+namespace E_santeBackend.Application.Services
+{
+    public class PharmacienService : IPharmacienService
+    {
+        private readonly PharmacienRepository _repository;
+
+        public PharmacienService(PharmacienRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<List<PharmacienReadDto>> GetAllAsync()
+        {
+            var pharmaciens = await _repository.GetAllAsync();
+            return pharmaciens.Select(p => new PharmacienReadDto
+            {
+                Id = p.Id,
+                Nom = p.Nom,
+                Prenom = p.Prenom,
+                Telephone = p.Telephone,
+                Licence = p.Licence,
+                PharmacieId = p.PharmacieId
+            }).ToList();
+        }
+
+        public async Task<PharmacienReadDto?> GetByIdAsync(int id)
+        {
+            var pharmacien = await _repository.GetByIdAsync(id);
+            if (pharmacien == null) return null;
+
+            return new PharmacienReadDto
+            {
+                Id = pharmacien.Id,
+                Nom = pharmacien.Nom,
+                Prenom = pharmacien.Prenom,
+                Telephone = pharmacien.Telephone,
+                Licence = pharmacien.Licence,
+                PharmacieId = pharmacien.PharmacieId
+            };
+        }
+
+        public async Task<bool> UpdateAsync(int id, PharmacienUpdateDto dto)
+        {
+            var pharmacien = await _repository.GetByIdAsync(id);
+            if (pharmacien == null) return false;
+
+            if (!string.IsNullOrEmpty(dto.Telephone)) pharmacien.Telephone = dto.Telephone;
+            if (!string.IsNullOrEmpty(dto.Licence)) pharmacien.Licence = dto.Licence;
+
+            await _repository.UpdateAsync(pharmacien);
+            return true;
+        }
+    }
+}

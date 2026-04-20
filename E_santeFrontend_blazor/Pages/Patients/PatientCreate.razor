@@ -1,0 +1,58 @@
+@page "/patients/create"
+@layout MedecinLayout
+@inject E_santeFrontend.Services.PatientService Patients
+@inject NavigationManager Nav
+
+<PageTitle>Nouveau patient</PageTitle>
+
+<div class="page-header">
+  <div class="header-content">
+    <h1 class="page-title">Nouveau patient</h1>
+    <p class="page-subtitle">Créez un nouveau dossier patient</p>
+  </div>
+</div>
+
+<div class="profile-card">
+  <EditForm Model="model" OnValidSubmit="Save">
+    <div class="form-row">
+      <label>Prénom</label>
+      <InputText @bind-Value="model.Prenom" class="form-input" />
+    </div>
+    <div class="form-row">
+      <label>Nom</label>
+      <InputText @bind-Value="model.Nom" class="form-input" />
+    </div>
+    <div class="form-row">
+      <label>Email</label>
+      <InputText @bind-Value="model.Email" class="form-input" />
+    </div>
+    <div class="form-row">
+      <label>Téléphone</label>
+      <InputText @bind-Value="model.Telephone" class="form-input" />
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Créer</button>
+      <button type="button" class="btn btn-outline" @onclick="Cancel">Annuler</button>
+    </div>
+  </EditForm>
+</div>
+
+@code {
+    private E_santeFrontend.Models.PatientDto model = new();
+
+    private async Task Save()
+    {
+        var ok = await Patients.CreatePatientAsync(model);
+        if (ok)
+        {
+            Nav.NavigateTo("/patients");
+        }
+        else
+        {
+            // TODO: show error feedback
+        }
+    }
+
+    private void Cancel() => Nav.NavigateTo("/patients");
+}

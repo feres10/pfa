@@ -1,0 +1,49 @@
+﻿@page "/login"
+@page "/"
+@inject E_santeFrontend.Services.AuthService Auth
+@inject NavigationManager Nav
+
+<h3 class="mb-4">Connexion</h3>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-6">
+    <EditForm Model="model" OnValidSubmit="HandleLogin">
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <InputText class="form-control" @bind-Value="model.Email" />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Mot de passe</label>
+        <InputText class="form-control" @bind-Value="model.Password" type="password" />
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <a href="/forgot-password" class="text-muted">Mot de passe oublié ?</a>
+        <button class="btn btn-primary" type="submit" disabled="@loading">
+          @(loading ? "Connexion..." : "Se connecter")
+        </button>
+      </div>
+    </EditForm>
+  </div>
+</div>
+
+@code {
+  private E_santeFrontend.Models.LoginDto model = new();
+  private string? error;
+  private bool loading;
+
+  private async Task HandleLogin()
+  {
+    error = null;
+    loading = true;
+    var ok = await Auth.LoginAsync(model);
+    loading = false;
+    if (ok)
+    {
+      // Naviguer vers le tableau de bord (adapter la route selon le rôle si nécessaire)
+      Nav.NavigateTo("/dashboard");
+    }
+    else
+    {
+      error = "Échec de connexion. Vérifiez vos identifiants.";
+    }
+  }
+}

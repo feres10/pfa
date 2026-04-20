@@ -1,0 +1,234 @@
+/* Ordonnances Page Styles */
+
+/* Loading State */
+.loading-state[b-sw7vna7hf1] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.spinner[b-sw7vna7hf1] {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin-b-sw7vna7hf1 0.8s linear infinite;
+}
+
+@keyframes spin-b-sw7vna7hf1 {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p[b-sw7vna7hf1] {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* Alert Error */
+.alert-error[b-sw7vna7hf1] {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  color: #dc2626;
+  margin-bottom: 2rem;
+}
+
+.alert-icon[b-sw7vna7hf1] {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* Ordonnances Grid */
+.ordonnances-grid[b-sw7vna7hf1] {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.ordonnance-card[b-sw7vna7hf1] {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.ordonnance-card:hover[b-sw7vna7hf1] {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.ordonnance-card-header[b-sw7vna7hf1] {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ordonnance-icon[b-sw7vna7hf1] {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.ordonnance-icon svg[b-sw7vna7hf1] {
+  width: 24px;
+  height: 24px;
+}
+
+.badge[b-sw7vna7hf1] {
+  padding: 0.375rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.badge-active[b-sw7vna7hf1] {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.ordonnance-card-body[b-sw7vna7hf1] {
+  padding: 1.5rem;
+}
+
+.ordonnance-title[b-sw7vna7hf1] {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 1rem 0;
+}
+
+.ordonnance-meta[b-sw7vna7hf1] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.meta-item[b-sw7vna7hf1] {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.meta-icon[b-sw7vna7hf1] {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.ordonnance-card-footer[b-sw7vna7hf1] {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-view[b-sw7vna7hf1] {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.btn-view:hover[b-sw7vna7hf1] {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.btn-download[b-sw7vna7hf1] {
+  padding: 0.75rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-download:hover[b-sw7vna7hf1] {
+  border-color: #3b82f6;
+  color: #3b82f6;
+  background: #f8fafc;
+}
+
+.btn-icon[b-sw7vna7hf1] {
+  width: 18px;
+  height: 18px;
+}
+
+/* Content Placeholder */
+.content-placeholder[b-sw7vna7hf1] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #e2e8f0;
+  padding: 3rem;
+  text-align: center;
+}
+
+.placeholder-icon[b-sw7vna7hf1] {
+  width: 80px;
+  height: 80px;
+  color: #cbd5e1;
+  stroke-width: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.content-placeholder h3[b-sw7vna7hf1] {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 0.5rem 0;
+}
+
+.content-placeholder p[b-sw7vna7hf1] {
+  font-size: 1rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ordonnances-grid[b-sw7vna7hf1] {
+    grid-template-columns: 1fr;
+  }
+}

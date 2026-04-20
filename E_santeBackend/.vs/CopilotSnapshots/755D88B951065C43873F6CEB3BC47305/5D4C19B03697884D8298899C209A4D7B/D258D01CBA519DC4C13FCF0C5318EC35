@@ -1,0 +1,47 @@
+﻿@page "/rendezvous"
+@layout PatientLayout
+@inject E_santeFrontend.Services.RendezvousService RendezvousService
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject NavigationManager Nav
+
+<PageTitle>Rendez-vous</PageTitle>
+
+<div class="page">
+  <h1>Rendez-vous</h1>
+  <p class="muted">Vos rendez-vous à venir</p>
+
+  @if (loading)
+  {
+    <p>Chargement...</p>
+  }
+  else if (!string.IsNullOrEmpty(error))
+  {
+    <div class="alert-error">@error</div>
+  }
+  else
+  {
+    <ul>
+      @foreach(var r in rendezvous)
+      {
+        <li>@r.Date @r.Heure - @r.Lieu - @r.Statut</li>
+      }
+    </ul>
+  }
+</div>
+
+@code{
+  private bool loading;
+  private string? error;
+  private List<E_santeFrontend.Models.RendezvousDto> rendezvous = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    loading = true;
+    try
+    {
+      rendezvous = await RendezvousService.GetRendezvousAsync();
+    }
+    catch(Exception ex) { error = ex.Message; }
+    finally { loading = false; }
+  }
+}

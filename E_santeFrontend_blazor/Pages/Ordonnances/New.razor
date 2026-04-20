@@ -1,0 +1,192 @@
+@page "/ordonnances/nouvelle"
+@layout MedecinLayout
+@using System.Web
+@inject E_santeFrontend.Services.OrdonnanceService OrdonnanceService
+@inject NavigationManager Nav
+@inject E_santeFrontend.Services.PatientService PatientService
+@inject E_santeFrontend.Helpers.LocalStorageService Storage
+@inject E_santeFrontend.Services.MedicamentService MedicamentService
+
+@using System.Text.Json
+
+<PageTitle>Nouvelle Ordonnance</PageTitle>
+
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Nouvelle Ordonnance</h1>
+    <p class="page-subtitle">Rédiger une ordonnance pour un patient</p>
+  </div>
+</div>
+
+@if (!string.IsNullOrEmpty(error))
+{
+  <div class="alert-error">@error</div>
+}
+
+<div class="card form-card">
+  <div class="form-row">
+    <label>Patient</label>
+    <select @bind="selectedPatientId" class="form-input">
+      <option value="0">-- Choisir --</option>
+      @foreach(var p in patients)
+      {
+        <option value="@p.Id">@p.Prenom @p.Nom</option>
+      }
+    </select>
+  </div>
+
+  <div class="form-row">
+    <label>Ajouter médicament</label>
+    <div class="add-line-row">
+      <select @bind="selectedMedId" class="form-input">
+        <option value="0">-- Choisir --</option>
+        @foreach(var m in medicaments)
+        {
+          <option value="@m.Id">@m.Nom (@m.Stock)</option>
+        }
+      </select>
+      <InputNumber @bind-Value="selectedQty" class="form-input small" />
+      <InputNumber @bind-Value="selectedPrix" class="form-input medium" step="0.01" />
+      <button class="btn-outline" @onclick="AddLine">Ajouter</button>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <label>Lignes</label>
+    @if (linesModel?.Any() == true)
+    {
+      <table class="table lines-table">
+        <thead><tr><th>Médicament</th><th>Qte</th><th>Prix U.</th><th></th></tr></thead>
+        <tbody>
+          @foreach(var ln in linesModel)
+          {
+            <tr>
+              <td>@ln.MedicamentName</td>
+              <td>@ln.Quantite</td>
+              <td>@ln.PrixUnitaire</td>
+              <td><button class="btn-icon small" @onclick="() => RemoveLine(ln)">🗑</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+    else
+    {
+      <div class="muted">Aucune ligne</div>
+    }
+  </div>
+
+  <div class="form-actions">
+    <button class="btn-primary" disabled="@(linesModel==null || !linesModel.Any())" @onclick="Create">Créer</button>
+    <button class="btn-outline" @onclick="Cancel">Annuler</button>
+  </div>
+</div>
+
+@code{
+  private List<E_santeFrontend.Models.PatientDto> patients = new();
+  private int selectedPatientId;
+  private string? error;
+
+  private List<E_santeFrontend.Models.MedicamentDto> medicaments = new();
+  private int selectedMedId = 0;
+  private int selectedQty = 1;
+  private decimal selectedPrix = 0m;
+
+  private class LineModel { public int MedicamentId; public string MedicamentName = ""; public int Quantite; public decimal PrixUnitaire; }
+  private List<LineModel> linesModel = new();
+
+  protected override async Task OnInitializedAsync()
+  {
+    patients = await PatientService.GetPatientsAsync();
+    try { medicaments = await MedicamentService.GetMedicamentsAsync(); } catch { medicaments = new(); }
+    var uri = new Uri(Nav.Uri);
+    var q = HttpUtility.ParseQueryString(uri.Query);
+    if (int.TryParse(q.Get("patientId"), out var pid)) selectedPatientId = pid;
+  }
+
+  private void Cancel() => Nav.NavigateTo("/ordonnances");
+
+  private async Task Create()
+  {
+    error = null;
+    if (selectedPatientId <= 0) { error = "Choisir un patient"; return; }
+    try
+    {
+      var token = await Storage.GetItemAsync("auth_token");
+      // normalize JSON-wrapped token like {"token":"..."}
+      if (!string.IsNullOrWhiteSpace(token) && token.TrimStart().StartsWith("{"))
+      {
+        try
+        {
+          using var doc = JsonDocument.Parse(token);
+          if (doc.RootElement.TryGetProperty("token", out var t)) token = t.GetString();
+        }
+        catch { }
+      }
+
+      int medecinId = 0;
+      if (!string.IsNullOrWhiteSpace(token)) medecinId = TryGetSubFromJwt(token ?? string.Empty);
+
+      var lignes = linesModel.Select(l => new { MedicamentId = l.MedicamentId, Quantite = l.Quantite, PrixUnitaire = l.PrixUnitaire }).ToList();
+
+      var dto = new {
+        PatientId = selectedPatientId,
+        PharmacienId = 0,
+        MedecinId = medecinId > 0 ? medecinId : 0,
+        Lignes = lignes
+      };
+
+      var created = await OrdonnanceService.CreateAsync(dto);
+      if (created != null)
+      {
+        if (medecinId > 0)
+          Nav.NavigateTo($"/ordonnances?medecinId={medecinId}");
+        else
+          Nav.NavigateTo($"/ordonnances");
+      }
+      else
+      {
+        error = "Impossible de créer l'ordonnance";
+      }
+    }
+    catch(Exception ex)
+    {
+      error = ex.Message;
+    }
+  }
+
+  private void AddLine()
+  {
+    if (selectedMedId <= 0) return;
+    var med = medicaments.FirstOrDefault(m => m.Id == selectedMedId);
+    if (med == null) return;
+    linesModel.Add(new LineModel { MedicamentId = med.Id, MedicamentName = med.Nom ?? "?", Quantite = selectedQty, PrixUnitaire = selectedPrix });
+    // reset selection
+    selectedMedId = 0; selectedQty = 1; selectedPrix = 0m;
+  }
+
+  private void RemoveLine(LineModel ln)
+  {
+    linesModel.Remove(ln);
+  }
+
+  private int TryGetSubFromJwt(string jwt)
+  {
+    try
+    {
+      var parts = jwt.Split('.');
+      if (parts.Length < 2) return 0;
+      var payload = parts[1].Replace('-', '+').Replace('_', '/');
+      switch (payload.Length % 4)
+      {
+        case 2: payload += "=="; break;
+        case 3: payload += "="; break;
+      }
+      var json = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(payload));
+      using var doc = JsonDocument.Parse(json);
+      if (doc.RootElement.TryGetProperty("sub", out var s)) return s.GetInt32();
+      return 0;
+    }
+    catch { return 0; }
+  }
+}

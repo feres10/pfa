@@ -1,0 +1,91 @@
+﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using E_santeFrontend.Models;
+using System.Text.Json;
+
+namespace E_santeFrontend.Services
+{
+    public class RendezvousService
+    {
+        private readonly HttpClient _http;
+        private readonly E_santeFrontend.Helpers.LocalStorageService _storage;
+
+        public RendezvousService(HttpClient http, E_santeFrontend.Helpers.LocalStorageService storage)
+        {
+            _http = http;
+            _storage = storage;
+        }
+
+        private async Task EnsureAuthHeaderAsync()
+        {
+            try
+            {
+                var token = await _storage.GetItemAsync("auth_token");
+                if (!string.IsNullOrWhiteSpace(token))
+                {
+                    _http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
+            }
+            catch { }
+        }
+
+        public async Task<List<RendezvousDto>> GetRendezvousAsync()
+        {
+            await EnsureAuthHeaderAsync();
+            return await _http.GetFromJsonAsync<List<RendezvousDto>>("api/rendezvous") ?? new List<RendezvousDto>();
+        }
+
+        public async Task<RendezvousDto?> GetRendezvousAsync(int id)
+        {
+            await EnsureAuthHeaderAsync();
+            return await _http.GetFromJsonAsync<RendezvousDto>($"api/rendezvous/{id}");
+        }
+
+        public async Task<RendezvousDto> CreateAsync(object dto)
+        {
+            await EnsureAuthHeaderAsync();
+            var resp = await _http.PostAsJsonAsync("api/rendezvous", dto);
+            var content = await resp.Content.ReadAsStringAsync();
+            if (!resp.IsSuccessStatusCode)
+            {
+                // try to parse message and details properties from backend
+                try
+                {
+                    using var doc = JsonDocument.Parse(content);
+                    var root = doc.RootElement;
+                    string message = root.TryGetProperty("message", out var m) && m.ValueKind == JsonValueKind.String ? m.GetString() ?? "" : "Request failed";
+                    string details = root.TryGetProperty("details", out var d) && d.ValueKind == JsonValueKind.String ? d.GetString() ?? "" : string.Empty;
+                    var combined = string.IsNullOrWhiteSpace(details) ? message : message + " - " + details;
+                    throw new HttpRequestException(combined);
+                }
+                catch (JsonException)
+                {
+                    throw new HttpRequestException(content);
+                }
+            }
+
+            try
+            {
+                using var doc = JsonDocument.Parse(content);
+                var root = doc.RootElement;
+                var r = new RendezvousDto
+                {
+                    Id = root.GetProperty("Id").GetInt32(),
+                    PatientId = root.GetProperty("PatientId").GetInt32(),
+                    MedecinId = root.GetProperty("MedecinId").GetInt32(),
+                    Date = root.GetProperty("Date").GetString(),
+                    Heure = root.GetProperty("Heure").GetString(),
+                    Lieu = root.TryGetProperty("Lieu", out var l) ? l.GetString() : null,
+                    Statut = root.TryGetProperty("Statut", out var s) ? s.GetString() : null
+                };
+                return r;
+            }
+            catch (Exception ex)
+            {
+                throw new HttpRequestException("Invalid response from server: " + ex.Message);
+            }
+        }
+    }
+}
