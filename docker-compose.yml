@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: esante_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Feres12345!
+      POSTGRES_DB: EHealthDb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - esante_network
+
+  # E-Sante Backend API
+  backend:
+    build:
+      context: ./E_santeBackend
+      dockerfile: Dockerfile
+    container_name: esante_backend
+    ports:
+      - "5139:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=EHealthDb;Username=postgres;Password=Feres12345!
+      - Jwt__Key=YourSuperSecretKeyHere_ChangeInProduction
+      - Jwt__Issuer=EHealthPlatform
+      - Jwt__Audience=EHealthPlatformUsers
+      - Jwt__ExpireMinutes=60
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - esante_network
+    restart: unless-stopped
+
+  # E-Sante Frontend (Blazor)
+  frontend:
+    build:
+      context: ./E_santeFrontend_blazor
+      dockerfile: Dockerfile
+    container_name: esante_frontend
+    ports:
+      - "5159:8080"
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=Production
+    depends_on:
+      - backend
+    networks:
+      - esante_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  esante_network:
+    driver: bridge
