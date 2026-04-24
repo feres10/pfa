@@ -1,4 +1,5 @@
 name: Build and Push Docker Images
+
 on:
   push:
     branches:
@@ -12,7 +13,6 @@ env:
   REGISTRY: docker.io
   IMAGE_NAME_BACKEND: fereskessemtini/pfa
   IMAGE_NAME_FRONTEND: fereskessemtini/pfa-frontend
-
 
 jobs:
   build-and-push:
@@ -88,35 +88,35 @@ jobs:
       - name: Image digest (Frontend)
         run: echo ${{ steps.docker_build_frontend.outputs.digest }}
 
-  test:
+  deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Test with docker compose
-        run: |
-          docker compose -f docker-compose.prod.yml up -d
-          sleep 10
-          docker compose -f docker-compose.prod.yml ps
-          docker compose -f docker-compose.prod.yml logs
-          docker compose -f docker-compose.prod.yml down
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GIT_HUB_HOST }}
+          username: ${{ secrets.GIT_HUB_USER }}
+          key: ${{ secrets.PRIVATE_KEY_SECRET }}
+          script: |
+            cd /home/ubuntu/deploy_pfa
+            docker compose pull
+            docker compose up -d --remove-orphans
 
   notify:
-    needs: [build-and-push, test]
+    needs: [build-and-push, deploy]
     runs-on: ubuntu-latest
     if: always()
 
     steps:
       - name: Notify on success
         if: success()
-        run: echo "✅ Docker images built and pushed successfully!"
+        run: echo "✅ Docker images built, pushed and deployed successfully!"
 
       - name: Notify on failure
         if: failure()
         run: |
-          echo "❌ Build or push failed!"
+          echo "❌ Build, push or deploy failed!"
           exit 1
