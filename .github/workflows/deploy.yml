@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
@@ -12,8 +11,8 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME_BACKEND: kmarksentini/esante-backend
-  IMAGE_NAME_FRONTEND: kmarksentini/esante-frontend
+  IMAGE_NAME_BACKEND: PFA/esante-backend
+  IMAGE_NAME_FRONTEND: PFA/esante-frontend
 
 jobs:
   build-and-push:
@@ -32,8 +31,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Extract metadata (Backend)
         id: meta-backend
