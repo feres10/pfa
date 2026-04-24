@@ -10,8 +10,9 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME_BACKEND: pfa/esante-backend
-  IMAGE_NAME_FRONTEND: pfa/esante-frontend
+  IMAGE_NAME_BACKEND: fereskessemtini/pfa
+  IMAGE_NAME_FRONTEND: fereskessemtini/pfa-frontend
+
 
 jobs:
   build-and-push:
