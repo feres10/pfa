@@ -10,8 +10,8 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME_BACKEND: PFA/esante-backend
-  IMAGE_NAME_FRONTEND: PFA/esante-frontend
+  IMAGE_NAME_BACKEND: pfa/esante-backend
+  IMAGE_NAME_FRONTEND: pfa/esante-frontend
 
 jobs:
   build-and-push:
@@ -58,6 +58,7 @@ jobs:
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Backend image
+        id: docker_build_backend
         uses: docker/build-push-action@v5
         with:
           context: ./E_santeBackend
@@ -69,6 +70,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push Frontend image
+        id: docker_build_frontend
         uses: docker/build-push-action@v5
         with:
           context: ./E_santeFrontend_blazor
@@ -89,24 +91,24 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Test with docker-compose
+      - name: Test with docker compose
         run: |
-          docker-compose -f docker-compose.prod.yml up -d
+          docker compose -f docker-compose.prod.yml up -d
           sleep 10
-          docker-compose -f docker-compose.prod.yml ps
-          docker-compose -f docker-compose.prod.yml logs
-          docker-compose -f docker-compose.prod.yml down
+          docker compose -f docker-compose.prod.yml ps
+          docker compose -f docker-compose.prod.yml logs
+          docker compose -f docker-compose.prod.yml down
 
   notify:
     needs: [build-and-push, test]
     runs-on: ubuntu-latest
     if: always()
-    
+
     steps:
       - name: Notify on success
         if: success()
@@ -114,5 +116,6 @@ jobs:
 
       - name: Notify on failure
         if: failure()
-        run: echo "❌ Build or push failed!"
-        exit 1
+        run: |
+          echo "❌ Build or push failed!"
+          exit 1
