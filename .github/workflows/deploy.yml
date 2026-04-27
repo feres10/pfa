@@ -90,20 +90,14 @@ jobs:
 
   deploy:
     needs: build-and-push
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name != 'pull_request'
-
     steps:
-      - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.GIT_HUB_HOST }}
-          username: ${{ secrets.GIT_HUB_USER }}
-          key: ${{ secrets.PRIVATE_KEY_SECRET }}
-          script: |
-            cd /home/ubuntu/deploy_pfa
-            docker compose pull
-            docker compose up -d --remove-orphans
+      - name: Deploy
+        run: |
+          cd /home/ubuntu/deploy_pfa
+          docker compose pull
+          docker compose up -d --remove-orphans
 
   notify:
     needs: [build-and-push, deploy]
