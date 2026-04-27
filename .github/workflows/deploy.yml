@@ -11,8 +11,8 @@ on:
 
 env:
   REGISTRY: docker.io
-  IMAGE_NAME_BACKEND: fereskessemtini/pfa
-  IMAGE_NAME_FRONTEND: fereskessemtini/pfa-frontend
+  IMAGE_NAME_BACKEND: kmarksentini/esante-backend
+  IMAGE_NAME_FRONTEND: kmarksentini/esante-frontend
 
 jobs:
   build-and-push:
