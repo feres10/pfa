@@ -89,12 +89,12 @@ jobs:
 
   deploy:
    needs: build-and-push
-   runs-on: self-hosted        # ← remplace 'ubuntu-latest' par ça
+   runs-on: self-hosted
    if: github.event_name != 'pull_request'
    steps:
     - name: Deploy
       run: |
-        cd /home/ubuntu/deploy_pfa
+        cd /home/vm/deploy_pfa
         docker compose pull
         docker compose up -d --remove-orphans
 
