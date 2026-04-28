@@ -88,21 +88,15 @@ jobs:
         run: echo ${{ steps.docker_build_frontend.outputs.digest }}
 
   deploy:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    steps:
-      - name: Deploy to server via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: lakes-published-favorite-all.trycloudflare.com
-          username: ${{ secrets.GIT_HUB_USER }}
-          key: ${{ secrets.PRIVATE_KEY_SECRET }}
-          port: 443
-          script: |
-            cd /home/ubuntu/deploy_pfa
-            docker compose pull
-            docker compose up -d --remove-orphans
+   needs: build-and-push
+   runs-on: self-hosted        # ← remplace 'ubuntu-latest' par ça
+   if: github.event_name != 'pull_request'
+   steps:
+    - name: Deploy
+      run: |
+        cd /home/ubuntu/deploy_pfa
+        docker compose pull
+        docker compose up -d --remove-orphans
 
   notify:
     needs: [build-and-push, deploy]
