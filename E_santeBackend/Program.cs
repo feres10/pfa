@@ -7,6 +7,7 @@ using E_santeBackend.Shared.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Prometheus;
 using System.Text;
 
 namespace E_santeBackend
@@ -85,6 +86,17 @@ namespace E_santeBackend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Add Prometheus metrics
+            var httpRequestDurationSeconds = Metrics.CreateHistogram(
+                "http_request_duration_seconds",
+                "HTTP request duration in seconds",
+                new HistogramConfiguration { LabelNames = new[] { "method", "endpoint", "status" } });
+
+            var httpRequestsTotal = Metrics.CreateCounter(
+                "http_requests_total",
+                "Total HTTP requests",
+                new CounterConfiguration { LabelNames = new[] { "method", "endpoint", "status" } });
+
             var app = builder.Build();
 
             // Initialize Database with seed data
@@ -106,6 +118,9 @@ namespace E_santeBackend
             // Middleware
             app.UseMiddleware<ExceptionMiddleware>();
 
+            // Add Prometheus metrics middleware
+            app.UseHttpMetrics();
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -125,6 +140,9 @@ namespace E_santeBackend
             app.UseAuthorization();
 
             app.MapControllers();
+            
+            // Expose Prometheus metrics at /metrics endpoint
+            app.MapMetrics();
 
             await app.RunAsync();
         }

@@ -1,0 +1,49 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'E-Sante Monitoring'
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+rule_files:
+  - "alert.rules.yml"
+
+scrape_configs:
+  # Prometheus server itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Node Exporter - Ressources système
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+  # cAdvisor - Métriques des conteneurs
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # Backend E-Sante - .NET metrics
+  - job_name: 'esante-backend'
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    static_configs:
+      - targets: ['backend:8080']
+
+  # Frontend E-Sante
+  - job_name: 'esante-frontend'
+    static_configs:
+      - targets: ['frontend:8080']
+
+  # PostgreSQL (si Postgres Exporter est disponible)
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
