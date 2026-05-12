@@ -119,8 +119,6 @@ jobs:
     name: Deploy Application
     needs: build-and-push
 
-    # IMPORTANT:
-    # Requires a configured self-hosted runner
     runs-on: [self-hosted, linux]
 
     if: github.event_name != 'pull_request'
@@ -143,11 +141,11 @@ jobs:
         run: |
           cd /home/vm/deploy_pfa
 
-          docker compose down
+          docker-compose down
 
-          docker compose pull
+          docker-compose pull
 
-          docker compose up -d --remove-orphans
+          docker-compose up -d --remove-orphans
 
       # =========================
       # Cleanup unused images
